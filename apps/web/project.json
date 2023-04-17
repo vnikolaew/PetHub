@@ -10,13 +10,17 @@
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/web",
-        "outputPath": "dist/apps/web"
+        "outputPath": "dist",
+        "postCssConfig": "apps/web/postcss.config.js"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/web"
+          "outputPath": "dist"
         },
-        "production": {}
+        "production": {
+          "root": "apps/web",
+          "outputPath": "dist"
+        }
       }
     },
     "serve": {
@@ -28,7 +32,7 @@
       },
       "configurations": {
         "development": {
-          "buildTarget": "web:build:development",
+          "buildTarget": "web:build:development --turbo",
           "dev": true
         },
         "production": {
