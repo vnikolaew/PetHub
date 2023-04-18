@@ -1,14 +1,18 @@
 import React, { FC } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import SearchBar from "./SearchBar";
-import userLogo from "./assets/user-logo.png";
-import shoppingCartLogo from "./assets/shiopping-cart-logo.png";
 
 export interface NavbarProps {
-   logo: string;
+   siteLogo: string | StaticImageData;
+   avatarLogo: string | StaticImageData;
+   shoppingCartLogo: string | StaticImageData;
 }
 
-export const Navbar: FC<NavbarProps> = ({ logo }) => {
+export const Navbar: FC<NavbarProps> = ({
+   siteLogo,
+   avatarLogo,
+   shoppingCartLogo,
+}) => {
    return (
       <div className={`w-[100vw] mb-1`}>
          <nav
@@ -18,7 +22,7 @@ export const Navbar: FC<NavbarProps> = ({ logo }) => {
                className={`rounded-lg shadow-md`}
                height={20}
                width={150}
-               src={logo}
+               src={siteLogo}
                alt={"Site logo"}
             />
             <SearchBar />
@@ -26,7 +30,7 @@ export const Navbar: FC<NavbarProps> = ({ logo }) => {
                <Image
                   width={30}
                   height={30}
-                  src={userLogo}
+                  src={avatarLogo}
                   alt={"User Avatar"}
                />
                <Image

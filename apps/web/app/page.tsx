@@ -4,6 +4,7 @@ import birdLogo from "../public/assets/bird-logo.svg";
 import Image from "next/image";
 import { Metadata } from "next";
 import { NavigationTab, NavigationTabProps } from "@pethub/components";
+import sampleLogo from "../public/assets/sample-logo.svg";
 
 export const metadata: Metadata = {
    title: "Home Page",
@@ -159,7 +160,7 @@ const Index: FC = () => {
          <div className="wrapper">
             <div className="container grid grid-cols-4 w-full mx-auto justify-between items-center">
                {NAVIGATION_TABS.map((tab, i) => (
-                  <NavigationTab {...tab} key={i} />
+                  <NavigationTab {...tab} logo={sampleLogo} key={i} />
                ))}
             </div>
             <div

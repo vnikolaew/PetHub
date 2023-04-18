@@ -12,6 +12,27 @@ const nextConfig = {
       // See: https://github.com/gregberge/svgr
       svgr: true,
    },
+   webpack(config, context) {
+      // config.module.rules.push(
+      //    {
+      //       test: /\.svg$/,
+      //       use: ["file-loader"],
+      //    },
+      //    {
+      //       test: /\.png$/,
+      //       use: ["file-loader"],
+      //    },
+      //    {
+      //       test: /\.jpg$/,
+      //       use: ["file-loader"],
+      //    }
+      // );
+      return config;
+   },
+   images: {
+      formats: ["image/webp"],
+      loader: "default",
+   },
    experimental: {
       appDir: true,
       swcMinify: true,
@@ -19,5 +40,4 @@ const nextConfig = {
    optimizeFonts: true,
    poweredByHeader: true,
 };
-
 module.exports = withNx(nextConfig);

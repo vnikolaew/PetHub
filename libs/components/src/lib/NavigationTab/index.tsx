@@ -1,12 +1,11 @@
 import React, { FC } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ChevronDownIcon, ChevronRightIcon } from "@radix-ui/react-icons";
-import sampleLogo from "./assets/sample-logo.png";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
 export interface NavigationTabItem {
-   logo?: React.ReactNode;
+   logo?: string | StaticImageData;
    label: string;
    baseRoute: string;
    subMenu?: (Omit<NavigationTabItem, "baseRoute"> & { href?: string })[];
@@ -32,12 +31,17 @@ const NavigationTab: FC<NavigationTabProps> = ({
          <DropdownMenu.Trigger asChild>
             <button className={`focus:z-10`}>
                <div
-                  className={`py-5 flex gap-2 items-center border border-gray-100 rounded-lg justify-center ${className}`}
+                  className={`py-5 flex gap-4 items-center border border-gray-100 rounded-lg justify-center ${className}`}
                   {...rest}
                >
-                  {logo}
-                  <h2 className={`text-2xl`}>{label}</h2>
-                  <ChevronDownIcon width={16} />
+                  <Image
+                     width={30}
+                     height={30}
+                     src={logo!}
+                     alt={"Sample logo"}
+                  />
+                  <h2 className={`text-[1.4rem]`}>{label}</h2>
+                  <ChevronDownIcon className={``} width={16} />
                </div>
             </button>
          </DropdownMenu.Trigger>
@@ -53,7 +57,7 @@ const NavigationTab: FC<NavigationTabProps> = ({
                               <Image
                                  width={20}
                                  height={20}
-                                 src={sampleLogo}
+                                 src={logo!}
                                  alt={"Sample logo"}
                               />
                            </span>
@@ -77,7 +81,7 @@ const NavigationTab: FC<NavigationTabProps> = ({
                                           <Image
                                              width={20}
                                              height={20}
-                                             src={sampleLogo}
+                                             src={logo!}
                                              alt={"Sample logo"}
                                           />
                                        </span>
@@ -99,7 +103,7 @@ const NavigationTab: FC<NavigationTabProps> = ({
                            <Image
                               width={20}
                               height={20}
-                              src={sampleLogo}
+                              src={logo!}
                               alt={"Sample logo"}
                            />
                         </span>
