@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import { NextPage } from "next";
 
-const NotFoundPage = () => {
+const NotFoundPage: NextPage = () => {
    return (
       <div className={`flex mt-20 flex-col gap-6 items-center`}>
          <p className={`text-4xl font-bold`}>
