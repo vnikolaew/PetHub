@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import birdLogo from "../public/assets/bird-logo.svg";
 import Image from "next/image";
 import { Metadata } from "next";
-import { NavigationTab, NavigationTabProps } from "@pethub/components";
+import { NavigationTab } from "../components";
 import sampleLogo from "../public/assets/sample-logo.svg";
 
 export const metadata: Metadata = {
@@ -12,18 +12,18 @@ export const metadata: Metadata = {
    description: "PetHub.com's home page.",
 };
 
-const NAVIGATION_TABS: NavigationTabProps[] = [
+const NAVIGATION_TABS = [
    {
       logo: null!,
       label: "Храна",
-      baseRoute: "food",
+      baseRoute: "foods",
       subMenu: [
          {
             label: "Кучета",
             logo: null!,
             href: "dogs",
             subMenu: [
-               { logo: null!, label: "Суха храна", href: "dry-food" },
+               { logo: null!, label: "Суха храна", href: "dry-foods" },
                {
                   logo: null!,
                   label: "Консерви и паучове",

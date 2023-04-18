@@ -13,35 +13,39 @@ const nextConfig = {
       svgr: true,
    },
    webpack(config, context) {
-      config.module.rules.push(
-         {
-            test: /\.svg$/,
-            use: ["file-loader"],
-         },
-         {
-            test: /\.png$/,
-            use: ["file-loader"],
-         },
-         {
-            test: /\.tsx$/,
-            use: ["file-loader"],
-         },
-         {
-            test: /\.jpg$/,
-            use: ["file-loader"],
-         }
-      );
+      config.module.rules
+         .push
+         // {
+         //    test: /\.svg$/,
+         //    use: ["file-loader"],
+         // },
+         // {
+         //    test: /\.png$/,
+         //    use: ["file-loader"],
+         // },
+         // {
+         //    test: /\.jpg$/,
+         //    use: ["file-loader"],
+         // }
+         // {
+         //    test: /\.tsx$/,
+         //    use: ["file-loader"],
+         // }
+         ();
       return config;
    },
    images: {
       formats: ["image/webp"],
       loader: "default",
+      unoptimized: true,
+      disableStaticImages: false,
    },
    experimental: {
       appDir: true,
-      swcMinify: true,
+      // swcMinify: true,
    },
    optimizeFonts: true,
    poweredByHeader: true,
 };
+
 module.exports = withNx(nextConfig);

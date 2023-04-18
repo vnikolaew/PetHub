@@ -4,7 +4,7 @@ import "./styles.css";
 import logo from "../public/assets/site-logo.webp";
 import { PropsWithChildren } from "react";
 import { Metadata } from "next";
-import { Footer, Navbar } from "@pethub/components";
+import { Footer, Navbar } from "../components";
 import avatarLogo from "../public/assets/user-logo.svg";
 import facebookLogo from "../public/assets/facebook.png";
 import instagramLogo from "../public/assets/instagram.png";

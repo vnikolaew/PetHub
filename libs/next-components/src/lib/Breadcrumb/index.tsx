@@ -9,7 +9,7 @@ const getRouteUpToSegment = (segments: string[], index: number) =>
       .map((s) => s.replace(/\//, ""))
       .join(`/`)}`;
 
-const Breadcrumb: FC<BreadcrumbProps> = ({ segments }) => {
+export const Breadcrumb: FC<BreadcrumbProps> = ({ segments }) => {
    return (
       <div className={`flex gap-1 text-lg items-center`}>
          {segments.slice(0, segments.length - 1).map((s, i) => (
@@ -30,5 +30,3 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ segments }) => {
       </div>
    );
 };
-
-export default Breadcrumb;

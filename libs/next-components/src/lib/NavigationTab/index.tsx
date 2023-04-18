@@ -4,7 +4,7 @@ import { ChevronDownIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
-export interface NavigationTabItem {
+interface NavigationTabItem {
    logo?: string | StaticImageData;
    label: string;
    baseRoute: string;
@@ -18,7 +18,7 @@ export interface NavigationTabProps
          HTMLDivElement
       > {}
 
-const NavigationTab: FC<NavigationTabProps> = ({
+export const NavigationTab: FC<NavigationTabProps> = ({
    logo,
    label,
    baseRoute,
@@ -117,5 +117,3 @@ const NavigationTab: FC<NavigationTabProps> = ({
       </DropdownMenu.Root>
    );
 };
-
-export default NavigationTab;

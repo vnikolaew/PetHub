@@ -15,7 +15,8 @@
       "skipDefaultLibCheck": true,
       "baseUrl": ".",
       "paths": {
-         "@pethub/components": ["libs/components/src/index.ts"]
+         "@pethub/components": ["libs/components/src/index.ts"],
+         "@pethub/next-components": ["libs/next-components/src/index.ts"]
       }
    },
    "exclude": ["node_modules", "tmp"]

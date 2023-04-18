@@ -1,10 +1,11 @@
 "use client";
-import React, { FC } from "react";
-import { Breadcrumb } from "@pethub/components";
+import React from "react";
+import { Breadcrumb } from "../../components";
+import { NextPage } from "next";
 
-const ContactsPage: FC = () => {
+const ContactsPage: NextPage = () => {
    return (
-      <div className={`mt-12 mx-8`}>
+      <div className={`mt-12 mx-16`}>
          <Breadcrumb
             segments={[
                { label: "PetHub", path: "/" },
