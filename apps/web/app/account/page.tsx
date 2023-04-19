@@ -16,6 +16,7 @@ import AccountPetCard, {
 } from "../../components/Account/AccountPetCard";
 import { LOREM_IPSUM_TEXT } from "../privacy/page";
 import PawLogo from "../../components/Logos/PawLogo";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const USER = {
    profilePicture: userAvatarLogo,
@@ -35,7 +36,40 @@ const USER_PETS: IPetInfo[] = [
    },
 ];
 
+const USER_APPOINTMENTS: I[] = [
+   {
+      petId: "1",
+      name: "Rocky",
+      birthDate: new Date(2018, 12, 12),
+      breed: "Husky",
+      avatar: petAvatarLogo,
+      description: LOREM_IPSUM_TEXT.slice(0, 200),
+   },
+];
+
+const TABS = [
+   {
+      label: "Аз",
+      value: "me",
+   },
+   {
+      label: "Моите домашни любимци",
+      value: "pets",
+   },
+   {
+      label: "Моите поръчки",
+      value: "my-purchases",
+   },
+   {
+      label: "История на прегледите",
+      value: "history",
+   },
+];
+
 const MyAccountPage: NextPage = () => {
+   const params = useSearchParams();
+   const router = useRouter();
+
    return (
       <div className={`mt-12 mx-16`}>
          <Breadcrumb
@@ -47,18 +81,17 @@ const MyAccountPage: NextPage = () => {
          <section className={`w-full my-6 flex flex-col items-center gap-6`}>
             <h1 className={`text-4xl`}>Добре дощли в профила си!</h1>
             <Tabs.Root
+               onValueChange={(value) => router.replace(`/account?tab=${value}`)}
+               value={params.get("tab") ?? "pets"}
                className={`w-full flex flex-col items-center mx-auto`}
-               defaultValue={"pets"}
+               defaultValue={params.get("tab") ?? "pets"}
             >
                <Tabs.List className={`mx-auto`}>
-                  <TabsTrigger value={"me"}>Аз</TabsTrigger>
-                  <TabsTrigger value={"pets"}>
-                     Моите домашни любимци
-                  </TabsTrigger>
-                  <TabsTrigger value={"tab3"}>Моите поръчки</TabsTrigger>
-                  <TabsTrigger value={"tab4"}>
-                     История на прегледите
-                  </TabsTrigger>
+                  {TABS.map((tab, i) => (
+                     <TabsTrigger key={i} value={tab.value}>
+                        {tab.label}
+                     </TabsTrigger>
+                  ))}
                </Tabs.List>
                <Separator.Root
                   orientation={"horizontal"}
@@ -173,8 +206,10 @@ const MyAccountPage: NextPage = () => {
                      </button>
                   </div>
                </Tabs.Content>
-               <Tabs.Content value={"tab3"}>Tab 3 content</Tabs.Content>
-               <Tabs.Content value={"tab4"}>Tab 4 content</Tabs.Content>
+               <Tabs.Content value={"my-purchases"}>My purchases</Tabs.Content>
+               <Tabs.Content value={"history"}>
+                  Examinations history
+               </Tabs.Content>
             </Tabs.Root>
          </section>
       </div>

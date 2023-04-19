@@ -11,8 +11,8 @@ const RodentFoodsPage: NextPage = () => {
          <Breadcrumb
             segments={[
                { label: "PetHub", path: "/" },
-               { label: "Foods", path: "foods" },
-               { label: "Rodents", path: "rodents" },
+               { label: "Храни", path: "foods" },
+               { label: "Гризачи", path: "rodents" },
             ]}
          />
 

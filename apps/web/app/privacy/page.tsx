@@ -15,7 +15,7 @@ const PrivacyPolicyPage: NextPage = () => {
          <Breadcrumb
             segments={[
                { label: "PetHub", path: "/" },
-               { label: "Privacy Policy", path: "privacy" },
+               { label: "Политика на поверителност", path: "privacy" },
             ]}
          />
 

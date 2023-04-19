@@ -7,7 +7,7 @@ import { BreadcrumbSegment } from "../../components/Breadcrumb/types.";
 const AboutUsPage: NextPage = () => {
    const segments: BreadcrumbSegment[] = [
       { label: "PetHub", path: "/" },
-      { label: "About Us", path: "about" },
+      { label: "За нас", path: "about" },
    ];
 
    return (

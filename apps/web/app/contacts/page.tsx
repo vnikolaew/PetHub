@@ -18,7 +18,7 @@ const ContactsPage: NextPage = () => {
          <Breadcrumb
             segments={[
                { label: "PetHub", path: "/" },
-               { label: "Contacts", path: "contacts" },
+               { label: "Контакти", path: "contacts" },
             ]}
          />
          <section className={`w-full my-12 flex flex-col items-center gap-6`}>

@@ -12,13 +12,12 @@ const LOREM_IPSUM_TEXT =
    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere porta sagittis. Nam augue\n                        odio, vulputate a cursus id, congue a libero. Cras at felis non augue elementum ultricies. Ut\n                        consequat feugiat dui at accumsan. Sed arcu nulla, pharetra in orci id, pellentesque facilisis\n                        lectus. Etiam sollicitudin pulvinar elit, quis.";
 
 const HelpPage: NextPage = () => {
-   console.log(window.location.pathname);
    return (
       <div className={`mt-12 mx-16`}>
          <Breadcrumb
             segments={[
                { label: "PetHub", path: "/" },
-               { label: "Help", path: "help" },
+               { label: "Помощ", path: "help" },
             ]}
          />
          <section className={`w-full my-12 flex flex-col items-center gap-6`}>
