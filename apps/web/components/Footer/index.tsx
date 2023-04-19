@@ -22,7 +22,7 @@ export const Footer: FC<FooterProps> = ({ socials }) => {
                   <h2 className={`text-2xl`}>
                      <Link href={"/contacts"}>Контакти</Link>
                   </h2>
-                  <div className={`flex items-center space-x-6`}>
+                  <div className={`flex items-center space-x-3`}>
                      {socials.map(({ type, link, logo }, i) => (
                         <a key={i} href={`https://${link}`}>
                            {logo}

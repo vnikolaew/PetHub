@@ -7,9 +7,7 @@ import {
    QuestionMarkCircledIcon,
 } from "@radix-ui/react-icons";
 import * as Accordion from "@radix-ui/react-accordion";
-
-const LOREM_IPSUM_TEXT =
-   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere porta sagittis. Nam augue\n                        odio, vulputate a cursus id, congue a libero. Cras at felis non augue elementum ultricies. Ut\n                        consequat feugiat dui at accumsan. Sed arcu nulla, pharetra in orci id, pellentesque facilisis\n                        lectus. Etiam sollicitudin pulvinar elit, quis.";
+import { LOREM_IPSUM_TEXT } from "../../utils/string-constants";
 
 const HelpPage: NextPage = () => {
    return (

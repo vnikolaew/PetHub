@@ -4,13 +4,10 @@ import { NextPage } from "next";
 import { Breadcrumb } from "../../components";
 import * as Form from "@radix-ui/react-form";
 import Link from "next/link";
-
-const VALID_EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-export const VALID_PASSWORD_REGEX =
-   /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+import {
+   VALID_EMAIL_REGEX,
+   VALID_PASSWORD_REGEX,
+} from "../../utils/string-constants";
 
 const SignInPage: NextPage = () => {
    return (

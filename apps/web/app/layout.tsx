@@ -11,10 +11,10 @@ import FacebookLogo from "../components/Logos/FacebookLogo";
 import InstagramLogo from "../components/Logos/InstagramLogo";
 import YoutubeLogo from "../components/Logos/YoutubeLogo";
 
-export const metadata: Metadata = {
-   title: "PetHub Co",
-   icons: [logo.src],
-};
+// export const metadata: Metadata = {
+//    title: "PetHub Co",
+//    icons: [logo.src],
+// };
 
 const SOCIALS: Social[] = [
    {

@@ -4,6 +4,9 @@
   "sourceRoot": "apps/web",
   "projectType": "application",
   "targets": {
+     "next-build": {
+        "command": "next build"
+     },
     "build": {
       "executor": "@nrwl/next:build",
       "outputs": ["{options.outputPath}"],

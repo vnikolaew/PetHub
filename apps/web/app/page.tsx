@@ -11,11 +11,11 @@ import dogsFoodLogo from "../public/assets/dogs-food-logo.png";
 import sampleProductLogo from "../public/assets/sample-product-logo.png";
 import * as Separator from "@radix-ui/react-separator";
 
-export const metadata: Metadata = {
-   title: "Home Page",
-   category: "pets",
-   description: "PetHub.com's home page.",
-};
+// export const metadata: Metadata = {
+//    title: "Home Page",
+//    category: "pets",
+//    description: "PetHub.com's home page.",
+// };
 
 const NAVIGATION_TABS = [
    {

@@ -10,13 +10,22 @@ import userAvatarLogo from "../../public/assets/user-avatar-logo.png";
 import petAvatarLogo from "../../public/assets/pet-avatar-logo.png";
 
 import Image from "next/image";
-import { VALID_PASSWORD_REGEX } from "../signin/page";
 import AccountPetCard, {
    IPetInfo,
 } from "../../components/Account/AccountPetCard";
-import { LOREM_IPSUM_TEXT } from "../privacy/page";
 import PawLogo from "../../components/Logos/PawLogo";
 import { useRouter, useSearchParams } from "next/navigation";
+import PetAppointmentCard, {
+   IPetAppointment,
+   PetAppointmentStatus,
+} from "../../components/Account/PetAppointmentCard";
+import UserOrderInfoCard, {
+   IUserOrder,
+} from "../../components/Account/UserOrderInfoCard";
+import {
+   LOREM_IPSUM_TEXT,
+   VALID_PASSWORD_REGEX,
+} from "../../utils/string-constants";
 
 const USER = {
    profilePicture: userAvatarLogo,
@@ -36,33 +45,25 @@ const USER_PETS: IPetInfo[] = [
    },
 ];
 
-const USER_APPOINTMENTS: I[] = [
+const USER_APPOINTMENTS: IPetAppointment[] = [
    {
-      petId: "1",
-      name: "Rocky",
-      birthDate: new Date(2018, 12, 12),
-      breed: "Husky",
-      avatar: petAvatarLogo,
-      description: LOREM_IPSUM_TEXT.slice(0, 200),
+      petName: "Rocky",
+      petAvatar: petAvatarLogo,
+      appointmentType: "стандартна",
+      appointmentDateTime: new Date(2023, 5, 5),
+      city: "Варна",
+      vetClinic: "Окръжна болница",
+      status: PetAppointmentStatus.Due,
    },
 ];
 
-const TABS = [
+const USER_ORDERS: IUserOrder[] = [
    {
-      label: "Аз",
-      value: "me",
-   },
-   {
-      label: "Моите домашни любимци",
-      value: "pets",
-   },
-   {
-      label: "Моите поръчки",
-      value: "my-purchases",
-   },
-   {
-      label: "История на прегледите",
-      value: "history",
+      orderTotal: 100.0,
+      timestamp: new Date(),
+      address: "ул. Васил Левски 120 вх.А",
+      orderNumber: "220",
+      status: "Завършена",
    },
 ];
 
@@ -81,17 +82,24 @@ const MyAccountPage: NextPage = () => {
          <section className={`w-full my-6 flex flex-col items-center gap-6`}>
             <h1 className={`text-4xl`}>Добре дощли в профила си!</h1>
             <Tabs.Root
-               onValueChange={(value) => router.replace(`/account?tab=${value}`)}
+               onValueChange={(value) =>
+                  router.replace(`/account?tab=${value}`)
+               }
                value={params.get("tab") ?? "pets"}
                className={`w-full flex flex-col items-center mx-auto`}
                defaultValue={params.get("tab") ?? "pets"}
             >
                <Tabs.List className={`mx-auto`}>
-                  {TABS.map((tab, i) => (
-                     <TabsTrigger key={i} value={tab.value}>
-                        {tab.label}
-                     </TabsTrigger>
-                  ))}
+                  <TabsTrigger value={"me"}>Аз</TabsTrigger>
+                  <TabsTrigger value={"pets"}>
+                     Моите домашни любимци
+                  </TabsTrigger>
+                  <TabsTrigger value={"my-purchases"}>
+                     Моите поръчки
+                  </TabsTrigger>
+                  <TabsTrigger value={"history"}>
+                     История на прегледите
+                  </TabsTrigger>
                </Tabs.List>
                <Separator.Root
                   orientation={"horizontal"}
@@ -206,9 +214,19 @@ const MyAccountPage: NextPage = () => {
                      </button>
                   </div>
                </Tabs.Content>
-               <Tabs.Content value={"my-purchases"}>My purchases</Tabs.Content>
+               <Tabs.Content value={"my-purchases"}>
+                  <div className={`mt-6 mx-auto flex-col flex items-center`}>
+                     {USER_ORDERS.map((order, i) => (
+                        <UserOrderInfoCard order={order} key={i} />
+                     ))}
+                  </div>
+               </Tabs.Content>
                <Tabs.Content value={"history"}>
-                  Examinations history
+                  <div className={`mt-6 mx-auto flex-col flex items-center`}>
+                     {USER_APPOINTMENTS.map((appointment, i) => (
+                        <PetAppointmentCard appointment={appointment} key={i} />
+                     ))}
+                  </div>
                </Tabs.Content>
             </Tabs.Root>
          </section>
