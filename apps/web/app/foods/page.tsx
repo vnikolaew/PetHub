@@ -19,7 +19,7 @@ const FoodsPage: NextPage = () => {
                { label: "Food", path: "foods" },
             ]}
          />
-         <section className={`w-full my-12 flex flex-col items-center gap-6`}>
+         <section className={`w-full my-6 flex flex-col items-center gap-6`}>
             <h1 className={`text-4xl`}>Храна за домашния любимец</h1>
             <div className={`flex mt-6 gap-36 items-center justify-around`}>
                <Link href={"/foods/dogs"}>
@@ -90,8 +90,7 @@ const FoodsPage: NextPage = () => {
             </div>
          </section>
       </div>
-   )
-      ;
+   );
 };
 
 export default FoodsPage;
