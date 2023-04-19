@@ -8,14 +8,11 @@ const getRouteUpToSegment = (segments: string[], index: number) => {
       .slice(0, index + 1)
       .map((s) => s.replace("/", ""))
       .join(`/`)}`;
-   console.log("Url: ", url);
-
    return url.length ? url : `/`;
 };
 
 export const Breadcrumb: FC<BreadcrumbProps> = ({ segments }) => {
    const allWithoutLastOne = segments.slice(0, segments.length - 1);
-   console.log(allWithoutLastOne);
 
    return (
       <div className={`flex gap-1 text-lg items-center`}>

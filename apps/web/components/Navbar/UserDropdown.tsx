@@ -3,6 +3,7 @@ import * as Popover from "@radix-ui/react-popover";
 import Image, { StaticImageData } from "next/image";
 import verClinicLogo from "../../public/assets/vet-clinic-logo.png";
 import { EnterIcon, IdCardIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 export interface UserDropdownProps {
    avatarLogo: string | StaticImageData;
@@ -35,14 +36,35 @@ const UserDropdown: FC<UserDropdownProps> = ({ avatarLogo }) => {
                         <span className={`text-lg`}>Влизане</span>
                         <EnterIcon height={20} width={20} color={"white"} />
                      </button>
+                     <div className={`flex flex-col items-center mb-2`}>
+                        <h2 className={`text-md font-semibold`}>
+                           Нямате акаунт?
+                        </h2>
+                        <Link
+                           className={`text-blue-700 -mt-2 text-md underline font-semibold`}
+                           href={"/sign-up"}
+                        >
+                           Регистрирайте се тук
+                        </Link>
+                     </div>
                   </div>
-                  <div className={`flex pb-4 border-b border-gray-300 items-center justify-start gap-8`}>
+                  <div
+                     className={`flex pb-4 border-b border-gray-300 items-center justify-start gap-8`}
+                  >
                      <IdCardIcon height={40} width={40} color={"black"} />
                      <span className={`text-lg`}>Моите поръчки</span>
                   </div>
 
-                  <div className={`flex pb-4 border-b border-gray-300 items-center justify-start gap-8`}>
-                     <Image alt={'Vet clinic'} src={verClinicLogo} height={40} width={40} color={"black"} />
+                  <div
+                     className={`flex pb-4 border-b border-gray-300 items-center justify-start gap-8`}
+                  >
+                     <Image
+                        alt={"Vet clinic"}
+                        src={verClinicLogo}
+                        height={40}
+                        width={40}
+                        color={"black"}
+                     />
                      <span className={`text-lg`}>История на прегледите</span>
                   </div>
                </div>

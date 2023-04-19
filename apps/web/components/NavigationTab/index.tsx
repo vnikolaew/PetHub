@@ -41,7 +41,9 @@ export const NavigationTab: FC<NavigationTabProps> = ({
                      alt={"Sample logo"}
                   />
                   <h2 className={`text-[1.4rem]`}>{label}</h2>
-                  <ChevronDownIcon className={``} width={16} />
+                  {subMenu?.length && (
+                     <ChevronDownIcon className={``} width={16} />
+                  )}
                </div>
             </button>
          </DropdownMenu.Trigger>

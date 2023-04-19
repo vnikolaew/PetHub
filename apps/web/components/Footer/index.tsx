@@ -1,10 +1,9 @@
 import React, { FC } from "react";
-import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
 export interface Social {
    type: string;
-   logo: string | StaticImageData;
+   logo: React.ReactNode;
    link: string;
 }
 
@@ -14,7 +13,7 @@ export interface FooterProps {
 
 export const Footer: FC<FooterProps> = ({ socials }) => {
    return (
-      <footer className={`mt-6`}>
+      <footer className={`mt-12`}>
          <div
             className={`flex p-8 flex-row shadow-md border-t-2 border-gray-100 items-start justify-between gap-6`}
          >
@@ -24,14 +23,9 @@ export const Footer: FC<FooterProps> = ({ socials }) => {
                      <Link href={"/contacts"}>Контакти</Link>
                   </h2>
                   <div className={`flex items-center space-x-6`}>
-                     {socials.map((social, i) => (
-                        <a key={i} href={`https://${social.link}`}>
-                           <Image
-                              height={24}
-                              width={24}
-                              src={social.logo}
-                              alt={social.type}
-                           />
+                     {socials.map(({ type, link, logo }, i) => (
+                        <a key={i} href={`https://${link}`}>
+                           {logo}
                         </a>
                      ))}
                   </div>
@@ -40,7 +34,7 @@ export const Footer: FC<FooterProps> = ({ socials }) => {
             <section
                className={`ml-0 flex flex-col items-start gap-4 max-w-[500px]`}
             >
-               <Link href={'/about'}>
+               <Link href={"/about"}>
                   <h2 className={`text-2xl`}>За нас</h2>
                </Link>
                <p className={`text-gray-500`}>
@@ -52,7 +46,7 @@ export const Footer: FC<FooterProps> = ({ socials }) => {
             <section
                className={`ml-0 flex flex-col items-start gap-4 max-w-[500px]`}
             >
-               <Link href={'/privacy'}>
+               <Link href={"/privacy"}>
                   <h2 className={`text-2xl`}>Политика за поверителност</h2>
                </Link>
                <p className={`text-gray-500`}>
