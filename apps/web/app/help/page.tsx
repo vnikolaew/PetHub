@@ -2,13 +2,16 @@
 import React, { forwardRef } from "react";
 import { NextPage } from "next";
 import { Breadcrumb } from "../../components";
-import { ChevronDownIcon, QuestionMarkCircledIcon } from "@radix-ui/react-icons";
+import {
+   ChevronDownIcon,
+   QuestionMarkCircledIcon,
+} from "@radix-ui/react-icons";
 import * as Accordion from "@radix-ui/react-accordion";
 
-const LOREM_IPSUM_TEXT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere porta sagittis. Nam augue\n                        odio, vulputate a cursus id, congue a libero. Cras at felis non augue elementum ultricies. Ut\n                        consequat feugiat dui at accumsan. Sed arcu nulla, pharetra in orci id, pellentesque facilisis\n                        lectus. Etiam sollicitudin pulvinar elit, quis.";
+const LOREM_IPSUM_TEXT =
+   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere porta sagittis. Nam augue\n                        odio, vulputate a cursus id, congue a libero. Cras at felis non augue elementum ultricies. Ut\n                        consequat feugiat dui at accumsan. Sed arcu nulla, pharetra in orci id, pellentesque facilisis\n                        lectus. Etiam sollicitudin pulvinar elit, quis.";
 
 const HelpPage: NextPage = () => {
-
    console.log(window.location.pathname);
    return (
       <div className={`mt-12 mx-16`}>
@@ -23,42 +26,36 @@ const HelpPage: NextPage = () => {
                <QuestionMarkCircledIcon height={36} width={36} />
                <span>Често задавани въпроси</span>
             </h1>
-            <section
-               id={"questions"}
-               className={`p-6 w-[700px] rounded-xl`}
-            >
+            <section id={"questions"} className={`p-6 w-[700px] rounded-xl`}>
                <Accordion.Root className={`rounded-md`} type={"multiple"}>
-                  <Accordion.Item className={`border-b-2 border-dotted border-gray-300`} value={"1"}>
+                  <Accordion.Item
+                     className={`border-b-2 border-dotted border-gray-300`}
+                     value={"1"}
+                  >
                      <Accordion.Header>
-                        <AccordionTrigger>
-                           Question #1
-                        </AccordionTrigger>
+                        <AccordionTrigger>Question #1</AccordionTrigger>
                      </Accordion.Header>
-                     <AccordionContent>
-                        {LOREM_IPSUM_TEXT}
-                     </AccordionContent>
+                     <AccordionContent>{LOREM_IPSUM_TEXT}</AccordionContent>
                   </Accordion.Item>
 
-                  <Accordion.Item className={`border-b-2 border-dotted border-gray-300`} value={"2"}>
+                  <Accordion.Item
+                     className={`border-b-2 border-dotted border-gray-300`}
+                     value={"2"}
+                  >
                      <Accordion.Header>
-                        <AccordionTrigger>
-                           Question #2
-                        </AccordionTrigger>
+                        <AccordionTrigger>Question #2</AccordionTrigger>
                      </Accordion.Header>
-                     <AccordionContent>
-                        {LOREM_IPSUM_TEXT}
-                     </AccordionContent>
+                     <AccordionContent>{LOREM_IPSUM_TEXT}</AccordionContent>
                   </Accordion.Item>
 
-                  <Accordion.Item className={`border-b-2 border-dotted border-gray-300`} value={"3"}>
+                  <Accordion.Item
+                     className={`border-b-2 border-dotted border-gray-300`}
+                     value={"3"}
+                  >
                      <Accordion.Header>
-                        <AccordionTrigger>
-                           Question #3
-                        </AccordionTrigger>
+                        <AccordionTrigger>Question #3</AccordionTrigger>
                      </Accordion.Header>
-                     <AccordionContent>
-                        {LOREM_IPSUM_TEXT}
-                     </AccordionContent>
+                     <AccordionContent>{LOREM_IPSUM_TEXT}</AccordionContent>
                   </Accordion.Item>
                </Accordion.Root>
             </section>
@@ -67,32 +64,30 @@ const HelpPage: NextPage = () => {
    );
 };
 
-const AccordionTrigger = forwardRef<HTMLButtonElement, Accordion.AccordionTriggerProps>(({
-                                                                                            children, className,
-                                                                                            ...props
-                                                                                         }, forwardedRef) => (
+const AccordionTrigger = forwardRef<
+   HTMLButtonElement,
+   Accordion.AccordionTriggerProps
+>(({ children, className, ...props }, forwardedRef) => (
    <Accordion.Header className="flex">
       <Accordion.Trigger
-         className={`text-inherit data-[state=open]:border-b border-gray-200 text-xl group hover:bg-violet-100 bg-transparent px-10 py-8 h-[45px] flex-1 flex items-center justify-between leading-[1] text-violet-800 bg-white`}
+         className={`text-inherit data-[state=open]:border-b border-gray-200 text-xl group hover:bg-violet-100 bg-transparent px-10 py-8 h-[45px] flex-1 flex items-center justify-between leading-[1] text-black bg-white`}
          {...props}
          ref={forwardedRef}
       >
          {children}
-         <ChevronDownIcon
-            className="text-violet-800 transition-transform duration-300 group-data-[state=open]:rotate-180" />
+         <ChevronDownIcon className="text-black transition-transform duration-300 group-data-[state=open]:rotate-180" />
       </Accordion.Trigger>
    </Accordion.Header>
 ));
 
 AccordionTrigger.displayName = "AccordionTrigger";
 
-const AccordionContent = forwardRef<HTMLDivElement, Accordion.AccordionContentProps>(({
-                                                                                         children,
-                                                                                         className,
-                                                                                         ...props
-                                                                                      }, forwardedRef) => (
+const AccordionContent = forwardRef<
+   HTMLDivElement,
+   Accordion.AccordionContentProps
+>(({ children, className, ...props }, forwardedRef) => (
    <Accordion.Content
-      className={`overflow-hidden leading-5 text-[1rem] text-violet-800 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp`}
+      className={`overflow-hidden leading-5 text-[1rem] text-black data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp`}
       {...props}
       ref={forwardedRef}
    >
