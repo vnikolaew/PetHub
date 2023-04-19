@@ -6,7 +6,7 @@ import lockLogo from "../../public/assets/lock-logo.png";
 import pawLogo from "../../public/assets/paw-logo.png";
 import Image from "next/image";
 
-const LOREM_IPSUM_TEXT =
+export const LOREM_IPSUM_TEXT =
    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere porta sagittis. Nam augue\n                        odio, vulputate a cursus id, congue a libero. Cras at felis non augue elementum ultricies. Ut\n                        consequat feugiat dui at accumsan. Sed arcu nulla, pharetra in orci id, pellentesque facilisis\n                        lectus. Etiam sollicitudin pulvinar elit, quis.";
 
 const PrivacyPolicyPage: NextPage = () => {
