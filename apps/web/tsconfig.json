@@ -11,7 +11,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-     "baseUrl": ".",
      "types": [
       "jest",
       "node"
@@ -21,10 +20,11 @@
         "name": "next"
       }
     ],
-     "paths": {
-        "@public/*": ["public/*"],
-        "@components/*": ["components/*"]
-     },
+//     "paths": {
+//        "@public/*": ["./public/*"],
+//        "@components/*": ["./components/*"],
+//        "@utils/*": ["./utils/*"]
+//     },
      "strictNullChecks": true
   },
   "include": [

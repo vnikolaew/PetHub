@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Image, { StaticImageData } from "next/image";
-import petAvatarLogo from "../../public/assets/pet-avatar-logo.png";
-import mapMarkerLogo from "../../public/assets/map-marker-logo.png";
+import petAvatarLogo from "@pethub/assets/pet-avatar-logo.png";
+import mapMarkerLogo from "@pethub/assets/map-marker-logo.png";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 
@@ -24,7 +24,7 @@ export interface PetAppointmentInfoCardProps {
    appointment: IPetAppointment;
 }
 
-const PetAppointmentInfoCard: FC<PetAppointmentInfoCardProps> = ({
+export const PetAppointmentInfoCard: FC<PetAppointmentInfoCardProps> = ({
    appointment,
 }) => {
    return (
@@ -77,5 +77,3 @@ const PetAppointmentInfoCard: FC<PetAppointmentInfoCardProps> = ({
       </div>
    );
 };
-
-export default PetAppointmentInfoCard;

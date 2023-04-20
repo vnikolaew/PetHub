@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
 import { NextPage } from "next";
-import { Breadcrumb } from "../../components";
-import dogFoodLogo from "../../public/assets/dog-food-logo.png";
-import catFoodLogo from "../../public/assets/cat-food-logo.png";
-import birdFoodLogo from "../../public/assets/bird-food-logo.png";
-import fishFoodLogo from "../../public/assets/fish-food-logo.png";
-import rodentFoodLogo from "../../public/assets/rodent-food-logo.png";
+import { Breadcrumb } from "@pethub/components";
+import dogFoodLogo from "@pethub/assets/dog-food-logo.png";
+import catFoodLogo from "@pethub/assets/cat-food-logo.png";
+import birdFoodLogo from "@pethub/assets/bird-food-logo.png";
+import fishFoodLogo from "@pethub/assets/fish-food-logo.png";
+import rodentFoodLogo from "@pethub/assets/rodent-food-logo.png";
 import Image from "next/image";
 import Link from "next/link";
 

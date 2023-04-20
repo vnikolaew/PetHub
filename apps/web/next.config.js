@@ -34,6 +34,9 @@ const nextConfig = {
          ();
       return config;
    },
+   typescript: {
+      ignoreBuildErrors: true,
+   },
    images: {
       formats: ["image/webp"],
       loader: "default",

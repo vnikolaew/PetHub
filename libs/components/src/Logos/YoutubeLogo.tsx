@@ -6,7 +6,7 @@ export interface YoutubeLogoProps {
    size?: number;
 }
 
-const YoutubeLogo: FC<YoutubeLogoProps> = ({ color, className, size = 40 }) => {
+export const YoutubeLogo: FC<YoutubeLogoProps> = ({ color, className, size = 40 }) => {
    return (
       <svg
          className={`hover:opacity-80 transition-opacity duration-200`}
@@ -42,5 +42,3 @@ const YoutubeLogo: FC<YoutubeLogoProps> = ({ color, className, size = 40 }) => {
       </svg>
    );
 };
-
-export default YoutubeLogo;

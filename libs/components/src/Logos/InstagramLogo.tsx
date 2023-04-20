@@ -4,7 +4,7 @@ export interface InstagramLogoProps {
    size?: number;
 }
 
-const InstagramLogo: FC<InstagramLogoProps> = ({ size = 40 }) => {
+export const InstagramLogo: FC<InstagramLogoProps> = ({ size = 40 }) => {
    return (
       <svg
          className={`hover:opacity-80 transition-opacity duration-200`}
@@ -62,5 +62,3 @@ const InstagramLogo: FC<InstagramLogoProps> = ({ size = 40 }) => {
       </svg>
    );
 };
-
-export default InstagramLogo;

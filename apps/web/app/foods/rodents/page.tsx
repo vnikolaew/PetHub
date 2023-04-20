@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { NextPage } from "next";
-import { Breadcrumb } from "../../../components";
+import { Breadcrumb } from "@pethub/components";
 import Link from "next/link";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 

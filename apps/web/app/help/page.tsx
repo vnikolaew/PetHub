@@ -1,7 +1,7 @@
 "use client";
 import React, { forwardRef } from "react";
 import { NextPage } from "next";
-import { Breadcrumb } from "../../components";
+import { Breadcrumb } from "@pethub/components";
 import {
    ChevronDownIcon,
    QuestionMarkCircledIcon,

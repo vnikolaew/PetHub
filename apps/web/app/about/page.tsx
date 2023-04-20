@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
 import { NextPage } from "next";
-import { Breadcrumb } from "../../components";
-import { BreadcrumbSegment } from "@components/Breadcrumb/types.";
-import aboutUsSampleImage from "../../public/assets/about-us-sample-image.png";
+import { Breadcrumb, type BreadcrumbSegment } from "@pethub/components";
+import aboutUsSampleImage from "@pethub/assets/about-us-sample-image.png";
 import Image from "next/image";
 import { LOREM_IPSUM_TEXT } from "../../utils/string-constants";
 

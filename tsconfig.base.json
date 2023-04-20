@@ -15,6 +15,7 @@
       "skipDefaultLibCheck": true,
       "baseUrl": ".",
       "paths": {
+         "@pethub/assets/*": ["apps/web/public/assets/*"],
          "@pethub/components": ["libs/components/src/index.ts"],
          "@pethub/next-components": ["libs/next-components/src/index.ts"]
       }

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { NextPage } from "next";
-import { Breadcrumb } from "../../components";
+import { Breadcrumb } from "@pethub/components";
 import * as Form from "@radix-ui/react-form";
 import Link from "next/link";
 import {

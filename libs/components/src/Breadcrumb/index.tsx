@@ -1,7 +1,6 @@
 import React, { FC, Fragment } from "react";
 import Link from "next/link";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
-import { BreadcrumbProps } from "./types.";
 
 const getRouteUpToSegment = (segments: string[], index: number) => {
    const url = `${segments
@@ -10,6 +9,15 @@ const getRouteUpToSegment = (segments: string[], index: number) => {
       .join(`/`)}`;
    return url.length ? url : `/`;
 };
+
+export interface BreadcrumbSegment {
+   path: string;
+   label: string;
+}
+
+export interface BreadcrumbProps {
+   segments: BreadcrumbSegment[];
+}
 
 export const Breadcrumb: FC<BreadcrumbProps> = ({ segments }) => {
    const allWithoutLastOne = segments.slice(0, segments.length - 1);

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { NextPage } from "next";
-import { Breadcrumb } from "../../../components";
+import { Breadcrumb } from "@pethub/components";
 import Link from "next/link";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 
@@ -25,10 +25,12 @@ const DogFoodsPage: NextPage = () => {
                   <div
                      className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
-                     <span>
-                     Суха храна
-                     </span>
-                     <ChevronRightIcon className={`pt-1`} width={24} height={24} />
+                     <span>Суха храна</span>
+                     <ChevronRightIcon
+                        className={`pt-1`}
+                        width={24}
+                        height={24}
+                     />
                   </div>
                </Link>
 
@@ -36,10 +38,12 @@ const DogFoodsPage: NextPage = () => {
                   <div
                      className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
-                     <span>
-                     Консерви и паучове
-                     </span>
-                     <ChevronRightIcon className={`pt-1`} width={24} height={24} />
+                     <span>Консерви и паучове</span>
+                     <ChevronRightIcon
+                        className={`pt-1`}
+                        width={24}
+                        height={24}
+                     />
                   </div>
                </Link>
             </div>
@@ -51,10 +55,12 @@ const DogFoodsPage: NextPage = () => {
                   <div
                      className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
-                     <span>
-                     Лакомства
-                     </span>
-                     <ChevronRightIcon className={`pt-1`} width={24} height={24} />
+                     <span>Лакомства</span>
+                     <ChevronRightIcon
+                        className={`pt-1`}
+                        width={24}
+                        height={24}
+                     />
                   </div>
                </Link>
 
@@ -62,10 +68,12 @@ const DogFoodsPage: NextPage = () => {
                   <div
                      className={`flex px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
-                     <span>
-                     Витамини и добавки
-                     </span>
-                     <ChevronRightIcon className={`pt-1`} width={24} height={24} />
+                     <span>Витамини и добавки</span>
+                     <ChevronRightIcon
+                        className={`pt-1`}
+                        width={24}
+                        height={24}
+                     />
                   </div>
                </Link>
             </div>

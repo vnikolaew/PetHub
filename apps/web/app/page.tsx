@@ -1,8 +1,7 @@
 "use client";
 import React, { FC } from "react";
 import Image from "next/image";
-import { Metadata } from "next";
-import { NavigationTab } from "../components";
+import { NavigationTab } from "@pethub/components";
 import sampleLogo from "../public/assets/sample-logo.svg";
 import ropeLogo from "../public/assets/rope-logo.png";
 import vetToolLogo from "../public/assets/vet-tool-logo.png";

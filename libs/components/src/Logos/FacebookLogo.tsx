@@ -4,7 +4,7 @@ export interface FacebookLogoProps {
    size?: number;
 }
 
-const FacebookLogo: FC<FacebookLogoProps> = ({ size = 40 }) => {
+export const FacebookLogo: FC<FacebookLogoProps> = ({ size = 40 }) => {
    return (
       <svg
          className={`hover:opacity-80 transition-opacity duration-200`}
@@ -26,5 +26,3 @@ const FacebookLogo: FC<FacebookLogoProps> = ({ size = 40 }) => {
       </svg>
    );
 };
-
-export default FacebookLogo;

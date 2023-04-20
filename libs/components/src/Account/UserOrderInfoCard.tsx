@@ -22,7 +22,7 @@ export const dateTimeFormatter = new Intl.DateTimeFormat("bg", {
    dateStyle: "long",
 });
 
-const UserOrderInfoCard: FC<UserOrderInfoCardProps> = ({ order }) => {
+export const UserOrderInfoCard: FC<UserOrderInfoCardProps> = ({ order }) => {
    return (
       <div
          className={`flex gap-12 rounded-xl shadow-md border border-gray-100 items-start py-3 px-12`}
@@ -66,5 +66,3 @@ const UserOrderInfoCard: FC<UserOrderInfoCardProps> = ({ order }) => {
       </div>
    );
 };
-
-export default UserOrderInfoCard;

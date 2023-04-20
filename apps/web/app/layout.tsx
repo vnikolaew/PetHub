@@ -3,13 +3,16 @@ import { bonaNova } from "../fonts";
 import "./styles.css";
 import logo from "../public/assets/site-logo.webp";
 import { PropsWithChildren } from "react";
-import { Metadata } from "next";
-import { Footer, Navbar, Social } from "../components";
 import avatarLogo from "../public/assets/user-logo.svg";
 import shoppingCartLogo from "../public/assets/shopping-cart-logo.svg";
-import FacebookLogo from "../components/Logos/FacebookLogo";
-import InstagramLogo from "../components/Logos/InstagramLogo";
-import YoutubeLogo from "../components/Logos/YoutubeLogo";
+import {
+   FacebookLogo,
+   InstagramLogo,
+   YoutubeLogo,
+   Footer,
+   Navbar,
+   Social,
+} from "@pethub/components";
 
 // export const metadata: Metadata = {
 //    title: "PetHub Co",

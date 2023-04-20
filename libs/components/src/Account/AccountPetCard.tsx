@@ -18,7 +18,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
    dateStyle: "medium",
 });
 
-const AccountPetCard: FC<AccountPetCardProps> = ({ pet }) => {
+export const AccountPetCard: FC<AccountPetCardProps> = ({ pet }) => {
    return (
       <div
          className={`flex items-start gap-12 p-5 rounded-xl shadow-md border border-gray-100`}
@@ -61,5 +61,3 @@ const AccountPetCard: FC<AccountPetCardProps> = ({ pet }) => {
       </div>
    );
 };
-
-export default AccountPetCard;

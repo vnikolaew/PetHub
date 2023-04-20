@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import Image, { StaticImageData } from "next/image";
-import verClinicLogo from "../../public/assets/vet-clinic-logo.png";
+import verClinicLogo from "@pethub/assets/vet-clinic-logo.png";
 import { EnterIcon, IdCardIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 

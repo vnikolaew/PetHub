@@ -2,7 +2,7 @@
 import React from "react";
 import { NextPage } from "next";
 import * as Form from "@radix-ui/react-form";
-import { Breadcrumb } from "../../components";
+import { Breadcrumb } from "@pethub/components";
 import Link from "next/link";
 import {
    VALID_EMAIL_REGEX,

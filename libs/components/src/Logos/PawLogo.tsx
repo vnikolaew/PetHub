@@ -4,7 +4,8 @@ export interface PawLogoProps {
    color: string;
    size: number;
 }
-const PawLogo: FC<PawLogoProps> = ({ color, size = 30 }) => {
+
+export const PawLogo: FC<PawLogoProps> = ({ color, size = 30 }) => {
    return (
       <svg
          version="1.0"
@@ -44,5 +45,3 @@ const PawLogo: FC<PawLogoProps> = ({ color, size = 30 }) => {
       </svg>
    );
 };
-
-export default PawLogo;

@@ -1,27 +1,26 @@
 "use client";
 import React, { FC, PropsWithChildren } from "react";
 import { NextPage } from "next";
-import { Breadcrumb } from "../../components";
+import {
+   AccountPetCard,
+   Breadcrumb,
+   IPetAppointment,
+   IPetInfo,
+   IUserOrder,
+   PawLogo,
+   PetAppointmentInfoCard,
+   PetAppointmentStatus,
+   UserOrderInfoCard,
+} from "@pethub/components";
 import * as Tabs from "@radix-ui/react-tabs";
 import * as Separator from "@radix-ui/react-separator";
 import * as Form from "@radix-ui/react-form";
 
-import userAvatarLogo from "../../public/assets/user-avatar-logo.png";
-import petAvatarLogo from "../../public/assets/pet-avatar-logo.png";
+import userAvatarLogo from "@pethub/assets/user-avatar-logo.png";
+import petAvatarLogo from "@pethub/assets/pet-avatar-logo.png";
 
 import Image from "next/image";
-import AccountPetCard, {
-   IPetInfo,
-} from "../../components/Account/AccountPetCard";
-import PawLogo from "../../components/Logos/PawLogo";
 import { useRouter, useSearchParams } from "next/navigation";
-import PetAppointmentCard, {
-   IPetAppointment,
-   PetAppointmentStatus,
-} from "../../components/Account/PetAppointmentCard";
-import UserOrderInfoCard, {
-   IUserOrder,
-} from "../../components/Account/UserOrderInfoCard";
 import {
    LOREM_IPSUM_TEXT,
    VALID_PASSWORD_REGEX,
@@ -224,7 +223,10 @@ const MyAccountPage: NextPage = () => {
                <Tabs.Content value={"history"}>
                   <div className={`mt-6 mx-auto flex-col flex items-center`}>
                      {USER_APPOINTMENTS.map((appointment, i) => (
-                        <PetAppointmentCard appointment={appointment} key={i} />
+                        <PetAppointmentInfoCard
+                           appointment={appointment}
+                           key={i}
+                        />
                      ))}
                   </div>
                </Tabs.Content>

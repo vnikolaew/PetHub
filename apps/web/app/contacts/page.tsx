@@ -1,15 +1,17 @@
 "use client";
 import React from "react";
-import { Breadcrumb } from "../../components";
+import {
+   Breadcrumb,
+   FacebookLogo,
+   InstagramLogo,
+   YoutubeLogo,
+} from "@pethub/components";
 import { NextPage } from "next";
-import phoneLogo from "../../public/assets/phone-logo.png";
-import mailLogo from "../../public/assets/mail-logo.png";
+import phoneLogo from "@pethub/assets/phone-logo.png";
+import mailLogo from "@pethub/assets/mail-logo.png";
 
 import Image from "next/image";
 import Link from "next/link";
-import FacebookLogo from "../../components/Logos/FacebookLogo";
-import InstagramLogo from "../../components/Logos/InstagramLogo";
-import YoutubeLogo from "../../components/Logos/YoutubeLogo";
 import { LOREM_IPSUM_TEXT } from "../../utils/string-constants";
 
 const ContactsPage: NextPage = () => {

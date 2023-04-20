@@ -1,9 +1,9 @@
 "use client";
 import React, { FC } from "react";
 import { NextPage } from "next";
-import { Breadcrumb } from "../../components";
-import lockLogo from "../../public/assets/lock-logo.png";
-import pawLogo from "../../public/assets/paw-logo.png";
+import { Breadcrumb } from "@pethub/components";
+import lockLogo from "@pethub/assets/lock-logo.png";
+import pawLogo from "@pethub/assets/paw-logo.png";
 import Image from "next/image";
 import { LOREM_IPSUM_TEXT } from "../../utils/string-constants";
 
