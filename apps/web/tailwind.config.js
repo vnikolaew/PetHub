@@ -23,28 +23,31 @@ module.exports = {
             "amethyst-smoke": "#a39abe",
             "jordy-blue": "#98c2f1",
          },
+         gridTemplateColumns: {
+            productRow: "1fr 3fr 1fr 1fr 1fr",
+         },
          animation: {
             slideDown: "slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",
             slideUp: "slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)",
          },
          keyframes: {
             slideDown: {
-               from : {
-                  height: 0
+               from: {
+                  height: 0,
                },
-               to : {
-                  height: "100px"
+               to: {
+                  height: "100px",
                },
             },
             slideUp: {
-               from : {
-                  height: "100px"
+               from: {
+                  height: "100px",
                },
-               to : {
-                  height: 0
+               to: {
+                  height: 0,
                },
-            }
-         }
+            },
+         },
       },
    },
    plugins: [],

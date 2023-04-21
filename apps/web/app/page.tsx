@@ -176,7 +176,7 @@ const IndexPage: FC = () => {
             >
                <section className={`mt-4`} id={"best-selling-products"}>
                   <h1 className={`text-3xl`}>Най-продавани продукти</h1>
-                  <div className={`flex gap-20 mt-2 items-center`}>
+                  <div className={`flex gap-20 mt-4 items-center`}>
                      {Array.from({ length: 6 }).map((_, i) => (
                         <div
                            className={`flex gap-4 flex-col items-center justify-center`}
@@ -201,7 +201,7 @@ const IndexPage: FC = () => {
                />
                <section className={`mt-4`} id={"best-selling-products"}>
                   <h1 className={`text-3xl`}>Намалени продукти</h1>
-                  <div className={`flex gap-20 mt-2 items-center`}>
+                  <div className={`flex gap-20 mt-4 items-center`}>
                      {Array.from({ length: 6 }).map((_, i) => (
                         <div
                            className={`flex gap-4 flex-col items-center justify-center`}

@@ -34,12 +34,14 @@ export const Navbar: FC<NavbarProps> = ({
                className={`flex w-1/5 px-8 items-center gap-24 justify-center`}
             >
                <UserDropdown avatarLogo={avatarLogo} />
-               <Image
-                  width={30}
-                  height={30}
-                  src={shoppingCartLogo}
-                  alt={"Shopping Cart"}
-               />
+               <Link href={"/shopping-cart"}>
+                  <Image
+                     width={30}
+                     height={30}
+                     src={shoppingCartLogo}
+                     alt={"Shopping Cart"}
+                  />
+               </Link>
             </div>
          </nav>
       </div>
