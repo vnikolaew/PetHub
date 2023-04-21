@@ -3,6 +3,7 @@
       "target": "ES6",
       "lib": ["dom", "DOM.Iterable", "ESNext"],
       "moduleResolution": "Node",
+      "resolveJsonModule": true,
       "jsx": "react-jsx",
       "allowJs": false,
       "esModuleInterop": true,

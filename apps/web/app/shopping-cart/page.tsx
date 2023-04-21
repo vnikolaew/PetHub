@@ -10,7 +10,6 @@ import {
 import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
 import Link from "next/link";
 import * as Separator from "@radix-ui/react-separator";
-import * as Form from "@radix-ui/react-form";
 
 const SHOPPING_CART_PRODUCTS: IShoppingCartProduct[] = [
    {
@@ -117,6 +116,15 @@ const ShoppingCartPage: NextPage = () => {
                      </span>
                   </div>
                </div>
+            </div>
+            <div className={`self-end mt-8 justify-self-end`}>
+               <Link href={`/shopping-cart/complete-order`}>
+                  <button
+                     className={`flex text-2xl hover:opacity-90 transition-all duration-200 shadow-md px-8 py-2 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
+                  >
+                     Завърши поръчката
+                  </button>
+               </Link>
             </div>
          </section>
       </div>

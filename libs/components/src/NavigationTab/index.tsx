@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ChevronDownIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import Image, { StaticImageData } from "next/image";
@@ -28,25 +28,34 @@ export const NavigationTab: FC<NavigationTabProps> = ({
 }) => {
    return (
       <DropdownMenu.Root>
-         <DropdownMenu.Trigger asChild>
-            <button className={`focus:z-10`}>
-               <div
-                  className={`py-5 flex gap-4 items-center border border-gray-100 rounded-lg justify-center ${className}`}
-                  {...rest}
-               >
-                  <Image
-                     width={30}
-                     height={30}
-                     src={logo!}
-                     alt={"Sample logo"}
-                  />
-                  <h2 className={`text-[1.4rem]`}>{label}</h2>
-                  {subMenu?.length && (
+         {subMenu?.length ? (
+            <DropdownMenu.Trigger asChild>
+               <button onClick={(_) => console.log(_)} className={``}>
+                  <div
+                     className={`py-5 flex gap-4 items-center border border-gray-100 rounded-lg justify-center ${className}`}
+                     {...rest}
+                  >
+                     <Image
+                        width={30}
+                        height={30}
+                        src={logo!}
+                        alt={"Sample logo"}
+                     />
+                     <h2 className={`text-[1.4rem]`}>{label}</h2>
+
                      <ChevronDownIcon className={``} width={16} />
-                  )}
-               </div>
-            </button>
-         </DropdownMenu.Trigger>
+                  </div>
+               </button>
+            </DropdownMenu.Trigger>
+         ) : (
+            <Link
+               className={`py-5 flex gap-4 items-center border border-gray-100 rounded-lg justify-center ${className}`}
+               href={`/${baseRoute}`}
+            >
+               <Image width={30} height={30} src={logo!} alt={"Sample logo"} />
+               <h2 className={`text-[1.4rem]`}>{label}</h2>
+            </Link>
+         )}
          <DropdownMenu.Portal>
             <DropdownMenu.Content className={`rounded-2xl min-w-[300px]`}>
                {subMenu?.map((item, i) =>

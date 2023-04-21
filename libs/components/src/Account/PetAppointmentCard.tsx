@@ -29,7 +29,7 @@ export const PetAppointmentInfoCard: FC<PetAppointmentInfoCardProps> = ({
 }) => {
    return (
       <div
-         className={`flex gap-2 rounded-xl shadow-md border border-gray-100 items-center py-3 px-12`}
+         className={`flex gap-2 rounded-xl shadow-md border border-gray-100 items-center py-2 px-10`}
       >
          <Image
             height={40}

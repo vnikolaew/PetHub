@@ -15,7 +15,7 @@ export const Footer: FC<FooterProps> = ({ socials }) => {
    return (
       <footer className={`mt-12`}>
          <div
-            className={`flex p-8 flex-row shadow-md border-t-2 border-gray-100 items-start justify-between gap-6`}
+            className={`flex p-10 flex-row shadow-md border-t-2 border-gray-100 items-start justify-between gap-6`}
          >
             <section className={`ml-0`}>
                <div className={`flex flex-col items-center space-y-6`}>
