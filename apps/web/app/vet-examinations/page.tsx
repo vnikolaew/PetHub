@@ -82,16 +82,26 @@ const VetExaminationsPage: NextPage = () => {
    }
    if (formState === FormState.SUCCEEDED) {
       return (
-         <VetAppointmentSuccessPage
-            appointment={{
-               petName: "Rocky",
-               appointmentType: "regular",
-               dateTime: new Date(),
-               location: "Варна",
-               petClinic: "Окръжна болница",
-               petType: PetType.Dog,
-            }}
-         />
+         <div className={`mt-12 mx-16`}>
+            <Breadcrumb
+               segments={[
+                  { label: "PetHub", path: "/" },
+                  { label: "Ветеринарни прегледи", path: "vet-examinations" },
+               ]}
+            />
+            <section className={`w-full my-6 flex flex-col items-center gap-2`}>
+               <VetAppointmentSuccessPage
+                  appointment={{
+                     petName: "Rocky",
+                     appointmentType: "regular",
+                     dateTime: new Date(),
+                     location: "Варна",
+                     petClinic: "Окръжна болница",
+                     petType: PetType.Dog,
+                  }}
+               />
+            </section>
+         </div>
       );
    }
 };
