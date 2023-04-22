@@ -3,12 +3,15 @@ import React, { useState } from "react";
 import { NextPage } from "next";
 import * as Form from "@radix-ui/react-form";
 import * as RadioGroup from "@radix-ui/react-radio-group";
-import { Breadcrumb } from "@pethub/components";
+import { AddPetForm, Breadcrumb } from "@pethub/components";
 import {
    VALID_EMAIL_REGEX,
+   VALID_NAME_REGEX,
    VALID_PASSWORD_REGEX,
 } from "../../utils/string-constants";
-import { AddPetForm } from "@pethub/components";
+import { useCurrentUser } from "@pethub/state";
+import { useRouter } from "next/navigation";
+import userLogo from "@pethub/assets/user-logo.svg";
 
 export enum PetType {
    Dog = "Dog",
@@ -29,19 +32,28 @@ export interface ISignUpFormValues {
    lastName: string;
    email: string;
    password: string;
-   hasPet: boolean;
+   hasPets: boolean;
    pets: IPet[];
 }
 
 const SignUpPage: NextPage = () => {
+   const { setUser } = useCurrentUser();
+   const router = useRouter();
    const [formValues, setFormValues] = useState<ISignUpFormValues>({
       email: "",
       firstName: "",
       lastName: "",
-      hasPet: false,
+      hasPets: false,
       pets: [],
       password: "",
    });
+
+   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      console.log(formValues);
+      setUser({ ...formValues, profilePicture: userLogo });
+      router.push(`/`);
+   };
 
    const handleChangePetsCount = ({
       target: { valueAsNumber: value },
@@ -53,14 +65,11 @@ const SignUpPage: NextPage = () => {
                ? v.pets.slice(0, value)
                : Array.from({
                     length: value,
-                 }).map(
-                    (_) =>
-                       ({
-                          name: "",
-                          type: PetType.Dog,
-                          birthDate: new Date(),
-                       }!)
-                 ),
+                 }).map((_) => ({
+                    name: "",
+                    type: PetType.Dog,
+                    birthDate: new Date(),
+                 })),
       }));
 
    const handlePetInfoChange = ({
@@ -113,29 +122,39 @@ const SignUpPage: NextPage = () => {
                Създай акаунт в <span className={`font-semibold`}>PetHub</span>{" "}
             </h1>
             <div className={`flex mt-6 gap-36 items-center p-6 justify-around`}>
-               <Form.Root className={`flex items-start gap-16`}>
+               <Form.Root
+                  onSubmit={handleFormSubmit}
+                  className={`flex items-start gap-16`}
+               >
                   <div className={`flex flex-col gap-6 items-start`}>
                      <Form.Field
                         className={`flex items-center justify-between w-full`}
-                        name={"username"}
+                        name={"firstName"}
                      >
                         <Form.Label className={`text-xl`}>Име*</Form.Label>
-                        <Form.Message match={(value, _) => false}>
-                           Моля въведете валидно име
-                        </Form.Message>
-                        <Form.Control
-                           onChange={handleFormChange}
-                           value={formValues.firstName}
-                           name={"firstName"}
-                           asChild
-                        >
-                           <input
-                              placeholder={"John"}
-                              autoComplete={"off"}
-                              className={`text-lg w-96 mt-1 px-4 py-1 block rounded-md shadow-md`}
-                              type={"text"}
-                           />
-                        </Form.Control>
+                        <div className={`flex w-96 flex-col items-start gap-2`}>
+                           <Form.Control
+                              onChange={handleFormChange}
+                              value={formValues.firstName}
+                              name={"firstName"}
+                              asChild
+                           >
+                              <input
+                                 placeholder={"John"}
+                                 autoComplete={"off"}
+                                 className={`text-lg w-full mt-1 px-4 py-1 block rounded-md shadow-md`}
+                                 type={"text"}
+                              />
+                           </Form.Control>
+                           <Form.Message
+                              className={`text-red-600`}
+                              match={(value, _) =>
+                                 !VALID_NAME_REGEX.test(value)
+                              }
+                           >
+                              Моля въведете валидно име
+                           </Form.Message>
+                        </div>
                      </Form.Field>
 
                      <Form.Field
@@ -143,22 +162,29 @@ const SignUpPage: NextPage = () => {
                         name={"lastName"}
                      >
                         <Form.Label className={`text-xl`}>Фамилия*</Form.Label>
-                        <Form.Message match={(value, _) => false}>
-                           Моля въведете валидна фамилия
-                        </Form.Message>
-                        <Form.Control
-                           onChange={handleFormChange}
-                           value={formValues.lastName}
-                           name={"lastName"}
-                           asChild
-                        >
-                           <input
-                              placeholder={"Doe"}
-                              autoComplete={"off"}
-                              className={`text-lg w-96 mt-1 px-4 py-1 block rounded-md shadow-md`}
-                              type={"text"}
-                           />
-                        </Form.Control>
+                        <div className={`flex w-96 flex-col items-start gap-2`}>
+                           <Form.Control
+                              onChange={handleFormChange}
+                              value={formValues.lastName}
+                              name={"lastName"}
+                              asChild
+                           >
+                              <input
+                                 placeholder={"Doe"}
+                                 autoComplete={"off"}
+                                 className={`text-lg w-full mt-1 px-4 py-1 block rounded-md shadow-md`}
+                                 type={"text"}
+                              />
+                           </Form.Control>
+                           <Form.Message
+                              className={`text-red-600`}
+                              match={(value, _) =>
+                                 !VALID_NAME_REGEX.test(value)
+                              }
+                           >
+                              Моля въведете валидна фамилия
+                           </Form.Message>
+                        </div>
                      </Form.Field>
                      <Form.Field
                         className={`flex gap-6 items-center justify-between w-full`}
@@ -167,24 +193,30 @@ const SignUpPage: NextPage = () => {
                         <Form.Label className={`text-xl`}>
                            Имейл адрес*
                         </Form.Label>
-                        <Form.Message
-                           match={(value, _) => VALID_EMAIL_REGEX.test(value)}
-                        >
-                           Моля въведете валиден имейл
-                        </Form.Message>
-                        <Form.Control
-                           onChange={handleFormChange}
-                           value={formValues.email}
-                           name={"email"}
-                           type={"email"}
-                           asChild
-                        >
-                           <input
-                              placeholder={"jdoe@pethub.com"}
-                              autoComplete={"off"}
-                              className={`text-lg w-96 mt-1 px-4 py-1 block rounded-md shadow-md`}
-                           />
-                        </Form.Control>
+
+                        <div className={`flex w-96 flex-col items-start gap-2`}>
+                           <Form.Control
+                              onChange={handleFormChange}
+                              value={formValues.email}
+                              name={"email"}
+                              type={"email"}
+                              asChild
+                           >
+                              <input
+                                 placeholder={"jdoe@pethub.com"}
+                                 autoComplete={"off"}
+                                 className={`text-lg w-full  mt-1 px-4 py-1 block rounded-md shadow-md`}
+                              />
+                           </Form.Control>
+                           <Form.Message
+                              className={`text-red-600`}
+                              match={(value, _) =>
+                                 !VALID_EMAIL_REGEX.test(value)
+                              }
+                           >
+                              Моля въведете валиден имейл
+                           </Form.Message>
+                        </div>
                      </Form.Field>
 
                      <Form.Field
@@ -192,38 +224,43 @@ const SignUpPage: NextPage = () => {
                         name={"password"}
                      >
                         <Form.Label className={`text-xl`}>Парола*</Form.Label>
-                        <Form.Message
-                           match={(value, _) =>
-                              VALID_PASSWORD_REGEX.test(value)
-                           }
-                        >
-                           Моля въведете валидна парола
-                        </Form.Message>
-                        <Form.Control
-                           onChange={handleFormChange}
-                           value={formValues.password}
-                           name={"password"}
-                           type={"password"}
-                           asChild
-                        >
-                           <input
-                              placeholder={""}
-                              autoComplete={"off"}
-                              className={`text-lg w-96 mt-1 px-4 py-1 block rounded-md shadow-md`}
-                           />
-                        </Form.Control>
+                        <div className={`flex w-96 flex-col items-start gap-2`}>
+                           <Form.Control
+                              onChange={handleFormChange}
+                              value={formValues.password}
+                              name={"password"}
+                              type={"password"}
+                              asChild
+                           >
+                              <input
+                                 placeholder={""}
+                                 autoComplete={"off"}
+                                 className={`text-lg w-full  mt-1 px-4 py-1 block rounded-md shadow-md`}
+                              />
+                           </Form.Control>
+                           <Form.Message
+                              className={`text-red-600`}
+                              match={(value, _) =>
+                                 !VALID_PASSWORD_REGEX.test(value)
+                              }
+                           >
+                              Моля въведете валидна парола
+                           </Form.Message>
+                        </div>
                      </Form.Field>
                   </div>
                   <div className={`flex-col flex items-start gap-3`}>
                      <RadioGroup.Root
                         className={`flex items-center gap-12`}
                         onValueChange={(value) => {
+                           const hasPets = value == "yes";
                            setFormValues((v) => ({
                               ...v,
-                              hasPet: value === "yes",
+                              hasPets,
+                              pets: hasPets ? v.pets : [],
                            }));
                         }}
-                        value={formValues.hasPet ? "yes" : "no"}
+                        value={formValues.hasPets ? "yes" : "no"}
                      >
                         <label className={`text-xl`}>
                            Имате ли домашен любимец?
@@ -261,43 +298,48 @@ const SignUpPage: NextPage = () => {
                            </label>
                         </div>
                      </RadioGroup.Root>
-                     <Form.Field
-                        className={`flex mt-2 items-center gap-6 justify-start w-full`}
-                        name={"petsCount"}
-                     >
-                        <Form.Label htmlFor={"petsCount"} className={`text-xl`}>
-                           Колко домашни любимци имате?
-                        </Form.Label>
-                        <Form.Message match={(value, _) => false}>
-                           Моля въведете валидно число
-                        </Form.Message>
-                        <Form.Control name={"petsCount"} asChild>
-                           <input
-                              placeholder={""}
-                              onChange={handleChangePetsCount}
-                              autoComplete={"off"}
-                              className={`text-lg w-24 mt-1 px-4 py-1 block rounded-md shadow-md`}
-                              defaultValue={0}
-                              value={formValues.pets.length}
-                              min={0}
-                              max={100}
-                              type={"number"}
-                           />
-                        </Form.Control>
-                     </Form.Field>
+                     {formValues.hasPets && (
+                        <Form.Field
+                           className={`flex mt-2 items-center gap-6 justify-start w-full`}
+                           name={"petsCount"}
+                        >
+                           <Form.Label
+                              htmlFor={"petsCount"}
+                              className={`text-xl`}
+                           >
+                              Колко домашни любимци имате?
+                           </Form.Label>
+                           <Form.Message match={(value, _) => false}>
+                              Моля въведете валидно число
+                           </Form.Message>
+                           <Form.Control name={"petsCount"} asChild>
+                              <input
+                                 placeholder={""}
+                                 onChange={handleChangePetsCount}
+                                 autoComplete={"off"}
+                                 className={`text-lg w-24 mt-1 px-4 py-1 block rounded-md shadow-md`}
+                                 value={formValues.pets.length}
+                                 min={0}
+                                 max={100}
+                                 type={"number"}
+                              />
+                           </Form.Control>
+                        </Form.Field>
+                     )}
                      <div className={`flex-col flex items-start gap-8`}>
                         {formValues.pets.map((pet, i) => (
                            <AddPetForm
                               key={i}
                               petIndex={i}
                               onFieldChange={handlePetInfoChange}
-                              pet={formValues.pets[i]}
+                              pet={pet}
                            />
                         ))}
                      </div>
                      <Form.Submit className={`mx-auto mt-4`} asChild>
                         <button
-                           className={`flex text-xl hover:opacity-80 transition-all duration-200 shadow-md mt-6 px-8 py-1.5 bg-whiskey text-white border-2 border-whiskey rounded-lg outline-none items-center gap-2`}
+                           type={"submit"}
+                           className={`flex text-xl hover:opacity-80 transition-all duration-200 shadow-md mt-6 px-12 py-1.5 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
                         >
                            Регистриране
                         </button>

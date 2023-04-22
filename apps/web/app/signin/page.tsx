@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { NextPage } from "next";
 import { Breadcrumb } from "@pethub/components";
 import * as Form from "@radix-ui/react-form";
@@ -8,8 +8,50 @@ import {
    VALID_EMAIL_REGEX,
    VALID_PASSWORD_REGEX,
 } from "../../utils/string-constants";
+import {
+   TEST_USER_EMAIL,
+   TEST_USER_PASSWORD,
+   useCurrentUser,
+} from "@pethub/state";
+import { useRouter } from "next/navigation";
+
+export interface SignInFormValues {
+   email: string;
+   password: string;
+}
 
 const SignInPage: NextPage = () => {
+   const { setUser } = useCurrentUser();
+   const router = useRouter();
+   const [formValues, setFormValues] = useState<SignInFormValues>({
+      email: "",
+      password: "",
+   });
+
+   const handleFormChange = ({
+      target: { name, value },
+   }: React.ChangeEvent<HTMLInputElement>) =>
+      setFormValues((v) => ({ ...v, [name]: value }));
+
+   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      console.log(formValues);
+      if (
+         formValues.password === TEST_USER_PASSWORD &&
+         formValues.email === TEST_USER_EMAIL
+      ) {
+         setUser({
+            email: TEST_USER_EMAIL,
+            password: TEST_USER_PASSWORD,
+            firstName: "Test",
+            lastName: "User",
+            pets: [],
+            hasPets: true,
+         });
+         router.push("/");
+      }
+   };
+
    return (
       <div className={`mt-12 mx-16`}>
          <Breadcrumb
@@ -23,17 +65,19 @@ const SignInPage: NextPage = () => {
                Влизане в <span className={`font-semibold`}>PetHub</span>{" "}
             </h1>
             <div className={`flex mt-6 gap-36 items-center justify-around`}>
-               <Form.Root>
+               <Form.Root onSubmit={handleFormSubmit}>
                   <Form.Field name={"email"}>
                      <Form.Label className={`text-xl`}>Имейл адрес</Form.Label>
                      <Form.Message
-                        match={(value, _) => VALID_EMAIL_REGEX.test(value)}
+                        match={(value, _) => !VALID_EMAIL_REGEX.test(value)}
                      >
                         Моля въведете валиден и-мейл
                      </Form.Message>
                      <Form.Control asChild>
                         <input
                            placeholder={"user@test.com"}
+                           value={formValues.email}
+                           onChange={handleFormChange}
                            autoComplete={"off"}
                            className={`text-lg w-96 mt-1 px-4 py-1 block rounded-md shadow-md`}
                            name={"email"}
@@ -52,6 +96,8 @@ const SignInPage: NextPage = () => {
                      <Form.Control asChild>
                         <input
                            placeholder={""}
+                           value={formValues.password}
+                           onChange={handleFormChange}
                            autoComplete={"off"}
                            className={`text-lg w-96 mt-1 px-4 py-1 block rounded-md shadow-md`}
                            name={"password"}
@@ -70,6 +116,7 @@ const SignInPage: NextPage = () => {
                   </div>
                   <Form.Submit className={`mx-auto mt-4`} asChild>
                      <button
+                        type={"submit"}
                         className={`flex text-xl hover:opacity-80 transition-all duration-200 shadow-md mt-6 px-8 py-1.5 bg-whiskey text-white border-2 border-whiskey rounded-lg outline-none items-center gap-2`}
                      >
                         Влизане

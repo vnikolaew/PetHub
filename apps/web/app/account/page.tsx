@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, PropsWithChildren } from "react";
+import React, { FC, PropsWithChildren, useState } from "react";
 import { NextPage } from "next";
 import {
    AccountPetCard,
@@ -7,7 +7,6 @@ import {
    IPetAppointment,
    IPetInfo,
    IUserOrder,
-   PawLogo,
    PetAppointmentInfoCard,
    PetAppointmentStatus,
    UserOrderInfoCard,
@@ -25,6 +24,8 @@ import {
    LOREM_IPSUM_TEXT,
    VALID_PASSWORD_REGEX,
 } from "../../utils/string-constants";
+import { useCurrentUser } from "@pethub/state";
+import { AddPetFormModal } from "@pethub/components";
 
 const USER = {
    profilePicture: userAvatarLogo,
@@ -69,6 +70,8 @@ const USER_ORDERS: IUserOrder[] = [
 const MyAccountPage: NextPage = () => {
    const params = useSearchParams();
    const router = useRouter();
+   const [showAddPetModal, setShowAddPetModal] = useState(false);
+   const userPets = useCurrentUser((state) => state.user?.pets)!;
 
    return (
       <div className={`mt-12 mx-16`}>
@@ -141,7 +144,7 @@ const MyAccountPage: NextPage = () => {
                               </Form.Label>
                               <Form.Message
                                  match={(value, _) =>
-                                    VALID_PASSWORD_REGEX.test(value)
+                                    !VALID_PASSWORD_REGEX.test(value)
                                  }
                               >
                                  Моля въведете валидна парола
@@ -168,7 +171,7 @@ const MyAccountPage: NextPage = () => {
                               </Form.Label>
                               <Form.Message
                                  match={(value, formData) =>
-                                    VALID_PASSWORD_REGEX.test(value) &&
+                                    !VALID_PASSWORD_REGEX.test(value) &&
                                     formData.get("password")?.toString() ===
                                        value
                                  }
@@ -203,14 +206,7 @@ const MyAccountPage: NextPage = () => {
                      {USER_PETS.map((pet, id) => (
                         <AccountPetCard key={id} pet={pet} />
                      ))}
-                     <button
-                        className={`flex hover:opacity-80 transition-all duration-200 shadow-md mb-6 px-3 py-1 bg-whiskey text-white border-2 border-whiskey rounded-lg outline-none items-center gap-3`}
-                     >
-                        <PawLogo size={20} color={"white"} />
-                        <span className={`text-lg`}>
-                           Добави домашен любимец
-                        </span>
-                     </button>
+                     <AddPetFormModal />
                   </div>
                </Tabs.Content>
                <Tabs.Content value={"my-purchases"}>

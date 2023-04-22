@@ -31,7 +31,7 @@ export const Navbar: FC<NavbarProps> = ({
             </Link>
             <SearchBar />
             <div
-               className={`flex w-1/5 px-8 items-center gap-24 justify-center`}
+               className={`flex w-1/5 px-4 items-center gap-12 justify-center`}
             >
                <UserDropdown avatarLogo={avatarLogo} />
                <Link href={"/shopping-cart"}>

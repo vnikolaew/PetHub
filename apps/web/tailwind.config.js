@@ -29,8 +29,24 @@ module.exports = {
          animation: {
             slideDown: "slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",
             slideUp: "slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+            overlayShow: "overlayShow 200ms cubic-bezier(0.16, 1, 0.3, 1)",
+            contentShow: "contentShow 200ms cubic-bezier(0.16, 1, 0.3, 1)",
          },
          keyframes: {
+            overlayShow: {
+               from: { opacity: 0 },
+               to: { opacity: 1 },
+            },
+            contentShow: {
+               from: {
+                  opacity: 0,
+                  transform: "translate(-50%, -48%) scale(0.96)",
+               },
+               to: {
+                  opacity: 1,
+                  transform: "translate(-50%, -50%) scale(1)",
+               },
+            },
             slideDown: {
                from: {
                   height: 0,

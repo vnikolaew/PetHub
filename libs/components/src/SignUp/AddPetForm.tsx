@@ -75,14 +75,11 @@ export const AddPetForm: FC<AddPetFormProps> = ({
                Моля въведете валидна дата
             </Form.Message>
             <div className={`flex items-center gap-4`}>
-               <Form.Control
-                  onChange={onFieldChange}
-                  value={pet.name}
-                  name={`pet[${petIndex}].name`}
-                  asChild
-               >
+               <Form.Control name={`pet[${petIndex}].birthDate`} asChild>
                   <input
                      placeholder={""}
+                     onChange={onFieldChange}
+                     // value={pet.birthDate.toDateString()}
                      autoComplete={"off"}
                      className={`text-sm w-24 mt-1 px-4 py-1 block rounded-md shadow-md`}
                      type={"date"}

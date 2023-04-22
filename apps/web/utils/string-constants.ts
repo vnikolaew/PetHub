@@ -7,3 +7,5 @@ export const VALID_EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 // @ts-ignore
 export const VALID_PASSWORD_REGEX =
    /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+export const VALID_NAME_REGEX = /^[a-zA-Z0-9]{3,}$/;

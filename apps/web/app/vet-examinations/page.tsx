@@ -104,6 +104,8 @@ const VetExaminationsPage: NextPage = () => {
          </div>
       );
    }
+
+   return null;
 };
 
 export default VetExaminationsPage;

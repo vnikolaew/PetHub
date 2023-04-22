@@ -3,6 +3,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ChevronDownIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export interface NavigationTabItem {
    logo?: string | StaticImageData;
@@ -57,12 +58,89 @@ export const NavigationTab: FC<NavigationTabProps> = ({
             </Link>
          )}
          <DropdownMenu.Portal>
-            <DropdownMenu.Content className={`rounded-2xl min-w-[300px]`}>
-               {subMenu?.map((item, i) =>
-                  item.subMenu?.length ? (
-                     <DropdownMenu.Sub key={i}>
-                        <DropdownMenu.SubTrigger
+            <DropdownMenu.Content
+               asChild
+               className={`rounded-2xl min-w-[300px]`}
+            >
+               <motion.div
+                  animate={{
+                     opacity: 1,
+                     height: "100%",
+                     scale: 1,
+                  }}
+                  initial={{
+                     opacity: 0,
+                     height: "0%",
+                     scale: 0.8,
+                  }}
+                  transition={{ duration: 0.2 }}
+               >
+                  {subMenu?.map((item, i) =>
+                     item.subMenu?.length ? (
+                        <DropdownMenu.Sub key={i}>
+                           <DropdownMenu.SubTrigger
+                              className={`w-full z-10 bg-white transition-colors duration-200 cursor-pointer hover:bg-gray-50 border-b border-gray-100 shadow-sm flex items-center justify-between px-4 py-5`}
+                           >
+                              <span>
+                                 <Image
+                                    width={20}
+                                    height={20}
+                                    src={logo!}
+                                    alt={"Sample logo"}
+                                 />
+                              </span>
+                              <div className={`text-lg`}>{item.label}</div>
+                              <ChevronRightIcon width={16} />
+                           </DropdownMenu.SubTrigger>
+                           <DropdownMenu.Portal>
+                              <DropdownMenu.SubContent
+                                 asChild
+                                 sideOffset={2}
+                                 alignOffset={20}
+                              >
+                                 <motion.div
+                                    animate={{
+                                       opacity: 1,
+                                       height: "100%",
+                                       scale: 1,
+                                    }}
+                                    initial={{
+                                       opacity: 0,
+                                       height: "0%",
+                                       scale: 0.8,
+                                    }}
+                                    transition={{ duration: 0.2 }}
+                                 >
+                                    {item.subMenu?.map((subItem, i) => (
+                                       <Link
+                                          key={i}
+                                          href={`/${baseRoute}/${item.href}/${subItem.href}`}
+                                       >
+                                          <DropdownMenu.Item
+                                             className={`w-full bg-white min-w-[200px] text-sm text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-50 border-b border-gray-50 shadow-sm flex items-center gap-2 justify-start px-4 py-3`}
+                                          >
+                                             <span>
+                                                <Image
+                                                   width={20}
+                                                   height={20}
+                                                   src={logo!}
+                                                   alt={"Sample logo"}
+                                                />
+                                             </span>
+                                             <div className={`text-md`}>
+                                                {subItem.label}
+                                             </div>
+                                          </DropdownMenu.Item>
+                                       </Link>
+                                    ))}
+                                 </motion.div>
+                              </DropdownMenu.SubContent>
+                           </DropdownMenu.Portal>
+                        </DropdownMenu.Sub>
+                     ) : (
+                        <DropdownMenu.Item
                            className={`w-full z-10 bg-white transition-colors duration-200 cursor-pointer hover:bg-gray-50 border-b border-gray-100 shadow-sm flex items-center justify-between px-4 py-5`}
+                           key={i}
                         >
                            <span>
                               <Image
@@ -74,55 +152,10 @@ export const NavigationTab: FC<NavigationTabProps> = ({
                            </span>
                            <div className={`text-lg`}>{item.label}</div>
                            <ChevronRightIcon width={16} />
-                        </DropdownMenu.SubTrigger>
-                        <DropdownMenu.Portal>
-                           <DropdownMenu.SubContent
-                              sideOffset={2}
-                              alignOffset={20}
-                           >
-                              {item.subMenu?.map((subItem, i) => (
-                                 <Link
-                                    key={i}
-                                    href={`/${baseRoute}/${item.href}/${subItem.href}`}
-                                 >
-                                    <DropdownMenu.Item
-                                       className={`w-full bg-white min-w-[200px] text-sm text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-50 border-b border-gray-50 shadow-sm flex items-center gap-2 justify-start px-4 py-3`}
-                                    >
-                                       <span>
-                                          <Image
-                                             width={20}
-                                             height={20}
-                                             src={logo!}
-                                             alt={"Sample logo"}
-                                          />
-                                       </span>
-                                       <div className={`text-md`}>
-                                          {subItem.label}
-                                       </div>
-                                    </DropdownMenu.Item>
-                                 </Link>
-                              ))}
-                           </DropdownMenu.SubContent>
-                        </DropdownMenu.Portal>
-                     </DropdownMenu.Sub>
-                  ) : (
-                     <DropdownMenu.Item
-                        className={`w-full z-10 bg-white transition-colors duration-200 cursor-pointer hover:bg-gray-50 border-b border-gray-100 shadow-sm flex items-center justify-between px-4 py-5`}
-                        key={i}
-                     >
-                        <span>
-                           <Image
-                              width={20}
-                              height={20}
-                              src={logo!}
-                              alt={"Sample logo"}
-                           />
-                        </span>
-                        <div className={`text-lg`}>{item.label}</div>
-                        <ChevronRightIcon width={16} />
-                     </DropdownMenu.Item>
-                  )
-               )}
+                        </DropdownMenu.Item>
+                     )
+                  )}
+               </motion.div>
             </DropdownMenu.Content>
          </DropdownMenu.Portal>
       </DropdownMenu.Root>
