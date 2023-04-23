@@ -1,10 +1,10 @@
 "use client";
 import { bonaNova } from "../fonts";
 import "./styles.css";
-import logo from "../public/assets/site-logo.webp";
+import logo from "@pethub/assets/site-logo.webp";
 import { PropsWithChildren } from "react";
-import avatarLogo from "../public/assets/user-logo.svg";
-import shoppingCartLogo from "../public/assets/shopping-cart-logo.svg";
+import avatarLogo from "@pethub/assets/user-logo.svg";
+import shoppingCartLogo from "@pethub/assets/cart-logo.png";
 import {
    FacebookLogo,
    InstagramLogo,

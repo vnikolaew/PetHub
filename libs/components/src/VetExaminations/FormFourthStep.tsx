@@ -1,5 +1,6 @@
 import React, { FC, Fragment, useState } from "react";
 import * as RadioGroup from "@radix-ui/react-radio-group";
+import { useVetAppointment } from "@pethub/state";
 
 function withTime(
    date: Date,
@@ -21,8 +22,6 @@ export const getFreeExamHours: (date: Date) => Date[] = (date) =>
       [14, 0.0],
    ].map(([hours, minutes], i) => withTime(date, hours, minutes));
 
-const FREE_EXAM_HOURS = getFreeExamHours(new Date());
-
 export interface FormFourthStepProps {
    onSubmit: () => void;
 }
@@ -30,8 +29,18 @@ export interface FormFourthStepProps {
 export const FormFourthStep: FC<FormFourthStepProps> = ({ onSubmit }) => {
    const [selectedDateTimeIndex, setSelectedDateTimeIndex] =
       useState<number>(0);
-
-   const selectedDate = FREE_EXAM_HOURS[selectedDateTimeIndex];
+   const { setCurrentStep, setDateTime, scheduledDateTime } = useVetAppointment(
+      ({
+         setDateTime,
+         setCurrentStep,
+         vetAppointment: { scheduledDateTime },
+      }) => ({
+         setDateTime,
+         setCurrentStep,
+         scheduledDateTime,
+      })
+   );
+   const FREE_EXAM_HOURS = getFreeExamHours(scheduledDateTime);
 
    return (
       <div className={`flex px-8 flex-col gap-12`}>
@@ -43,9 +52,18 @@ export const FormFourthStep: FC<FormFourthStepProps> = ({ onSubmit }) => {
                Изберете час
             </label>
             <RadioGroup.Root
-               onValueChange={(index) =>
-                  setSelectedDateTimeIndex(Number(index))
-               }
+               onValueChange={(index) => {
+                  setSelectedDateTimeIndex(Number(index));
+                  const newDateTime = new Date(scheduledDateTime);
+
+                  newDateTime.setHours(
+                     FREE_EXAM_HOURS[Number(index)].getHours()
+                  );
+                  newDateTime.setMinutes(
+                     FREE_EXAM_HOURS[Number(index)].getMinutes()
+                  );
+                  setDateTime(newDateTime);
+               }}
                value={selectedDateTimeIndex.toString()}
                className={`flex mt-4 items-center gap-12`}
             >
@@ -74,7 +92,7 @@ export const FormFourthStep: FC<FormFourthStepProps> = ({ onSubmit }) => {
             <div className={`self-end justify-self-end`}>
                <button
                   onClick={onSubmit}
-                  className={`flex mt-16 text-lg hover:opacity-90 transition-all duration-200 shadow-lg px-12 py-0.5 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
+                  className={`flex mt-16 text-lg hover:opacity-90 transition-all duration-200 shadow-lg px-4 py-0.5 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
                >
                   Запази час
                </button>

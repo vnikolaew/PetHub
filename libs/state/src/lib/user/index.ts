@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { produce } from "immer";
 import { StaticImageData } from "next/image";
 import userLogo from "@pethub/assets/user-logo.svg";
+import { IVetAppointment, PetAppointmentStatus } from "../vet-appointments";
 
 export enum PetType {
    Dog = "Dog",
@@ -25,6 +26,7 @@ export interface IUser {
    password: string;
    hasPets: boolean;
    pets: IPet[];
+   vetAppointments: IVetAppointment[];
 }
 
 const initialState: IUser = {
@@ -34,6 +36,7 @@ const initialState: IUser = {
    email: "",
    hasPets: false,
    pets: [],
+   vetAppointments: [],
    password: "",
 };
 
@@ -45,9 +48,10 @@ interface Actions {
    setUser: (user: IUser) => void;
    // setFirstName: (firstName: string) => void;
    // setLastName: (lastName: string) => void;
-   // setPassword: (password: string) => void;
+   setPassword: (password: string) => void;
    // setEmail: (email: string) => void;
    addPet: (pet: IPet) => void;
+   addVetAppointment: (appointment: IVetAppointment) => void;
    removePet: (petIndex: number) => void;
 }
 
@@ -83,18 +87,25 @@ export const useCurrentUser = create<ICurrentUserState & Actions>((set) => ({
    //          user.email = email;
    //       })
    //    ),
-   // setPassword: (password: string) =>
-   //    set(
-   //       produce(({ user }: ICurrentUserState) => {
-   //          user ??= initialState;
-   //          user.password = password;
-   //       })
-   //    ),
+   setPassword: (password: string) =>
+      set(
+         produce(({ user }: ICurrentUserState) => {
+            user ??= initialState;
+            user.password = password;
+         })
+      ),
    addPet: (pet: IPet) =>
       set(
          produce(({ user }: ICurrentUserState) => {
             user ??= initialState;
             user.pets = [...user.pets, pet];
+         })
+      ),
+   addVetAppointment: (appointment: IVetAppointment) =>
+      set(
+         produce(({ user }: ICurrentUserState) => {
+            user ??= initialState;
+            user.vetAppointments = [...user.vetAppointments, appointment];
          })
       ),
    removePet: (petIndex: number) =>

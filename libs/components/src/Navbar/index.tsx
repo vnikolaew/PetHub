@@ -1,7 +1,9 @@
 import React, { FC } from "react";
 import Image, { StaticImageData } from "next/image";
 import SearchBar from "./SearchBar";
+import * as Tooltip from "@radix-ui/react-tooltip";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import UserDropdown from "./UserDropdown";
 
 export interface NavbarProps {
@@ -34,14 +36,47 @@ export const Navbar: FC<NavbarProps> = ({
                className={`flex w-1/5 px-4 items-center gap-12 justify-center`}
             >
                <UserDropdown avatarLogo={avatarLogo} />
-               <Link href={"/shopping-cart"}>
-                  <Image
-                     width={30}
-                     height={30}
-                     src={shoppingCartLogo}
-                     alt={"Shopping Cart"}
-                  />
-               </Link>
+               <Tooltip.Provider>
+                  <Tooltip.Root delayDuration={300}>
+                     <Tooltip.Trigger>
+                        <Link href={"/shopping-cart"}>
+                           <Image
+                              width={30}
+                              height={30}
+                              src={shoppingCartLogo}
+                              alt={"Shopping Cart"}
+                           />
+                        </Link>
+                     </Tooltip.Trigger>
+                     <Tooltip.Portal>
+                        <Tooltip.Content
+                           asChild
+                           side={"bottom"}
+                           sideOffset={5}
+                           className={`rounded-sm w-24 h-auto px-3 py-1 bg-white shadow-md select-none`}
+                           // forceMount
+                        >
+                           <motion.div
+                              key={"cart"}
+                              animate={{
+                                 opacity: 1,
+                                 translateY: "0px",
+                                 scale: 1,
+                              }}
+                              initial={{
+                                 opacity: 0,
+                                 translateY: "-2px",
+                                 scale: 0.8,
+                              }}
+                              transition={{ duration: 0.2 }}
+                           >
+                              <span>Количка</span>
+                              <Tooltip.Arrow className={`fill-white`} />
+                           </motion.div>
+                        </Tooltip.Content>
+                     </Tooltip.Portal>
+                  </Tooltip.Root>
+               </Tooltip.Provider>
             </div>
          </nav>
       </div>

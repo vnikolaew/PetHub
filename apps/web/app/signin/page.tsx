@@ -9,11 +9,14 @@ import {
    VALID_PASSWORD_REGEX,
 } from "../../utils/string-constants";
 import {
+   PetAppointmentStatus,
+   PetType,
    TEST_USER_EMAIL,
    TEST_USER_PASSWORD,
    useCurrentUser,
 } from "@pethub/state";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import userLogo from "@pethub/assets/user-logo.svg";
 
 export interface SignInFormValues {
    email: string;
@@ -23,6 +26,7 @@ export interface SignInFormValues {
 const SignInPage: NextPage = () => {
    const { setUser } = useCurrentUser();
    const router = useRouter();
+   const searchParams = useSearchParams();
    const [formValues, setFormValues] = useState<SignInFormValues>({
       email: "",
       password: "",
@@ -35,7 +39,6 @@ const SignInPage: NextPage = () => {
 
    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      console.log(formValues);
       if (
          formValues.password === TEST_USER_PASSWORD &&
          formValues.email === TEST_USER_EMAIL
@@ -45,10 +48,31 @@ const SignInPage: NextPage = () => {
             password: TEST_USER_PASSWORD,
             firstName: "Test",
             lastName: "User",
-            pets: [],
+            pets: [
+               {
+                  name: "Rocky",
+                  type: PetType.Dog,
+                  birthDate: new Date(2018, 2, 2),
+               },
+            ],
+            vetAppointments: [
+               {
+                  pet: {
+                     name: "Rocky",
+                     type: PetType.Dog,
+                     birthDate: new Date(2018, 2, 2),
+                  },
+                  appointmentType: "стандартен",
+                  scheduledDateTime: new Date(2023, 5, 5),
+                  location: "Варна",
+                  vetClinic: "Окръжна болница",
+                  status: PetAppointmentStatus.Due,
+               },
+            ],
             hasPets: true,
+            profilePicture: userLogo,
          });
-         router.push("/");
+         router.push(searchParams.get("redirect") ?? `/`);
       }
    };
 

@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import Image, { StaticImageData } from "next/image";
 import { Cross1Icon } from "@radix-ui/react-icons";
+import { currencyFormatter } from "../Account";
 
 export interface IShoppingCartProduct {
    productImage: string | StaticImageData;
@@ -14,12 +15,6 @@ export interface ShoppingCartProductRowProps {
    product: IShoppingCartProduct;
    onRemoveProduct: () => void;
 }
-
-export const currencyFormatter = new Intl.NumberFormat("bg", {
-   currency: "BGN",
-   style: "currency",
-   maximumFractionDigits: 2,
-});
 
 export const ShoppingCartProductRow: FC<ShoppingCartProductRowProps> = ({
    product,

@@ -1,9 +1,20 @@
 import React, { FC } from "react";
 import Image from "next/image";
-import citiesData from "@pethub/web/utils/data.json";
 import rightArrowLogo from "@pethub/assets/right-arrow-logo.png";
+import vetClinics from "@pethub/web/utils/vet-clinics.json";
+import { SelectInput } from "../common";
+import { useVetAppointment } from "@pethub/state";
 
 export const FormSecondStep: FC = () => {
+   const { setVetClinic, setAppointmentType, setCurrentStep } =
+      useVetAppointment(
+         ({ setVetClinic, setAppointmentType, setCurrentStep }) => ({
+            setVetClinic,
+            setAppointmentType,
+            setCurrentStep,
+         })
+      );
+
    return (
       <div className={`flex flex-col gap-12`}>
          <div className={`flex flex-col items-start gap-2`}>
@@ -13,23 +24,15 @@ export const FormSecondStep: FC = () => {
             >
                Ветеринарни клиники в тази област
             </label>
-            <select
-               placeholder={"Избери домашен любимец"}
-               className={`text-md relative w-72 px-4 py-1 block rounded-md shadow-md`}
-               name={"petType"}
-               id={"petType"}
-            >
-               <option disabled value={""}>
-                  -- Избери --
-               </option>
-               <option value={"dog"}>Куче</option>
-               <option value={"cat"}>Котка</option>
-               <option value={`fish`}>Риба</option>
-               <option value={`rodent`}>Гризач</option>
-               <option value={"bird"}>Птица</option>
-            </select>
+            <SelectInput
+               placeholder={"Изберете ветеринарна клиника"}
+               options={vetClinics.vetClinics.map((clinic) => ({
+                  value: clinic,
+                  label: clinic,
+               }))}
+               onChange={setVetClinic}
+            />
          </div>
-
          <div className={`flex flex-col relative items-start gap-2`}>
             <label
                className={`text-raw-sienna font-semibold text-xl`}
@@ -37,23 +40,23 @@ export const FormSecondStep: FC = () => {
             >
                Тип преглед
             </label>
-            <select
-               placeholder={"Избери домашен любимец"}
-               className={`text-md relative w-72 px-4 py-1 block rounded-md shadow-md`}
-               name={"petType"}
-               id={"petType"}
-            >
-               <option disabled value={""}>
-                  -- Избери тип --
-               </option>
-               {citiesData.cities.map((city, i) => (
-                  <option key={city} value={city}>
-                     {city}
-                  </option>
-               ))}
-            </select>
+            <SelectInput
+               placeholder={"Избери"}
+               options={[
+                  {
+                     label: "Стандартен",
+                     value: "Стандартен",
+                  },
+                  {
+                     label: "Специален",
+                     value: "Специален",
+                  },
+               ]}
+               onChange={setAppointmentType}
+            />
             <Image
                className={`self-end mt-8 hover:opacity-80 transition-opacity duration-200 cursor-pointer`}
+               onClick={(_) => setCurrentStep(3)}
                height={40}
                width={40}
                src={rightArrowLogo}

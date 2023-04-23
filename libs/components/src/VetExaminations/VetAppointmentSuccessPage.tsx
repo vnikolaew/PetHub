@@ -1,31 +1,29 @@
-import React, { FC } from "react";
-import { PetType } from "@pethub/web/app/signup/page";
+import React, { FC, useEffect } from "react";
 import Link from "next/link";
 import { CheckIcon } from "@radix-ui/react-icons";
+import { useCurrentUser, useVetAppointment } from "@pethub/state";
 
-export interface IVetAppointment {
-   petType: PetType;
-   petName: string;
-   dateTime: Date;
-   location: string;
-   petClinic: string;
-   appointmentType: string;
-}
+export const VetAppointmentSuccessPage: FC = () => {
+   const vetAppointment = useVetAppointment((store) => store.vetAppointment);
+   const addVetAppointment = useCurrentUser((store) => store.addVetAppointment);
 
-export interface VetAppointmentSuccessPageProps {
-   appointment: IVetAppointment;
-}
+   useEffect(() => {
+      addVetAppointment(vetAppointment);
+   }, []);
 
-export const VetAppointmentSuccessPage: FC<VetAppointmentSuccessPageProps> = ({
-   appointment,
-}) => {
    return (
       <div className={`min-h-[70vh] flex items-center justify-center`}>
          <div className={`flex flex-col gap-4 items-center`}>
             <div className={`flex items-center gap-4`}>
                <h2 className={`text-2xl`}>
-                  Успешно запазихте час за {appointment.petName} в клиника{" "}
-                  {appointment.petClinic}!
+                  Успешно запазихте час за{" "}
+                  <span className={`font-bold`}>
+                     {vetAppointment.pet?.name}
+                  </span>{" "}
+                  в клиника{" "}
+                  <span className={`font-bold`}>
+                     {vetAppointment.vetClinic}!
+                  </span>
                </h2>
                <CheckIcon
                   height={36}

@@ -1,27 +1,13 @@
 import React, { FC } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import petAvatarLogo from "@pethub/assets/pet-avatar-logo.png";
 import mapMarkerLogo from "@pethub/assets/map-marker-logo.png";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
-
-export enum PetAppointmentStatus {
-   Completed = 0,
-   Due = 1,
-}
-
-export interface IPetAppointment {
-   petName: string;
-   petAvatar?: string | StaticImageData;
-   appointmentType: string;
-   appointmentDateTime: Date;
-   city: string;
-   vetClinic: string;
-   status: PetAppointmentStatus;
-}
+import { IVetAppointment, PetAppointmentStatus } from "@pethub/state";
 
 export interface PetAppointmentInfoCardProps {
-   appointment: IPetAppointment;
+   appointment: IVetAppointment;
 }
 
 export const PetAppointmentInfoCard: FC<PetAppointmentInfoCardProps> = ({
@@ -29,27 +15,22 @@ export const PetAppointmentInfoCard: FC<PetAppointmentInfoCardProps> = ({
 }) => {
    return (
       <div
-         className={`flex gap-2 rounded-xl shadow-md border border-gray-100 items-center py-2 px-10`}
+         className={`flex gap-2 rounded-xl shadow-md border border-gray-100 items-center py-4 px-10`}
       >
-         <Image
-            height={40}
-            width={40}
-            src={appointment.petAvatar ?? petAvatarLogo}
-            alt={"Pet avatar"}
-         />
-         <span className={`text-xl`}>{appointment.petName}: </span>
+         <Image height={60} width={60} src={petAvatarLogo} alt={"Pet avatar"} />
+         <span className={`text-xl`}>{appointment.pet?.name}: </span>
          <span>Час за </span>
          <span className={`text-xl`}>{appointment.appointmentType}</span>
          <span>от </span>
          <span className={`text-xl`}>
-            {appointment.appointmentDateTime.toLocaleTimeString([], {
+            {appointment.scheduledDateTime.toLocaleTimeString([], {
                hour: "2-digit",
                minute: "2-digit",
             })}
          </span>
          <span>, на </span>
          <span className={`text-lg`}>
-            {appointment.appointmentDateTime.toLocaleDateString("en-GB")}
+            {appointment.scheduledDateTime.toLocaleDateString("en-GB")}
          </span>
          <div className={`flex items-center gap-1`}>
             <Image
@@ -59,12 +40,16 @@ export const PetAppointmentInfoCard: FC<PetAppointmentInfoCardProps> = ({
                alt={"Map marker"}
             />
             <span>
-               {appointment.city}, {appointment.vetClinic}
+               {appointment.location}, {appointment.vetClinic}
             </span>
          </div>
          <div className={`flex ml-2 gap-1 items-center`}>
             <Checkbox.Root
-               className={`bg-white w-5 h-5 flex items-center justify-center shadow-sm rounded-[4px]`}
+               className={`${
+                  appointment.status === PetAppointmentStatus.Completed
+                     ? "bg-green-100 border border-green-300"
+                     : "bg-red-100 border border-red-300"
+               } bg-white w-5 h-5 flex items-center justify-center shadow-sm rounded-[4px]`}
                disabled
                checked={appointment.status === PetAppointmentStatus.Completed}
             >

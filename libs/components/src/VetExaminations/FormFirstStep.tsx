@@ -3,8 +3,23 @@ import mapMarkerLogo from "@pethub/assets/map-marker-logo.png";
 import rightArrowLogo from "@pethub/assets/right-arrow-logo.png";
 import citiesData from "@pethub/web/utils/data.json";
 import Image from "next/image";
+import { useCurrentUser } from "@pethub/state";
+import { useVetAppointment } from "@pethub/state";
+import { SelectInput } from "../common";
 
 export const FormFirstStep: FC = () => {
+   const pets = useCurrentUser((store) => store.user?.pets) ?? [];
+   const { setPet, setLocation, vetAppointment, setCurrentStep } =
+      useVetAppointment(
+         ({ setPet, setLocation, vetAppointment, setCurrentStep }) => ({
+            setPet,
+            setLocation,
+            vetAppointment,
+            setCurrentStep,
+         })
+      );
+   console.log(vetAppointment);
+
    return (
       <div className={`flex flex-col gap-12`}>
          <div className={`flex flex-col items-start gap-2`}>
@@ -14,26 +29,16 @@ export const FormFirstStep: FC = () => {
             >
                Запазете час за:
             </label>
-            <select
+            <SelectInput
                placeholder={"Избери домашен любимец"}
-               className={`text-md relative w-72 px-4 py-1 block rounded-md shadow-md`}
-               name={"petType"}
-               id={"petType"}
-            >
-               <option disabled value={""}>
-                  -- Избери домашен любимец --
-               </option>
-               <option value={"dog"}>Куче</option>
-               <option value={"cat"}>Котка</option>
-               <option value={`fish`}>Риба</option>
-               <option value={`rodent`}>Гризач</option>
-               <option value={"bird"}>Птица</option>
-            </select>
+               options={pets.map(({ name }) => ({ value: name, label: name }))}
+               onChange={(value) => setPet(pets.find((p) => p.name === value)!)}
+            />
          </div>
 
          <div className={`flex flex-col relative items-start gap-2`}>
             <Image
-               className={`absolute top-0 -left-10`}
+               className={`absolute top-0 -left-8`}
                height={24}
                width={24}
                src={mapMarkerLogo}
@@ -45,23 +50,17 @@ export const FormFirstStep: FC = () => {
             >
                Моля въведете населено място:
             </label>
-            <select
-               placeholder={"Избери домашен любимец"}
-               className={`text-md relative w-72 px-4 py-1 block rounded-md shadow-md`}
-               name={"petType"}
-               id={"petType"}
-            >
-               <option disabled value={""}>
-                  -- Избери населено място --
-               </option>
-               {citiesData.cities.map((city, i) => (
-                  <option key={city} value={city}>
-                     {city}
-                  </option>
-               ))}
-            </select>
+            <SelectInput
+               placeholder={"Избери населено място"}
+               options={citiesData.cities.map((city) => ({
+                  value: city,
+                  label: city,
+               }))}
+               onChange={(value) => setLocation(value)}
+            />
             <Image
                className={`self-end mt-8 hover:opacity-80 transition-opacity duration-200 cursor-pointer`}
+               onClick={(_) => setCurrentStep(2)}
                height={40}
                width={40}
                src={rightArrowLogo}

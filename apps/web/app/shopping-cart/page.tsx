@@ -10,6 +10,7 @@ import {
 import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
 import Link from "next/link";
 import * as Separator from "@radix-ui/react-separator";
+import { useCurrentUser } from "@pethub/state";
 
 const SHOPPING_CART_PRODUCTS: IShoppingCartProduct[] = [
    {
@@ -32,6 +33,8 @@ const SHOPPING_CART_PRODUCTS: IShoppingCartProduct[] = [
    },
 ];
 const ShoppingCartPage: NextPage = () => {
+   const user = useCurrentUser((state) => state.user);
+
    return (
       <div className={`mt-12 mx-16`}>
          <Breadcrumb
@@ -48,14 +51,16 @@ const ShoppingCartPage: NextPage = () => {
                      <span className={`font-semibold`}>Количка</span>{" "}
                   </h1>
                </div>
-               <div className={`flex items-start justify-end`}>
-                  <Link
-                     className={`text-blue-700 text-lg underline`}
-                     href={"/signin"}
-                  >
-                     Имате профил? Влезте оттук
-                  </Link>
-               </div>
+               {!user && (
+                  <div className={`flex items-start justify-end`}>
+                     <Link
+                        className={`text-blue-700 text-lg underline`}
+                        href={"/signin?redirect=shopping-cart"}
+                     >
+                        Имате профил? Влезте оттук
+                     </Link>
+                  </div>
+               )}
             </div>
 
             <div className={`w-[70%] mt-4 flex flex-col gap-4`}>

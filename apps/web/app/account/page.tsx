@@ -4,11 +4,9 @@ import { NextPage } from "next";
 import {
    AccountPetCard,
    Breadcrumb,
-   IPetAppointment,
    IPetInfo,
    IUserOrder,
    PetAppointmentInfoCard,
-   PetAppointmentStatus,
    UserOrderInfoCard,
 } from "@pethub/components";
 import * as Tabs from "@radix-ui/react-tabs";
@@ -45,18 +43,6 @@ const USER_PETS: IPetInfo[] = [
    },
 ];
 
-const USER_APPOINTMENTS: IPetAppointment[] = [
-   {
-      petName: "Rocky",
-      petAvatar: petAvatarLogo,
-      appointmentType: "стандартна",
-      appointmentDateTime: new Date(2023, 5, 5),
-      city: "Варна",
-      vetClinic: "Окръжна болница",
-      status: PetAppointmentStatus.Due,
-   },
-];
-
 const USER_ORDERS: IUserOrder[] = [
    {
       orderTotal: 100.0,
@@ -70,8 +56,20 @@ const USER_ORDERS: IUserOrder[] = [
 const MyAccountPage: NextPage = () => {
    const params = useSearchParams();
    const router = useRouter();
-   const [showAddPetModal, setShowAddPetModal] = useState(false);
-   const userPets = useCurrentUser((state) => state.user?.pets)!;
+   const { userPets, changePassword, vetAppointments } = useCurrentUser(
+      ({ user, setPassword }) => ({
+         userPets: user?.pets,
+         changePassword: setPassword,
+         vetAppointments: user?.vetAppointments ?? [],
+      })
+   );
+   const [password, setPassword] = useState("");
+
+   function handlePasswordChange(e: React.FormEvent<HTMLFormElement>) {
+      e.preventDefault();
+      changePassword(password);
+      setPassword("");
+   }
 
    return (
       <div className={`mt-12 mx-16`}>
@@ -108,7 +106,7 @@ const MyAccountPage: NextPage = () => {
                   className={`text-gray-300 mx-auto mt-0 w-[90%] h-[1.5px] bg-gray-300`}
                />
                <Tabs.Content value={"me"}>
-                  <div className={`flex items-center p-12 gap-12`}>
+                  <div className={`flex items-center p-6 gap-12`}>
                      <Image
                         width={100}
                         height={100}
@@ -127,37 +125,49 @@ const MyAccountPage: NextPage = () => {
                         </h2>
                      </div>
                      <div
-                        className={`flex-col ml-4 mt-12 flex items-center gap-2`}
+                        className={`flex-col ml-4 mt-6 flex items-center gap-2`}
                      >
                         <h2 className={`text-2xl font-semibold`}>
                            Смени парола
                         </h2>
-                        <Form.Root>
+                        <Form.Root
+                           onSubmit={handlePasswordChange}
+                           className={`mt-2`}
+                        >
                            <Form.Field
-                              className={`flex gap-3 items-center justify-between`}
+                              className={`flex flex-col gap-1 items-end`}
                               name={"password"}
                            >
-                              <Form.Label
-                                 className={`text-gray-400 inline-block text-lg`}
+                              <div
+                                 className={`flex gap-3 items-center justify-between`}
                               >
-                                 Нова парола
-                              </Form.Label>
+                                 <Form.Label
+                                    className={`text-gray-400 inline-block text-lg`}
+                                 >
+                                    Нова парола
+                                 </Form.Label>
+                                 <Form.Control asChild>
+                                    <input
+                                       placeholder={""}
+                                       value={password}
+                                       onChange={(e) =>
+                                          setPassword(e.target.value)
+                                       }
+                                       autoComplete={"off"}
+                                       className={`text-lg w-64 mt-1 px-4 py-1 block rounded-md shadow-md`}
+                                       name={"password"}
+                                       type={"password"}
+                                    />
+                                 </Form.Control>
+                              </div>
                               <Form.Message
+                                 className={`self-end text-red-600`}
                                  match={(value, _) =>
                                     !VALID_PASSWORD_REGEX.test(value)
                                  }
                               >
                                  Моля въведете валидна парола
                               </Form.Message>
-                              <Form.Control asChild>
-                                 <input
-                                    placeholder={""}
-                                    autoComplete={"off"}
-                                    className={`text-lg w-64 mt-1 px-4 py-1 block rounded-md shadow-md`}
-                                    name={"password"}
-                                    type={"password"}
-                                 />
-                              </Form.Control>
                            </Form.Field>
 
                            <Form.Field
@@ -172,7 +182,7 @@ const MyAccountPage: NextPage = () => {
                               <Form.Message
                                  match={(value, formData) =>
                                     !VALID_PASSWORD_REGEX.test(value) &&
-                                    formData.get("password")?.toString() ===
+                                    formData.get("password")?.toString() !==
                                        value
                                  }
                               >
@@ -190,6 +200,7 @@ const MyAccountPage: NextPage = () => {
                            </Form.Field>
                            <Form.Submit className={`mx-auto mt-4`} asChild>
                               <button
+                                 type={"submit"}
                                  className={`flex text-xl hover:opacity-80 transition-all duration-200 shadow-md mt-6 px-8 py-1.5 bg-whiskey text-white border-2 border-whiskey rounded-lg outline-none items-center gap-2`}
                               >
                                  Промяна
@@ -218,7 +229,7 @@ const MyAccountPage: NextPage = () => {
                </Tabs.Content>
                <Tabs.Content value={"history"}>
                   <div className={`mt-6 mx-auto flex-col flex items-center`}>
-                     {USER_APPOINTMENTS.map((appointment, i) => (
+                     {vetAppointments.map((appointment, i) => (
                         <PetAppointmentInfoCard
                            appointment={appointment}
                            key={i}

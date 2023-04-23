@@ -72,9 +72,7 @@ const SignUpPage: NextPage = () => {
                  })),
       }));
 
-   const handlePetInfoChange = ({
-      target: { value, name },
-   }: React.ChangeEvent<HTMLInputElement>) => {
+   const handlePetInfoChange = (name: string, value: string) => {
       // Input name is in the form `pet[1].name` ...
 
       const endIndex = name.lastIndexOf("]");
@@ -326,7 +324,9 @@ const SignUpPage: NextPage = () => {
                            </Form.Control>
                         </Form.Field>
                      )}
-                     <div className={`flex-col flex items-start gap-8`}>
+                     <div
+                        className={`flex-col mt-4 w-full flex items-start gap-8`}
+                     >
                         {formValues.pets.map((pet, i) => (
                            <AddPetForm
                               key={i}
