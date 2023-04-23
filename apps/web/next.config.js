@@ -45,7 +45,7 @@ const nextConfig = {
    },
    experimental: {
       appDir: true,
-      // swcMinify: true,
+      swcMinify: true,
    },
    optimizeFonts: true,
    poweredByHeader: true,

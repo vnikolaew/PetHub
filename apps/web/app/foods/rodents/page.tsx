@@ -16,7 +16,7 @@ const RodentFoodsPage: NextPage = () => {
             ]}
          />
 
-         <section className={`w-full my-12 flex flex-col items-center gap-6`}>
+         <section className={`w-full my-8 flex flex-col items-center gap-6`}>
             <h1 className={`text-4xl`}>Храна за гризачи</h1>
             <div
                className={`flex text-xl mt-6 gap-36 items-center justify-around`}

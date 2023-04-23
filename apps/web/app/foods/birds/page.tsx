@@ -15,11 +15,10 @@ const BirdFoodsPage: NextPage = () => {
                { label: "Птици", path: "birds" },
             ]}
          />
-
-         <section className={`w-full my-12 flex flex-col items-center gap-6`}>
+         <section className={`w-full my-8 flex flex-col items-center gap-6`}>
             <h1 className={`text-4xl`}>Храна за птици</h1>
             <div
-               className={`flex text-xl mt-6 gap-36 items-center justify-around`}
+               className={`flex text-xl mt-6 gap-12 items-center justify-center`}
             >
                <Link href={"/foods/dogs/dry-foods"}>
                   <div
@@ -36,9 +35,11 @@ const BirdFoodsPage: NextPage = () => {
 
                <Link href={"/foods/dogs/cans-and-pouches"}>
                   <div
-                     className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
-                     <span>Гранулирани храни за птици</span>
+                     <span className={`whitespace-nowrap`}>
+                        Гранулирани храни за птици
+                     </span>
                      <ChevronRightIcon
                         className={`pt-1`}
                         width={24}
@@ -48,14 +49,14 @@ const BirdFoodsPage: NextPage = () => {
                </Link>
             </div>
 
-            <div
-               className={`flex text-xl mt-6 gap-36 items-center justify-around`}
-            >
+            <div className={`flex text-xl mt-6 items-center justify-center`}>
                <Link href={"/foods/dogs/goodies"}>
                   <div
-                     className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
-                     <span>Лакомства за папагали</span>
+                     <span className={`whitespace-nowrap`}>
+                        Лакомства за папагали
+                     </span>
                      <ChevronRightIcon
                         className={`pt-1`}
                         width={24}

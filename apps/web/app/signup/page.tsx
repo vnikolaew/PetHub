@@ -50,8 +50,11 @@ const SignUpPage: NextPage = () => {
 
    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      console.log(formValues);
-      setUser({ ...formValues, profilePicture: userLogo });
+      setUser({
+         ...formValues,
+         vetAppointments: [],
+         profilePicture: userLogo,
+      });
       router.push(`/`);
    };
 
@@ -81,9 +84,6 @@ const SignUpPage: NextPage = () => {
       const petProp = name.slice(endIndex + 2) as keyof IPet;
       const formattedValue = petProp === "birthDate" ? new Date(value) : value;
 
-      console.log(petIndex, petProp, formattedValue);
-      console.log("Selected value: ", value);
-
       if (petIndex >= formValues.pets.length) return;
       setFormValues((v) => ({
          ...v,
@@ -105,7 +105,6 @@ const SignUpPage: NextPage = () => {
          ...v,
          [name]: value,
       }));
-   console.log(formValues);
 
    return (
       <div className={`mt-12 mx-16`}>

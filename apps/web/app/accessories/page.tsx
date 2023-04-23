@@ -10,6 +10,11 @@ import fishFoodLogo from "@pethub/assets/fish-food-logo.png";
 import rodentFoodLogo from "@pethub/assets/rodent-food-logo.png";
 import Link from "next/link";
 
+const ACCESSORY_CARDS = [
+   {
+      href: "/foods/cats",
+   },
+];
 const AccessoriesPage: NextPage = () => {
    return (
       <div className={`mt-12 mx-16`}>
@@ -21,10 +26,10 @@ const AccessoriesPage: NextPage = () => {
          />
          <section className={`w-full my-6 flex flex-col items-center gap-6`}>
             <h1 className={`text-4xl`}>Аксесоари за домашния любимец</h1>
-            <div className={`flex mt-6 gap-36 items-center justify-around`}>
-               <Link href={"/foods/dogs"}>
+            <div className={`flex mt-6 gap-12 items-center justify-center`}>
+               <Link href={"/accessories/dogs"}>
                   <div
-                     className={`flex px-36 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <Image
                         height={60}
@@ -36,9 +41,9 @@ const AccessoriesPage: NextPage = () => {
                   </div>
                </Link>
 
-               <Link href={"/foods/cats"}>
+               <Link href={"/accessories/cats"}>
                   <div
-                     className={`flex px-36 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <Image
                         height={60}
@@ -51,42 +56,48 @@ const AccessoriesPage: NextPage = () => {
                </Link>
             </div>
 
-            <div className={`flex mt-2 gap-36 items-center justify-around`}>
-               <div
-                  className={`flex px-36 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
-               >
-                  <Image
-                     height={60}
-                     width={60}
-                     src={birdFoodLogo}
-                     alt={"Dog Food"}
-                  />
-                  <h2 className={`text-2xl`}>Птици</h2>
-               </div>
+            <div className={`flex mt-2 gap-12 items-center justify-center`}>
+               <Link href={"/accessories/birds"}>
+                  <div
+                     className={`flex px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                  >
+                     <Image
+                        height={60}
+                        width={60}
+                        src={birdFoodLogo}
+                        alt={"Dog Food"}
+                     />
+                     <h2 className={`text-2xl`}>Птици</h2>
+                  </div>
+               </Link>
 
-               <div
-                  className={`flex px-36 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
-               >
-                  <Image
-                     height={60}
-                     width={60}
-                     src={fishFoodLogo}
-                     alt={"Cat Food"}
-                  />
-                  <h2 className={`text-2xl`}>Риби</h2>
-               </div>
+               <Link href={"/accessories/fish"}>
+                  <div
+                     className={`flex px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                  >
+                     <Image
+                        height={60}
+                        width={60}
+                        src={fishFoodLogo}
+                        alt={"Cat Food"}
+                     />
+                     <h2 className={`text-2xl`}>Риби</h2>
+                  </div>
+               </Link>
 
-               <div
-                  className={`flex px-36 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
-               >
-                  <Image
-                     height={60}
-                     width={60}
-                     src={rodentFoodLogo}
-                     alt={"Cat Food"}
-                  />
-                  <h2 className={`text-2xl`}>Гризачи</h2>
-               </div>
+               <Link href={"/accessories/rodents"}>
+                  <div
+                     className={`flex px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                  >
+                     <Image
+                        height={60}
+                        width={60}
+                        src={rodentFoodLogo}
+                        alt={"Cat Food"}
+                     />
+                     <h2 className={`text-2xl`}>Гризачи</h2>
+                  </div>
+               </Link>
             </div>
          </section>
       </div>
