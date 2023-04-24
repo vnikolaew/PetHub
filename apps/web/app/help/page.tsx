@@ -9,6 +9,21 @@ import {
 import * as Accordion from "@radix-ui/react-accordion";
 import { LOREM_IPSUM_TEXT } from "../../utils/string-constants";
 
+const FAQs = [
+   {
+      question: "Въпрос #1",
+      answer: LOREM_IPSUM_TEXT,
+   },
+   {
+      question: "Въпрос #2",
+      answer: LOREM_IPSUM_TEXT,
+   },
+   {
+      question: "Въпрос #3",
+      answer: LOREM_IPSUM_TEXT,
+   },
+];
+
 const HelpPage: NextPage = () => {
    return (
       <div className={`mt-12 mx-16`}>
@@ -18,42 +33,39 @@ const HelpPage: NextPage = () => {
                { label: "Помощ", path: "help" },
             ]}
          />
-         <section className={`w-full my-12 flex flex-col items-center gap-6`}>
+         <section className={`w-full my-8 flex flex-col items-center gap-6`}>
             <h1 className={`text-3xl flex items-center gap-2`}>
                <QuestionMarkCircledIcon height={36} width={36} />
                <span>Често задавани въпроси</span>
             </h1>
             <section id={"questions"} className={`p-6 w-[700px] rounded-xl`}>
                <Accordion.Root className={`rounded-md`} type={"multiple"}>
-                  <Accordion.Item
-                     className={`border-b-2 border-dotted border-gray-300`}
-                     value={"1"}
-                  >
-                     <Accordion.Header>
-                        <AccordionTrigger>Question #1</AccordionTrigger>
-                     </Accordion.Header>
-                     <AccordionContent>{LOREM_IPSUM_TEXT}</AccordionContent>
-                  </Accordion.Item>
-
-                  <Accordion.Item
-                     className={`border-b-2 border-dotted border-gray-300`}
-                     value={"2"}
-                  >
-                     <Accordion.Header>
-                        <AccordionTrigger>Question #2</AccordionTrigger>
-                     </Accordion.Header>
-                     <AccordionContent>{LOREM_IPSUM_TEXT}</AccordionContent>
-                  </Accordion.Item>
-
-                  <Accordion.Item
-                     className={`border-b-2 border-dotted border-gray-300`}
-                     value={"3"}
-                  >
-                     <Accordion.Header>
-                        <AccordionTrigger>Question #3</AccordionTrigger>
-                     </Accordion.Header>
-                     <AccordionContent>{LOREM_IPSUM_TEXT}</AccordionContent>
-                  </Accordion.Item>
+                  {FAQs.map(({ question, answer }, i) => (
+                     <Accordion.Item
+                        key={i}
+                        className={`${
+                           i !== FAQs.length - 1
+                              ? "border-b-2 border-dotted border-gray-300"
+                              : ""
+                        }`}
+                        value={`${i + 1}`}
+                     >
+                        <Accordion.Header>
+                           <AccordionTrigger
+                              className={`${
+                                 i === 0
+                                    ? "rounded-t-lg"
+                                    : i === FAQs.length - 1
+                                    ? "rounded-b-lg"
+                                    : ""
+                              }`}
+                           >
+                              {question}
+                           </AccordionTrigger>
+                        </Accordion.Header>
+                        <AccordionContent>{answer}</AccordionContent>
+                     </Accordion.Item>
+                  ))}
                </Accordion.Root>
             </section>
          </section>
@@ -67,7 +79,7 @@ const AccordionTrigger = forwardRef<
 >(({ children, className, ...props }, forwardedRef) => (
    <Accordion.Header className="flex">
       <Accordion.Trigger
-         className={`text-inherit data-[state=open]:border-b border-gray-200 text-xl group hover:bg-violet-100 bg-transparent px-10 py-8 h-[45px] flex-1 flex items-center justify-between leading-[1] text-black bg-white`}
+         className={`text-inherit data-[state=open]:border-b border-gray-200 text-xl group hover:bg-violet-50 transition-all duration-300 bg-transparent px-10 py-8 h-[45px] flex-1 flex items-center justify-between leading-[1] text-black bg-white ${className}`}
          {...props}
          ref={forwardedRef}
       >
@@ -84,7 +96,7 @@ const AccordionContent = forwardRef<
    Accordion.AccordionContentProps
 >(({ children, className, ...props }, forwardedRef) => (
    <Accordion.Content
-      className={`overflow-hidden leading-5 text-[1rem] text-black data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp`}
+      className={`overflow-hidden leading-5 text-[1rem] text-black data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp ${className}`}
       {...props}
       ref={forwardedRef}
    >

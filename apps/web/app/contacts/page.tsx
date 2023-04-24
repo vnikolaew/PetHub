@@ -14,6 +14,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { LOREM_IPSUM_TEXT } from "../../utils/string-constants";
 
+const SOCIALS = [
+   {
+      link: "https://www.facebook.com",
+      logo: <FacebookLogo />,
+   },
+   {
+      link: "https://www.youtube.com",
+      logo: <YoutubeLogo className={`fill-red-600`} color={"red"} />,
+   },
+   {
+      link: "https://www.instagram.com",
+      logo: <InstagramLogo size={50} />,
+   },
+];
+
 const ContactsPage: NextPage = () => {
    return (
       <div className={`mt-12 mx-16`}>
@@ -50,17 +65,11 @@ const ContactsPage: NextPage = () => {
                <div
                   className={`mx-auto flex items-center gap-3 justify-between`}
                >
-                  <Link href={"https://www.facebook.com"}>
-                     <FacebookLogo />
-                  </Link>
-
-                  <Link href={"https://www.instagram.com"}>
-                     <InstagramLogo size={50} />
-                  </Link>
-
-                  <Link href={"https://www.youtube.com"}>
-                     <YoutubeLogo className={`fill-red-600`} color={"red"} />
-                  </Link>
+                  {SOCIALS.map(({ logo, link }, i) => (
+                     <Link key={i} href={link}>
+                        {logo}
+                     </Link>
+                  ))}
                </div>
             </div>
          </section>

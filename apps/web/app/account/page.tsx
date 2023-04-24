@@ -56,7 +56,7 @@ const USER_ORDERS: IUserOrder[] = [
 const MyAccountPage: NextPage = () => {
    const params = useSearchParams();
    const router = useRouter();
-   const { userPets, changePassword, vetAppointments } = useCurrentUser(
+   const { changePassword, vetAppointments } = useCurrentUser(
       ({ user, setPassword }) => ({
          userPets: user?.pets,
          changePassword: setPassword,

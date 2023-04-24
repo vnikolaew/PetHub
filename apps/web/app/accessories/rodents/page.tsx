@@ -28,14 +28,12 @@ const RodentsAccessoriesPage: NextPage = () => {
          <section className={`w-full my-8 flex flex-col items-center gap-12`}>
             <h1 className={`text-4xl`}>Аксесоари за гризачи</h1>
             <div className={`grid grid-cols-2 gap-16`}>
-               {RODENTS_ACCESSORY_CATEGORIES.map((category, i) => (
-                  <Link key={i} href={category.href}>
+               {RODENTS_ACCESSORY_CATEGORIES.map(({ name, href }, i) => (
+                  <Link key={i} href={href}>
                      <div
                         className={`flex px-20 py-8 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                      >
-                        <h2 className={`text-2xl whitespace-nowrap`}>
-                           {category.name}
-                        </h2>
+                        <h2 className={`text-2xl whitespace-nowrap`}>{name}</h2>
                      </div>
                   </Link>
                ))}
