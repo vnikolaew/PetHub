@@ -20,7 +20,7 @@ const DogFoodsPage: NextPage = () => {
             <div
                className={`flex text-2xl mt-6 gap-36 items-center justify-around`}
             >
-               <Link href={"/foods/dogs/dry-foods"}>
+               <Link href={"/foods/dogs/dry-food"}>
                   <div
                      className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >

@@ -9,7 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export interface SelectOption {
    value: string;
-   label: string;
+   label: React.ReactNode;
 }
 
 export interface SelectInputProps {
@@ -26,7 +26,7 @@ export const SelectInput: FC<SelectInputProps> = ({
    return (
       <Select.Root onValueChange={onChange}>
          <Select.Trigger
-            className={`inline-flex w-full rounded-sm px-3 py-1 text-md gap-4 bg-white shadow-md items-center justify-between`}
+            className={`inline-flex w-full outline-none rounded-sm px-3 py-1 text-md gap-4 bg-white shadow-md items-center justify-between`}
          >
             <Select.Value placeholder={placeholder} />
             <Select.Icon>
@@ -67,7 +67,7 @@ export const SelectInput: FC<SelectInputProps> = ({
                      <Select.Viewport className={`p-2`}>
                         {options.map(({ value, label }, i) => (
                            <Select.Item
-                              className={`text-md cursor-pointer hover:bg-gray-100 transition-all duration-200 px-3 border-b border-gray-100 flex items-center justify-between py-2 relative select-none rounded-sm`}
+                              className={`text-md outline-none cursor-pointer hover:bg-gray-100 transition-all duration-200 px-3 border-b border-gray-100 flex items-center justify-between py-2 relative select-none rounded-sm`}
                               value={value}
                            >
                               <Select.ItemText>{label}</Select.ItemText>
