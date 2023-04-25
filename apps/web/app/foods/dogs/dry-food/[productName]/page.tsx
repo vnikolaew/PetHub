@@ -18,6 +18,7 @@ import Link from "next/link";
 
 export interface IProductDetails {
    name: string;
+   id: string;
    image: string | StaticImageData;
    sizes: string[];
    price: number;
@@ -40,6 +41,7 @@ export default function ProductDetailsPage({
    const product: IProductDetails = {
       name: productName,
       image: sampleProductLogo,
+      id: "some-product-id",
       price: 30.5,
       sizes: ["XS", "S", "L"],
       averageRating: Math.round(Math.random() * 5),

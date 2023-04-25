@@ -57,18 +57,18 @@ export const AddPetFormModal: FC = () => {
                className={`bg-black animate-overlayShow bg-opacity-60 fixed inset-0`}
             />
             <Dialog.Content
-               className={`bg-white focus:outline-none animate-contentShow rounded-md shadow-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[470px] px-6 py-4`}
+               className={`bg-white focus:outline-none animate-contentShow rounded-md shadow-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[500px] px-6 py-4`}
             >
                <Dialog.Title className={`text-lg`}>
                   Добавяне на домашен любимец към профила
                </Dialog.Title>
                <Separator.Root
-                  className={`w-[100%] mt-3 h-[1px] bg-gray-200`}
+                  className={`w-[100%] mt-2 my-3 h-[1px] bg-gray-100`}
                   orientation={"horizontal"}
                />
                <Dialog.Description className={`w-full`}>
                   <div
-                     className={`flex-col border border-gray-100 py-6 px-6 rounded-xl shadow-md flex items-start gap-2`}
+                     className={`flex-col border border-gray-100 py-6 px-8 rounded-xl flex items-start gap-2`}
                   >
                      <Form.Root
                         onSubmit={handleFormSubmit}
@@ -158,7 +158,7 @@ export const AddPetFormModal: FC = () => {
                         <Form.Submit className={`mx-auto mt-4`} asChild>
                            <button
                               type={"submit"}
-                              className={`flex text-xl hover:opacity-90 transition-all duration-200 shadow-md mt-3 px-8 py-1 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
+                              className={`flex text-xl hover:opacity-90 transition-all duration-200 shadow-md mt-3 px-12 py-1 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
                            >
                               Добави
                            </button>

@@ -6,13 +6,14 @@ import {
    ChevronUpIcon,
 } from "@radix-ui/react-icons";
 import { AnimatePresence, motion } from "framer-motion";
+import { SelectProps } from "@radix-ui/react-select";
 
 export interface SelectOption {
    value: string;
    label: React.ReactNode;
 }
 
-export interface SelectInputProps {
+export interface SelectInputProps extends SelectProps {
    placeholder: string;
    options: SelectOption[];
    onChange: (value: string) => void;
@@ -22,9 +23,10 @@ export const SelectInput: FC<SelectInputProps> = ({
    options,
    placeholder,
    onChange,
+   ...rest
 }) => {
    return (
-      <Select.Root onValueChange={onChange}>
+      <Select.Root onValueChange={onChange} {...rest}>
          <Select.Trigger
             className={`inline-flex w-full outline-none rounded-sm px-3 py-1 text-md gap-4 bg-white shadow-md items-center justify-between`}
          >

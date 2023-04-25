@@ -2,11 +2,10 @@ import React, { FC, useState } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import Image, { StaticImageData } from "next/image";
 import verClinicLogo from "@pethub/assets/vet-clinic-logo.png";
-import { EnterIcon, IdCardIcon } from "@radix-ui/react-icons";
+import { EnterIcon, ExitIcon, IdCardIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCurrentUser } from "@pethub/state";
-import { useRouter } from "next/navigation";
 
 export interface UserDropdownProps {
    avatarLogo: string | StaticImageData;
@@ -14,7 +13,10 @@ export interface UserDropdownProps {
 
 const UserDropdown: FC<UserDropdownProps> = ({ avatarLogo }) => {
    const [open, setOpen] = useState(false);
-   const user = useCurrentUser((state) => state.user);
+   const { user, setUser } = useCurrentUser(({ user, setUser }) => ({
+      user,
+      setUser,
+   }));
 
    return (
       <Popover.Root onOpenChange={setOpen} open={open}>
@@ -128,6 +130,24 @@ const UserDropdown: FC<UserDropdownProps> = ({ avatarLogo }) => {
                               </span>
                            </div>
                         </Link>
+                        {user && (
+                           <Link
+                              onClick={(_) => {
+                                 setOpen(false);
+                                 setUser(null!);
+                              }}
+                              href={`/signin`}
+                           >
+                              <div
+                                 className={`flex pb-4 border-b border-gray-300 items-center justify-start gap-8`}
+                              >
+                                 <ExitIcon height={24} width={24} />
+                                 <span className={`text-lg`}>
+                                    Излез от профила
+                                 </span>
+                              </div>
+                           </Link>
+                        )}
                         {/*<Popover.Close />*/}
                         <Popover.Arrow className={`fill-black`} />
                      </motion.div>

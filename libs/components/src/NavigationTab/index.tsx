@@ -79,13 +79,13 @@ export const NavigationTab: FC<NavigationTabProps> = ({
                      item.subMenu?.length ? (
                         <DropdownMenu.Sub key={i}>
                            <DropdownMenu.SubTrigger
-                              className={`w-full z-10 bg-white transition-colors duration-200 cursor-pointer hover:bg-gray-50 border-b border-gray-100 shadow-sm flex items-center justify-between px-4 py-5`}
+                              className={`w-full outline-none z-10 bg-white transition-colors duration-200 cursor-pointer hover:bg-gray-50 border-b border-gray-100 m-0 shadow-sm flex items-center justify-between px-6 py-5`}
                            >
                               <span>
                                  <Image
                                     width={20}
                                     height={20}
-                                    src={logo!}
+                                    src={item.logo!}
                                     alt={"Sample logo"}
                                  />
                               </span>
@@ -117,7 +117,7 @@ export const NavigationTab: FC<NavigationTabProps> = ({
                                           href={`/${baseRoute}/${item.href}/${subItem.href}`}
                                        >
                                           <DropdownMenu.Item
-                                             className={`w-full bg-white min-w-[200px] text-sm text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-50 border-b border-gray-50 shadow-sm flex items-center gap-2 justify-start px-4 py-3`}
+                                             className={`w-full outline-none bg-white min-w-[200px] text-sm text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-50 border-b border-gray-50 shadow-sm flex items-center gap-2 justify-start px-4 py-3`}
                                           >
                                              <span>
                                                 <Image

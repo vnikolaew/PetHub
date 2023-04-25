@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import { NextPage } from "next";
-import { ProductsGenericPage } from "@pethub/components";
 import { useSearchParams } from "next/navigation";
+import { ProductsGenericPage } from "@pethub/components";
 import sampleImageLogo from "@pethub/assets/sample-product-logo.png";
 
-const DogsDryFoodProductsPage: NextPage = () => {
+const DogsCansAndPouchesPage: NextPage = () => {
    const params = useSearchParams();
    const page = Number(params.get("page") ?? "1");
 
@@ -29,4 +29,4 @@ const DogsDryFoodProductsPage: NextPage = () => {
    );
 };
 
-export default DogsDryFoodProductsPage;
+export default DogsCansAndPouchesPage;
