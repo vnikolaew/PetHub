@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef, Fragment } from "react";
+import React, { forwardRef, Fragment, useState } from "react";
 import { NextPage } from "next";
 import { Breadcrumb, SelectInput } from "@pethub/components";
 import * as Accordion from "@radix-ui/react-accordion";
@@ -9,10 +9,20 @@ import Image from "next/image";
 import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 
 const DogsDryFoodProductsPage: NextPage = () => {
    const params = useSearchParams();
+   const [openedTabs, setOpenedTabs] = useState<string[]>([]);
    const page = Number(params.get("page"));
+
+   const handleToggleTab = (tab: string) => {
+      setOpenedTabs((tabs) =>
+         tabs.some((t) => t === tab)
+            ? tabs.filter((t) => t !== tab)
+            : [...tabs, tab]
+      );
+   };
 
    return (
       <div className={`mt-12 mx-16`}>
@@ -29,19 +39,54 @@ const DogsDryFoodProductsPage: NextPage = () => {
                <Accordion.Root type={"multiple"}>
                   <Accordion.Item value={"1"}>
                      <Accordion.Header>
-                        <AccordionTrigger>
+                        <AccordionTrigger onClick={(_) => handleToggleTab("1")}>
                            Големина на породата
                         </AccordionTrigger>
                      </Accordion.Header>
-                     <AccordionContent>Дребни, средни, едри</AccordionContent>
+                     <AnimatePresence>
+                        {openedTabs.some((t) => t === "1") && (
+                           <AccordionContent>
+                              Дребни, средни, едри
+                           </AccordionContent>
+                        )}
+                     </AnimatePresence>
                   </Accordion.Item>
                   <Accordion.Item value={"2"}>
                      <Accordion.Header>
-                        <AccordionTrigger>Марка</AccordionTrigger>
+                        <AccordionTrigger onClick={(_) => handleToggleTab("2")}>
+                           Марка
+                        </AccordionTrigger>
                      </Accordion.Header>
-                     <AccordionContent>1,2,3</AccordionContent>
+                     <AnimatePresence>
+                        {openedTabs.some((t) => t === "2") && (
+                           <AccordionContent>1,2,3</AccordionContent>
+                        )}
+                     </AnimatePresence>
                   </Accordion.Item>
-                  <Accordion.Item value={"3"}></Accordion.Item>
+                  <Accordion.Item value={"3"}>
+                     <Accordion.Header>
+                        <AccordionTrigger onClick={(_) => handleToggleTab("3")}>
+                           Цена
+                        </AccordionTrigger>
+                     </Accordion.Header>
+                     <AnimatePresence>
+                        {openedTabs.some((t) => t === "3") && (
+                           <AccordionContent>10, 20, 30</AccordionContent>
+                        )}
+                     </AnimatePresence>
+                  </Accordion.Item>
+                  <Accordion.Item value={"4"}>
+                     <Accordion.Header>
+                        <AccordionTrigger onClick={(_) => handleToggleTab("4")}>
+                           Рейтинг
+                        </AccordionTrigger>
+                     </Accordion.Header>
+                     <AnimatePresence>
+                        {openedTabs.some((t) => t === "4") && (
+                           <AccordionContent>10, 20, 30</AccordionContent>
+                        )}
+                     </AnimatePresence>
+                  </Accordion.Item>
                </Accordion.Root>
                <div>
                   <button
@@ -233,11 +278,36 @@ const AccordionContent = forwardRef<
    Accordion.AccordionContentProps
 >(({ children, className, ...props }, forwardedRef) => (
    <Accordion.Content
-      className={`overflow-hidden data-[state=open]:border-b-2 border-gray-200  leading-5 text-[1rem] text-black data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp ${className}`}
+      forceMount
+      asChild
+      className={`group`}
       {...props}
       ref={forwardedRef}
    >
-      <div className="px-4 py-6">{children}</div>
+      <motion.div
+         exit={{
+            height: "0px",
+            opacity: 0,
+            paddingBlock: "0px",
+            paddingInline: "1rem",
+         }}
+         animate={{
+            height: "auto",
+            opacity: 1,
+            paddingInline: "1rem",
+            paddingBlock: "1.5rem",
+         }}
+         initial={{
+            height: "0px",
+            opacity: 0,
+            paddingBlock: "0px",
+            paddingInline: "1rem",
+         }}
+         transition={{ duration: 0.2 }}
+         className={` group:data-[state=open]:border-b-2 overflow-hidden text-[1rem] text-red border-gray-200 leading-5 ${className}`}
+      >
+         {children}
+      </motion.div>
    </Accordion.Content>
 ));
 

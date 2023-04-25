@@ -9,6 +9,7 @@ import dogHouseLogo from "../public/assets/dog-house-logo.png";
 import dogsFoodLogo from "../public/assets/dogs-food-logo.png";
 import sampleProductLogo from "../public/assets/sample-product-logo.png";
 import * as Separator from "@radix-ui/react-separator";
+import Link from "next/link";
 
 const NAVIGATION_TABS = [
    {
@@ -197,20 +198,24 @@ const IndexPage: FC = () => {
                   <h1 className={`text-3xl`}>Намалени продукти</h1>
                   <div className={`flex gap-20 mt-4 items-center`}>
                      {Array.from({ length: 6 }).map((_, i) => (
-                        <div
-                           className={`flex gap-4 flex-col items-center justify-center`}
+                        <Link
                            key={i}
+                           href={`/foods/dogs/dry-food/sample-product-${i + 1}`}
                         >
-                           <h2 className={`text-lg`}>
-                              Sample product #{i + 1}
-                           </h2>
-                           <Image
-                              height={120}
-                              width={120}
-                              src={sampleProductLogo}
-                              alt={`Sample product #${i + 1}`}
-                           />
-                        </div>
+                           <div
+                              className={`flex gap-4 flex-col items-center justify-center`}
+                           >
+                              <h2 className={`text-lg`}>
+                                 Sample product #{i + 1}
+                              </h2>
+                              <Image
+                                 height={120}
+                                 width={120}
+                                 src={sampleProductLogo}
+                                 alt={`Sample product #${i + 1}`}
+                              />
+                           </div>
+                        </Link>
                      ))}
                   </div>
                </section>

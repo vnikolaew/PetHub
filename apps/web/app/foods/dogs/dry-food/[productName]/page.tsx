@@ -20,6 +20,7 @@ export interface IProductDetails {
    name: string;
    image: string | StaticImageData;
    sizes: string[];
+   price: number;
    averageRating: number;
    description: string;
    ratings: {
@@ -39,8 +40,9 @@ export default function ProductDetailsPage({
    const product: IProductDetails = {
       name: productName,
       image: sampleProductLogo,
+      price: 30.5,
       sizes: ["XS", "S", "L"],
-      averageRating: 4,
+      averageRating: Math.round(Math.random() * 5),
       description: LOREM_IPSUM_TEXT.slice(0, 200),
       ratings: [],
    };
@@ -209,7 +211,9 @@ export default function ProductDetailsPage({
                </div>
             </div>
             <div className={`flex flex-col w-full items-start gap-2`}>
-               <h2 className={`text-2xl text-raw-sienna`}>Може да харесате</h2>
+               <h2 className={`text-2xl font-semibold text-raw-sienna`}>
+                  Може да харесате
+               </h2>
                <Separator.Root
                   className={`w-full bg-gray-100 h-[1px]`}
                   orientation={"horizontal"}
@@ -218,20 +222,24 @@ export default function ProductDetailsPage({
                   <ChevronLeftIcon height={20} width={20} />
                   {Array.from({ length: 8 }).map((_, i) => (
                      <Fragment key={i}>
-                        <div
-                           className={`flex gap-4 flex-col items-center justify-center`}
-                           key={i}
+                        <Link
+                           href={`/foods/dogs/dry-food/sample-product-${i + 1}`}
                         >
-                           <Image
-                              height={80}
-                              width={80}
-                              src={sampleProductLogo}
-                              alt={`Sample product #${i + 1}`}
-                           />
-                           <h2 className={`text-md`}>
-                              Sample product #{i + 1}
-                           </h2>
-                        </div>
+                           <div
+                              className={`flex gap-4 flex-col items-center justify-center`}
+                              key={i}
+                           >
+                              <Image
+                                 height={80}
+                                 width={80}
+                                 src={sampleProductLogo}
+                                 alt={`Sample product #${i + 1}`}
+                              />
+                              <h2 className={`text-md`}>
+                                 Sample product #{i + 1}
+                              </h2>
+                           </div>
+                        </Link>
                      </Fragment>
                   ))}
                   <ChevronRightIcon height={20} width={20} />
