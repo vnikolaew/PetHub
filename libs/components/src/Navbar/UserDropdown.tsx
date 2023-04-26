@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import * as Popover from "@radix-ui/react-popover";
+import * as HoverCard from "@radix-ui/react-hover-card";
 import Image, { StaticImageData } from "next/image";
 import verClinicLogo from "@pethub/assets/vet-clinic-logo.png";
 import { EnterIcon, ExitIcon, IdCardIcon } from "@radix-ui/react-icons";
@@ -19,25 +19,34 @@ const UserDropdown: FC<UserDropdownProps> = ({ avatarLogo }) => {
    }));
 
    return (
-      <Popover.Root onOpenChange={setOpen} open={open}>
-         <Popover.Trigger>
-            <div className={`flex items-end gap-4`}>
-               <Image
-                  className={`cursor-pointer hover:text-gray-400 stroke-gray-400 fill-gray-400`}
-                  width={30}
-                  height={30}
-                  src={avatarLogo}
-                  alt={"User Avatar"}
-               />
-               {user && (
-                  <span className={`text-lg self-end`}>{user.firstName}</span>
-               )}
-            </div>
-         </Popover.Trigger>
-         <Popover.Portal>
+      <HoverCard.Root
+         closeDelay={100}
+         openDelay={200}
+         onOpenChange={setOpen}
+         open={open}
+      >
+         <HoverCard.Trigger>
+            <Link href={`/account?tab=me`}>
+               <div className={`flex cursor-pointer items-end gap-4`}>
+                  <Image
+                     className={`hover:text-gray-400 stroke-gray-400 fill-gray-400`}
+                     width={30}
+                     height={30}
+                     src={avatarLogo}
+                     alt={"User Avatar"}
+                  />
+                  {user && (
+                     <span className={`text-lg self-end`}>
+                        {user.firstName}
+                     </span>
+                  )}
+               </div>
+            </Link>
+         </HoverCard.Trigger>
+         <HoverCard.Portal>
             <AnimatePresence>
                {open && (
-                  <Popover.Content asChild className={`z-10`} sideOffset={5}>
+                  <HoverCard.Content asChild className={`z-10`} sideOffset={5}>
                      <motion.div
                         key={"modal"}
                         animate={{
@@ -149,13 +158,13 @@ const UserDropdown: FC<UserDropdownProps> = ({ avatarLogo }) => {
                            </Link>
                         )}
                         {/*<Popover.Close />*/}
-                        <Popover.Arrow className={`fill-black`} />
+                        <HoverCard.Arrow className={`fill-black`} />
                      </motion.div>
-                  </Popover.Content>
+                  </HoverCard.Content>
                )}
             </AnimatePresence>
-         </Popover.Portal>
-      </Popover.Root>
+         </HoverCard.Portal>
+      </HoverCard.Root>
    );
 };
 
