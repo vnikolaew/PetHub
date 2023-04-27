@@ -21,7 +21,7 @@ const FishFoodsPage: NextPage = () => {
             <div
                className={`flex text-xl mt-6 gap-36 items-center justify-around`}
             >
-               <Link href={"/foods/dogs/dry-foods"}>
+               <Link href={"/foods/fish/pond"}>
                   <div
                      className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
@@ -34,7 +34,7 @@ const FishFoodsPage: NextPage = () => {
                   </div>
                </Link>
 
-               <Link href={"/foods/dogs/cans-and-pouches"}>
+               <Link href={"/foods/fish/aquarium"}>
                   <div
                      className={`flex px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >

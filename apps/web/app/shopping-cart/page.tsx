@@ -4,36 +4,52 @@ import { NextPage } from "next";
 import {
    Breadcrumb,
    currencyFormatter,
-   IShoppingCartProduct,
    ShoppingCartProductRow,
 } from "@pethub/components";
 import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
 import Link from "next/link";
 import * as Separator from "@radix-ui/react-separator";
-import { useCurrentUser } from "@pethub/state";
+import {
+   IShoppingCartProduct,
+   useCurrentUser,
+   useShoppingCart,
+} from "@pethub/state";
 
 const SHOPPING_CART_PRODUCTS: IShoppingCartProduct[] = [
    {
-      productImage: sampleProductLogo,
-      quantity: 3,
-      price: 3.5,
-      get total() {
-         return this.price * this.quantity;
+      product: {
+         image: sampleProductLogo,
+         price: 3.5,
+         get total() {
+            return this.price * this.quantity;
+         },
+         name: "Dog biscuits",
       },
-      name: "Dog biscuits",
+      quantity: 3,
    },
    {
-      productImage: sampleProductLogo,
-      quantity: 2,
-      price: 12.5,
-      get total() {
-         return this.price * this.quantity;
+      product: {
+         image: sampleProductLogo,
+         price: 12.5,
+         get total() {
+            return this.price * this.quantity;
+         },
+         name: "Fish Ocean plankton",
       },
-      name: "Fish Ocean plankton",
+      quantity: 2,
    },
 ];
 const ShoppingCartPage: NextPage = () => {
    const user = useCurrentUser((state) => state.user);
+   const { discount, total, products, applyDiscount } = useShoppingCart(
+      ({ products, discount, total, applyDiscount }) => ({
+         products,
+         discount,
+         total,
+         applyDiscount,
+      })
+   );
+   console.log(products);
 
    return (
       <div className={`mt-12 mx-16`}>
@@ -79,7 +95,7 @@ const ShoppingCartPage: NextPage = () => {
                      Общо
                   </div>
                </div>
-               {SHOPPING_CART_PRODUCTS.map((product, i) => (
+               {products.map((product, i) => (
                   <Fragment key={i}>
                      <ShoppingCartProductRow
                         onRemoveProduct={() => {}}
@@ -99,6 +115,7 @@ const ShoppingCartPage: NextPage = () => {
                         type={"text"}
                      />
                      <button
+                        onClick={(_) => applyDiscount(0.1)}
                         className={`flex text-md hover:opacity-90 transition-all duration-200 shadow-md px-8 py-1 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
                      >
                         Приложи кода за отстъпка
@@ -112,12 +129,7 @@ const ShoppingCartPage: NextPage = () => {
                         Обща сума
                      </label>
                      <span className={`text-2xl font-semibold`} id={"total"}>
-                        {currencyFormatter.format(
-                           SHOPPING_CART_PRODUCTS.reduce(
-                              (prev, curr) => prev + curr.total,
-                              0
-                           )
-                        )}
+                        {currencyFormatter.format(total)}
                      </span>
                   </div>
                </div>

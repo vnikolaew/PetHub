@@ -21,7 +21,7 @@ const RodentFoodsPage: NextPage = () => {
             <div
                className={`flex text-xl mt-6 gap-36 items-center justify-around`}
             >
-               <Link href={"/foods/dogs/dry-foods"}>
+               <Link href={"/foods/rodents/general"}>
                   <div
                      className={`flex px-16 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
@@ -34,7 +34,7 @@ const RodentFoodsPage: NextPage = () => {
                   </div>
                </Link>
 
-               <Link href={"/foods/dogs/cans-and-pouches"}>
+               <Link href={"/foods/rodents/goodies"}>
                   <div
                      className={`flex px-16 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >

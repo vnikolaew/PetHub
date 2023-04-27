@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import { NextPage } from "next";
-import { ProductsGenericPage } from "@pethub/components";
 import { useSearchParams } from "next/navigation";
+import { ProductsGenericPage } from "@pethub/components";
 import sampleImageLogo from "@pethub/assets/sample-product-logo.png";
 
-const DogsDryFoodProductsPage: NextPage = () => {
+const BirdsPelletedFoodPage: NextPage = () => {
    const params = useSearchParams();
    const page = Number(params.get("page") ?? "1");
 
@@ -14,8 +14,8 @@ const DogsDryFoodProductsPage: NextPage = () => {
          breadcrumbs={[
             { label: "PetHub", path: "/" },
             { label: "Храна", path: "foods" },
-            { label: "Кучета", path: "dogs" },
-            { label: "Суха храна", path: "dry-food" },
+            { label: "Птици", path: "birds" },
+            { label: "Гранулирани храни", path: "general" },
          ]}
          basePath={window.location.pathname}
          products={Array.from({ length: 8 })
@@ -35,4 +35,4 @@ const DogsDryFoodProductsPage: NextPage = () => {
    );
 };
 
-export default DogsDryFoodProductsPage;
+export default BirdsPelletedFoodPage;

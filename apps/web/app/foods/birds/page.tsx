@@ -20,7 +20,7 @@ const BirdFoodsPage: NextPage = () => {
             <div
                className={`flex text-xl mt-6 gap-12 items-center justify-center`}
             >
-               <Link href={"/foods/dogs/dry-foods"}>
+               <Link href={"/foods/birds/basic"}>
                   <div
                      className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
@@ -33,7 +33,7 @@ const BirdFoodsPage: NextPage = () => {
                   </div>
                </Link>
 
-               <Link href={"/foods/dogs/cans-and-pouches"}>
+               <Link href={"/foods/birds/general"}>
                   <div
                      className={`flex px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
@@ -50,7 +50,7 @@ const BirdFoodsPage: NextPage = () => {
             </div>
 
             <div className={`flex text-xl mt-6 items-center justify-center`}>
-               <Link href={"/foods/dogs/goodies"}>
+               <Link href={"/foods/birds/goodies"}>
                   <div
                      className={`flex px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >

@@ -26,6 +26,7 @@ module.exports = {
          gridTemplateColumns: {
             productRow: "1fr 3fr 1fr 1fr 1fr",
             orderCompleteSummary: "3fr 1fr",
+            recipient: "1fr 2fr",
          },
          animation: {
             slideDown: "slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",

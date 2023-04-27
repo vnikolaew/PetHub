@@ -11,6 +11,12 @@ const DogsGoodiesPage: NextPage = () => {
 
    return (
       <ProductsGenericPage
+         breadcrumbs={[
+            { label: "PetHub", path: "/" },
+            { label: "Храна", path: "foods" },
+            { label: "Кучета", path: "dogs" },
+            { label: "Лакомства", path: "goodies" },
+         ]}
          basePath={window.location.pathname}
          products={Array.from({ length: 8 })
             .map((_, i) => (page - 1) * 8 + i + 1)

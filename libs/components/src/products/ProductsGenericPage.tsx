@@ -1,5 +1,5 @@
 import React, { FC, forwardRef, Fragment, useState } from "react";
-import { Breadcrumb, SelectInput } from "@pethub/components";
+import { Breadcrumb, BreadcrumbSegment, SelectInput } from "@pethub/components";
 import * as Accordion from "@radix-ui/react-accordion";
 import * as Separator from "@radix-ui/react-separator";
 import { ArrowRightIcon, ChevronDownIcon } from "@radix-ui/react-icons";
@@ -12,12 +12,14 @@ export interface ProductsGenericPageProps {
    products: IProductDetails[];
    page: number;
    basePath: string;
+   breadcrumbs: BreadcrumbSegment[];
 }
 
 export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
    products,
    page,
    basePath,
+   breadcrumbs,
 }) => {
    const [openedTabs, setOpenedTabs] = useState<string[]>([]);
 
@@ -32,12 +34,14 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
    return (
       <div className={`mt-12 mx-16`}>
          <Breadcrumb
-            segments={[
-               { label: "PetHub", path: "/" },
-               { label: "Храна", path: "foods" },
-               { label: "Кучета", path: "dogs" },
-               { label: "Суха храна", path: "dry-food" },
-            ]}
+            segments={
+               breadcrumbs ?? [
+                  { label: "PetHub", path: "/" },
+                  { label: "Храна", path: "foods" },
+                  { label: "Кучета", path: "dogs" },
+                  { label: "Суха храна", path: "dry-food" },
+               ]
+            }
          />
          <section className={`flex mt-8 items-start gap-8`}>
             <div className={`border border-gray-100 mt-8 rounded-lg border-2`}>

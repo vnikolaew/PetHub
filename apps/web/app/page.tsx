@@ -47,10 +47,18 @@ const NAVIGATION_TABS = [
             logo: catFoodLogo!,
             href: "cats",
             subMenu: [
-               { logo: null!, label: "Храна за малки котенца" },
-               { logo: null!, label: "Консерви" },
-               { logo: null!, label: "Суха храна" },
-               { logo: null!, label: "Лакомства и витамини" },
+               {
+                  logo: null!,
+                  label: "Храна за малки котенца",
+                  href: "kitties",
+               },
+               { logo: null!, label: "Консерви", href: "cans" },
+               { logo: null!, label: "Суха храна", href: "dry-food" },
+               {
+                  logo: null!,
+                  label: "Лакомства и витамини",
+                  href: "goodies-and-supplements",
+               },
             ],
          },
          {
@@ -58,9 +66,13 @@ const NAVIGATION_TABS = [
             logo: birdFoodLogo!,
             href: "birds",
             subMenu: [
-               { logo: null!, label: "Храна за птици" },
-               { logo: null!, label: "Гранулирани храни за птици" },
-               { logo: null!, label: "Лакомства за папагали" },
+               { logo: null!, label: "Храна за птици", href: "general" },
+               {
+                  logo: null!,
+                  label: "Гранулирани храни за птици",
+                  href: "general",
+               },
+               { logo: null!, label: "Лакомства за папагали", href: "goodies" },
             ],
          },
          {
@@ -68,8 +80,8 @@ const NAVIGATION_TABS = [
             logo: rodentFoodLogo!,
             href: "rodents",
             subMenu: [
-               { logo: null!, label: "Храни за гризачи" },
-               { logo: null!, label: "Лакомства и витамини" },
+               { logo: null!, label: "Храни за гризачи", href: "general" },
+               { logo: null!, label: "Лакомства и витамини", href: "goodies" },
             ],
          },
          {
@@ -77,8 +89,16 @@ const NAVIGATION_TABS = [
             logo: fishFoodLogo!,
             href: "fish",
             subMenu: [
-               { logo: null!, label: "Храна за езерни риби" },
-               { logo: null!, label: "Храна за морски аквариуми" },
+               {
+                  logo: null!,
+                  label: "Храна за езерни риби",
+                  href: "pond",
+               },
+               {
+                  logo: null!,
+                  label: "Храна за морски аквариуми",
+                  href: "aquarium",
+               },
             ],
          },
       ],
@@ -177,7 +197,7 @@ const IndexPage: FC = () => {
             >
                <section className={`mt-4`} id={"best-selling-products"}>
                   <h1 className={`text-3xl`}>Най-продавани продукти</h1>
-                  <div className={`flex gap-20 mt-4 items-center`}>
+                  <div className={`flex gap-20 mt-8 items-center`}>
                      {Array.from({ length: 6 }).map((_, i) => (
                         <Link
                            key={i}
@@ -202,11 +222,11 @@ const IndexPage: FC = () => {
                </section>
                <Separator.Root
                   orientation={"horizontal"}
-                  className={`text-gray-300 mt-4 w-[90%] h-[1.5px] bg-gray-300`}
+                  className={`text-gray-300 mt-8 w-[90%] h-[1.5px] bg-gray-300`}
                />
                <section className={`mt-4`} id={"best-selling-products"}>
                   <h1 className={`text-3xl`}>Намалени продукти</h1>
-                  <div className={`flex gap-20 mt-4 items-center`}>
+                  <div className={`flex gap-20 mt-8 items-center`}>
                      {Array.from({ length: 6 }).map((_, i) => (
                         <Link
                            key={i}

@@ -22,8 +22,13 @@ export interface IProductDetails {
    ratings: IProductRating[];
 }
 
+export interface IShoppingCartProduct {
+   product: IProductDetails;
+   quantity: number;
+}
+
 export interface IShoppingCartState {
-   products: { product: IProductDetails; quantity: number }[];
+   products: IShoppingCartProduct[];
 
    get total(): number;
 
@@ -31,7 +36,7 @@ export interface IShoppingCartState {
 }
 
 export interface Actions {
-   addProduct: (product: IProductDetails) => void;
+   addProduct: (product: IProductDetails, quantity?: number) => void;
    removeProduct: (productId: string) => void;
    applyDiscount: (discount: number) => void;
    removeDiscount: () => void;
@@ -64,14 +69,14 @@ export const initialState: IShoppingCartState = {
 
 export const useShoppingCart = create<IShoppingCartState & Actions>((set) => ({
    ...initialState,
-   addProduct: (product: IProductDetails) =>
+   addProduct: (product: IProductDetails, quantity = 1) =>
       set(
          produce((state: IShoppingCartState) => {
             const existing = state.products.find(
-               (p) => p.product.id === product.id
+               (p) => p.product.name === product.name
             );
-            if (existing) existing.quantity++;
-            else state.products.push({ product, quantity: 1 });
+            if (existing) existing.quantity += quantity;
+            else state.products.push({ product, quantity });
          })
       ),
    applyDiscount: (discount: number) =>

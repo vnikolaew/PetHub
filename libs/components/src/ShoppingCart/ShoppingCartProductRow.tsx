@@ -1,15 +1,8 @@
 import React, { FC } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { currencyFormatter } from "../Account";
-
-export interface IShoppingCartProduct {
-   productImage: string | StaticImageData;
-   name: string;
-   price: number;
-   quantity: number;
-   get total(): number;
-}
+import { IShoppingCartProduct } from "@pethub/state";
 
 export interface ShoppingCartProductRowProps {
    product: IShoppingCartProduct;
@@ -17,7 +10,7 @@ export interface ShoppingCartProductRowProps {
 }
 
 export const ShoppingCartProductRow: FC<ShoppingCartProductRowProps> = ({
-   product,
+   product: { product, quantity },
    onRemoveProduct,
 }) => {
    return (
@@ -31,7 +24,7 @@ export const ShoppingCartProductRow: FC<ShoppingCartProductRowProps> = ({
          <Image
             height={30}
             width={30}
-            src={product.productImage}
+            src={product.image}
             alt={"Product image"}
          />
          <div className={`text-xl`}>{product.name}</div>
@@ -39,10 +32,10 @@ export const ShoppingCartProductRow: FC<ShoppingCartProductRowProps> = ({
             {currencyFormatter.format(product.price)}
          </div>
          <div className={`text-xl flex items-center justify-center`}>
-            {product.quantity.toFixed(2)}
+            {quantity.toFixed(2)}
          </div>
          <div className={`text-xl`}>
-            {currencyFormatter.format(product.total)}
+            {currencyFormatter.format(product.price * quantity)}
          </div>
       </div>
    );

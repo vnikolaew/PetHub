@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
-import { ProductDetailsPage } from "@pethub/components";
 import { LOREM_IPSUM_TEXT } from "@pethub/web/utils/string-constants";
 import { StaticImageData } from "next/image";
+import { useShoppingCart } from "@pethub/state";
+import { ProductDetailsPage } from "@pethub/components";
 
 export interface IProductDetails {
    name: string;
@@ -21,11 +22,14 @@ export interface IProductDetails {
    }[];
 }
 
-export default function DogsDryFoodProductDetailsPage({
-   params: { productName },
+export default function CansAndPouchesProductDetailsPage({
+   params,
 }: {
    params: { productName: string };
 }) {
+   const { productName } = params;
+   const addProduct = useShoppingCart((state) => state.addProduct);
+   const [productQuantity, setProductQuantity] = useState(1);
    const product: IProductDetails = {
       name: productName,
       image: sampleProductLogo,
@@ -44,7 +48,7 @@ export default function DogsDryFoodProductDetailsPage({
             { label: "PetHub", path: "/" },
             { label: "Храна", path: "foods" },
             { label: "Кучета", path: "dogs" },
-            { label: "Суха храна", path: "dry-food" },
+            { label: "Консерви и паучове", path: "cans-and-pouches" },
             { label: product.name, path: product.name },
          ]}
       />

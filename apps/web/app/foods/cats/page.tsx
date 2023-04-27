@@ -21,7 +21,7 @@ const CatFoodsPage: NextPage = () => {
             <div
                className={`flex text-2xl mt-6 gap-36 items-center justify-around`}
             >
-               <Link href={"/foods/dogs/dry-foods"}>
+               <Link href={"/foods/cats/kitties"}>
                   <div
                      className={`flex px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
@@ -36,7 +36,7 @@ const CatFoodsPage: NextPage = () => {
                   </div>
                </Link>
 
-               <Link href={"/foods/dogs/cans-and-pouches"}>
+               <Link href={"/foods/cats/cans"}>
                   <div
                      className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
@@ -53,7 +53,7 @@ const CatFoodsPage: NextPage = () => {
             <div
                className={`flex text-2xl mt-6 gap-36 items-center justify-around`}
             >
-               <Link href={"/foods/dogs/goodies"}>
+               <Link href={"/foods/cats/dry-food"}>
                   <div
                      className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
@@ -66,7 +66,7 @@ const CatFoodsPage: NextPage = () => {
                   </div>
                </Link>
 
-               <Link href={"/foods/dogs/supplements"}>
+               <Link href={"/foods/cats/goodies-and-supplements"}>
                   <div
                      className={`flex px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >

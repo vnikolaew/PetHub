@@ -21,7 +21,7 @@ export interface IProductDetails {
    }[];
 }
 
-export default function DogsDryFoodProductDetailsPage({
+export default function CatsKittiesProductDetailsPage({
    params: { productName },
 }: {
    params: { productName: string };
@@ -43,8 +43,8 @@ export default function DogsDryFoodProductDetailsPage({
          breadcrumbs={[
             { label: "PetHub", path: "/" },
             { label: "Храна", path: "foods" },
-            { label: "Кучета", path: "dogs" },
-            { label: "Суха храна", path: "dry-food" },
+            { label: "Котки", path: "cats" },
+            { label: "Малки котенца", path: "kitties" },
             { label: product.name, path: product.name },
          ]}
       />

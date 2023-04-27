@@ -21,7 +21,7 @@ export interface IProductDetails {
    }[];
 }
 
-export default function DogsDryFoodProductDetailsPage({
+export default function DogsSupplementProductDetailsPage({
    params: { productName },
 }: {
    params: { productName: string };
@@ -44,7 +44,7 @@ export default function DogsDryFoodProductDetailsPage({
             { label: "PetHub", path: "/" },
             { label: "Храна", path: "foods" },
             { label: "Кучета", path: "dogs" },
-            { label: "Суха храна", path: "dry-food" },
+            { label: "Витамини и добавки", path: "supplements" },
             { label: product.name, path: product.name },
          ]}
       />

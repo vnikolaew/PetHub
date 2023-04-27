@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
-import { ProductDetailsPage } from "@pethub/components";
 import { LOREM_IPSUM_TEXT } from "@pethub/web/utils/string-constants";
 import { StaticImageData } from "next/image";
+import { ProductDetailsPage } from "@pethub/components";
 
 export interface IProductDetails {
    name: string;
@@ -21,7 +21,7 @@ export interface IProductDetails {
    }[];
 }
 
-export default function DogsDryFoodProductDetailsPage({
+export default function PondFishFoodProductDetailsPage({
    params: { productName },
 }: {
    params: { productName: string };
@@ -43,8 +43,8 @@ export default function DogsDryFoodProductDetailsPage({
          breadcrumbs={[
             { label: "PetHub", path: "/" },
             { label: "Храна", path: "foods" },
-            { label: "Кучета", path: "dogs" },
-            { label: "Суха храна", path: "dry-food" },
+            { label: "Риби", path: "fish" },
+            { label: "Езерни риби", path: "pond" },
             { label: product.name, path: product.name },
          ]}
       />
