@@ -1,10 +1,10 @@
 "use client";
 import React, { FC } from "react";
-import { NavigationTab } from "@pethub/components";
-import sampleLogo from "../public/assets/sample-logo.svg";
-import ropeLogo from "../public/assets/rope-logo.png";
-import vetToolLogo from "../public/assets/vet-tool-logo.png";
-import dogHouseLogo from "../public/assets/dog-house-logo.png";
+import { List, NavigationTab } from "@pethub/components";
+import sampleLogo from "@pethub/assets/sample-logo.svg";
+import ropeLogo from "@pethub/assets/rope-logo.png";
+import vetToolLogo from "@pethub/assets/vet-tool-logo.png";
+import dogHouseLogo from "@pethub/assets/dog-house-logo.png";
 import dogsFoodLogo from "../public/assets/dogs-food-logo.png";
 import dogFoodLogo from "../public/assets/dog-food-logo.png";
 import catFoodLogo from "../public/assets/cat-food-logo.png";
@@ -268,6 +268,34 @@ const IndexPage: FC = () => {
             <div
                className={`mt-2 flex flex-col gap-2 justify-center items-center text-woodsmoke w-full text-4xl text-center mx-auto`}
             >
+               <List
+                  items={[
+                     {
+                        products: BEST_SELLERS,
+                        heading: "Най-продавани продукти",
+                     },
+                     {
+                        products: ON_SALE_PRODUCTS,
+                        heading: "Намалени продукти",
+                     },
+                  ]}
+                  render={(item) => (
+                     <section className={`mt-4`} id={"best-selling-products"}>
+                        <h1 className={`text-3xl`}>{item.heading}</h1>
+                        <div className={`flex gap-20 mt-8 items-center`}>
+                           {item.products.map((props, i) => (
+                              <ProductCard key={i} {...props} />
+                           ))}
+                        </div>
+                     </section>
+                  )}
+                  separator={
+                     <Separator.Root
+                        orientation={"horizontal"}
+                        className={`text-gray-300 mt-8 w-[90%] h-[1.5px] bg-gray-300`}
+                     />
+                  }
+               />
                <section className={`mt-4`} id={"best-selling-products"}>
                   <h1 className={`text-3xl`}>Най-продавани продукти</h1>
                   <div className={`flex gap-20 mt-8 items-center`}>

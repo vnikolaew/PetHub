@@ -1,8 +1,8 @@
 "use client";
-import React, { FC, Fragment, useState } from "react";
+import React, { FC, Fragment, useId, useState } from "react";
 import { NextPage } from "next";
 import { Breadcrumb, currencyFormatter } from "@pethub/components";
-import { useCurrentUser, useShoppingCart } from "@pethub/state";
+import { IRecipientInfo, useCurrentUser, useShoppingCart } from "@pethub/state";
 import Image from "next/image";
 import * as Separator from "@radix-ui/react-separator";
 import * as RadioGroup from "@radix-ui/react-radio-group";
@@ -30,24 +30,24 @@ const PAYMENT_OPTIONS = [
    },
 ];
 
-export interface IRecipientInfo {
-   firstName: string;
-   lastName: string;
-   phoneNumber: string;
-   livingAddress: string;
-   officeAddress: string;
-   orderComment: string;
-}
-
 const CompleteOrderPage: NextPage = () => {
-   const { products, total } = useShoppingCart(({ products, total }) => ({
-      products,
-      total,
+   const id = useId();
+   const { products, total, discount, clearShoppingCart } = useShoppingCart(
+      ({ products, total, discount, clearShoppingCart }) => ({
+         products,
+         total,
+         discount,
+         clearShoppingCart,
+      })
+   );
+   const { user, addOrder } = useCurrentUser(({ user, addOrder }) => ({
+      user,
+      addOrder,
    }));
-   const user = useCurrentUser((state) => state.user);
-   const [orderCompleted, setOrderCompleted] = useState(true);
+   const [orderCompleted, setOrderCompleted] = useState(false);
    const [recipientInfo, setRecipientInfo] = useState<IRecipientInfo>({
       firstName: user?.firstName!,
+      paymentType: "",
       lastName: user?.lastName!,
       livingAddress: "",
       orderComment: "",
@@ -64,7 +64,23 @@ const CompleteOrderPage: NextPage = () => {
 
    function handleFormSubmit(e: React.MouseEvent<HTMLButtonElement>) {
       e.preventDefault();
+      clearShoppingCart();
       setOrderCompleted(true);
+      addOrder({
+         orderId: id,
+         dateTime: new Date(),
+         recipientInfo,
+         shoppingCart: {
+            products,
+            discount,
+            get total() {
+               return this.products.reduce(
+                  (acc, curr) => acc + curr.product.price * curr.quantity,
+                  0
+               );
+            },
+         },
+      });
    }
 
    return (
@@ -147,18 +163,44 @@ const CompleteOrderPage: NextPage = () => {
                            <div
                               className={`flex mt-6 items-center w-full justify-between`}
                            >
-                              <span className={`text-xl text-center`}>
+                              <span
+                                 className={`text-xl text-center text-raw-sienna`}
+                              >
                                  Доставка
                               </span>
                               <span className={`text-xl`}>20.00лв.</span>
                            </div>
+
                            <div
                               className={`flex items-center w-full justify-between`}
                            >
-                              <span className={`text-xl text-center`}>
+                              <span
+                                 className={`text-xl text-center text-raw-sienna`}
+                              >
+                                 Отстъпка({discount * 100}%):
+                              </span>
+                              <span className={`text-xl text-red-600`}>
+                                 -
+                                 {currencyFormatter.format(
+                                    discount *
+                                       products.reduce(
+                                          (acc, curr) =>
+                                             acc +
+                                             curr.product.price * curr.quantity,
+                                          0
+                                       )
+                                 )}
+                              </span>
+                           </div>
+                           <div
+                              className={`flex mt-4 items-center w-full justify-between`}
+                           >
+                              <span
+                                 className={`text-2xl text-center text-raw-sienna font-semibold`}
+                              >
                                  Общо
                               </span>
-                              <span className={`text-xl font-semibold`}>
+                              <span className={`text-2xl font-semibold`}>
                                  {currencyFormatter.format(total)}
                               </span>
                            </div>
@@ -166,7 +208,7 @@ const CompleteOrderPage: NextPage = () => {
                      </div>
                      <Separator.Root
                         orientation={"vertical"}
-                        className={`h-[300px] bg-black w-[1px]`}
+                        className={`h-[400px] bg-black w-[1px]`}
                      />
                      <div className={`flex flex-col items-start gap-8`}>
                         <h1
@@ -175,13 +217,21 @@ const CompleteOrderPage: NextPage = () => {
                            Начин на плащане
                         </h1>
                         <RadioGroup.Root
+                           value={recipientInfo.paymentType}
+                           onValueChange={(v) =>
+                              setRecipientInfo((r) => ({
+                                 ...r,
+                                 paymentType: v,
+                              }))
+                           }
                            className={`flex mt-4 items-center gap-12`}
+                           defaultValue={"a"}
                         >
                            <div className={`flex flex-col items-start gap-2`}>
                               {PAYMENT_OPTIONS.map((option, i) => (
                                  <div
                                     key={i}
-                                    className={`flex items-center gap-1`}
+                                    className={`flex items-center gap-2`}
                                  >
                                     <RadioGroup.Item
                                        value={option.value}
@@ -205,7 +255,7 @@ const CompleteOrderPage: NextPage = () => {
                      </div>
                      <Separator.Root
                         orientation={"vertical"}
-                        className={`h-[300px] bg-black w-[1px]`}
+                        className={`h-[400px] bg-black w-[1px]`}
                      />
                      <div className={`flex flex-1 flex-col items-start gap-8`}>
                         <h1
@@ -213,10 +263,7 @@ const CompleteOrderPage: NextPage = () => {
                         >
                            Данни на получателя
                         </h1>
-                        <Form.Root
-                           onSubmit={(_) => {}}
-                           className={`flex items-start gap-16`}
-                        >
+                        <Form.Root className={`flex items-start gap-16`}>
                            <div
                               className={`flex w-full flex-col gap-6 items-start`}
                            >
@@ -262,6 +309,7 @@ const CompleteOrderPage: NextPage = () => {
                                  }
                               />
                               <InputField
+                                 className={`items-end`}
                                  value={recipientInfo.orderComment}
                                  onChange={handleFormChange}
                                  label={"Коментар към поръчката"}
@@ -319,29 +367,32 @@ const InputField: FC<InputFieldProps> = ({
    textarea = false,
    label,
    errorMessage,
+   className,
    ...rest
 }) => (
    <Form.Field
-      className={`grid grid-cols-recipient w-full items-end place-center gap-2`}
+      className={`grid grid-cols-recipient w-2/3 items-end place-center gap-2`}
       name={name}
    >
       <Form.Label className={`text-lg`}>{label}</Form.Label>
-      <Form.Control name={name} asChild>
-         {textarea ? (
-            <textarea
-               autoComplete={"off"}
-               className={`text-lg mt-1 px-4 py-1 block rounded-md shadow-md`}
-               {...rest}
-            />
-         ) : (
-            <input
-               autoComplete={"off"}
-               className={`text-lg mt-1 px-4 py-1 block rounded-md shadow-md`}
-               type={"text"}
-               {...rest}
-            />
-         )}
-      </Form.Control>
+      <div className={`flex justify-end`}>
+         <Form.Control name={name} asChild>
+            {textarea ? (
+               <textarea
+                  autoComplete={"off"}
+                  className={`text-lg w-full mt-1 px-4 py-1 block rounded-md shadow-md ${className}`}
+                  {...rest}
+               />
+            ) : (
+               <input
+                  autoComplete={"off"}
+                  className={`text-lg w-full mt-1 px-4 py-1 block rounded-md shadow-md ${className}`}
+                  type={"text"}
+                  {...rest}
+               />
+            )}
+         </Form.Control>
+      </div>
       <Form.Message
          className={`text-red-600 text-end col-span-3 self-end`}
          match={(value, _) => validate(value)}

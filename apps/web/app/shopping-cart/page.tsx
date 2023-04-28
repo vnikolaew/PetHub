@@ -6,46 +6,17 @@ import {
    currencyFormatter,
    ShoppingCartProductRow,
 } from "@pethub/components";
-import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
 import Link from "next/link";
 import * as Separator from "@radix-ui/react-separator";
-import {
-   IShoppingCartProduct,
-   useCurrentUser,
-   useShoppingCart,
-} from "@pethub/state";
+import { useCurrentUser, useShoppingCart } from "@pethub/state";
 
-const SHOPPING_CART_PRODUCTS: IShoppingCartProduct[] = [
-   {
-      product: {
-         image: sampleProductLogo,
-         price: 3.5,
-         get total() {
-            return this.price * this.quantity;
-         },
-         name: "Dog biscuits",
-      },
-      quantity: 3,
-   },
-   {
-      product: {
-         image: sampleProductLogo,
-         price: 12.5,
-         get total() {
-            return this.price * this.quantity;
-         },
-         name: "Fish Ocean plankton",
-      },
-      quantity: 2,
-   },
-];
 const ShoppingCartPage: NextPage = () => {
    const user = useCurrentUser((state) => state.user);
-   const { discount, total, products, applyDiscount } = useShoppingCart(
-      ({ products, discount, total, applyDiscount }) => ({
+   const { discount, products, applyDiscount, removeProduct } = useShoppingCart(
+      ({ products, discount, applyDiscount, removeProduct }) => ({
          products,
          discount,
-         total,
+         removeProduct,
          applyDiscount,
       })
    );
@@ -98,7 +69,9 @@ const ShoppingCartPage: NextPage = () => {
                {products.map((product, i) => (
                   <Fragment key={i}>
                      <ShoppingCartProductRow
-                        onRemoveProduct={() => {}}
+                        onRemoveProduct={() =>
+                           removeProduct(product.product.id)
+                        }
                         product={product}
                      />
                      <Separator.Root
@@ -107,8 +80,28 @@ const ShoppingCartPage: NextPage = () => {
                      />
                   </Fragment>
                ))}
+               <div className={`flex items-center justify-end w-full`}>
+                  <div className={`flex mt-2 items-center gap-8`}>
+                     <label
+                        htmlFor={"total"}
+                        className={`text-xl text-raw-sienna font-normal`}
+                     >
+                        Отстъпка({discount * 100}%):
+                     </label>
+                     <span className={`text-xl font-normal`} id={"total"}>
+                        {currencyFormatter.format(
+                           discount *
+                              products.reduce(
+                                 (acc, curr) =>
+                                    acc + curr.product.price * curr.quantity,
+                                 0
+                              )
+                        )}
+                     </span>
+                  </div>
+               </div>
                <div className={`flex items-center justify-between w-full`}>
-                  <div className={`flex items-center mt-12 gap-8`}>
+                  <div className={`flex items-center mt-2 gap-8`}>
                      <input
                         className={`text-md w-40 px-4 text-center py-1 block rounded-md shadow-md`}
                         placeholder={"промокод"}
@@ -121,7 +114,7 @@ const ShoppingCartPage: NextPage = () => {
                         Приложи кода за отстъпка
                      </button>
                   </div>
-                  <div className={`flex mt-12 items-center gap-8`}>
+                  <div className={`flex mt-0 items-center gap-8`}>
                      <label
                         htmlFor={"total"}
                         className={`text-2xl text-raw-sienna font-normal`}
@@ -129,19 +122,26 @@ const ShoppingCartPage: NextPage = () => {
                         Обща сума
                      </label>
                      <span className={`text-2xl font-semibold`} id={"total"}>
-                        {currencyFormatter.format(total)}
+                        {currencyFormatter.format(
+                           (1 - discount) *
+                              products.reduce(
+                                 (acc, curr) =>
+                                    acc + curr.product.price * curr.quantity,
+                                 0
+                              )
+                        )}
                      </span>
                   </div>
                </div>
-            </div>
-            <div className={`self-end mt-8 justify-self-end`}>
-               <Link href={`/shopping-cart/complete-order`}>
-                  <button
-                     className={`flex text-2xl hover:opacity-90 transition-all duration-200 shadow-md px-8 py-2 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
-                  >
-                     Завърши поръчката
-                  </button>
-               </Link>
+               <div className={`self-end mt-12 justify-self-end`}>
+                  <Link href={`/shopping-cart/complete-order`}>
+                     <button
+                        className={`flex text-2xl hover:opacity-90 transition-all duration-200 shadow-md px-8 py-2 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
+                     >
+                        Завърши поръчката
+                     </button>
+                  </Link>
+               </div>
             </div>
          </section>
       </div>

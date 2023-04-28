@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { IOrder } from "@pethub/state";
 
 export interface IUserOrder {
    orderNumber: string;
@@ -9,7 +10,7 @@ export interface IUserOrder {
 }
 
 export interface UserOrderInfoCardProps {
-   order: IUserOrder;
+   order: IOrder & { status: string };
 }
 
 export const currencyFormatter = new Intl.NumberFormat("bg", {
@@ -30,7 +31,7 @@ export const UserOrderInfoCard: FC<UserOrderInfoCardProps> = ({ order }) => {
          <div className={`flex-col flex items-start gap-6`}>
             <div className={`flex items-center gap-2`}>
                <h2 className={`text-2xl`}>Поръчка No</h2>
-               <span className={`text-xl`}>{order.orderNumber}</span>
+               <span className={`text-xl`}>{order.orderId}</span>
             </div>
 
             <div className={`flex items-start gap-12`}>
@@ -41,13 +42,15 @@ export const UserOrderInfoCard: FC<UserOrderInfoCardProps> = ({ order }) => {
 
                <div className={`flex flex-col items-start gap-0`}>
                   <h2 className={`text-xl text-gray-500`}>Адрес</h2>
-                  <span className={`text-lg`}>{order.address}</span>
+                  <span className={`text-lg`}>
+                     {order.recipientInfo.livingAddress}
+                  </span>
                </div>
 
                <div className={`flex flex-col items-start gap-0`}>
                   <h2 className={`text-xl text-gray-500`}>Общо</h2>
                   <span className={`text-lg`}>
-                     {currencyFormatter.format(order.orderTotal)}
+                     {currencyFormatter.format(order.shoppingCart.total)}
                   </span>
                </div>
             </div>
@@ -55,7 +58,7 @@ export const UserOrderInfoCard: FC<UserOrderInfoCardProps> = ({ order }) => {
          <div className={`flex flex-col items-start gap-0`}>
             <h2 className={`text-2xl`}>Регистрирана на</h2>
             <span className={`text-xl text-gray-500`}>
-               {dateTimeFormatter.format(order.timestamp)}
+               {dateTimeFormatter.format(order.dateTime)}
             </span>
             <button
                className={`flex hover:opacity-80 mt-4 transition-all duration-200 shadow-md mb-6 px-6 py-1 bg-whiskey text-white border-2 border-whiskey rounded-lg outline-none items-center gap-2 self-end`}

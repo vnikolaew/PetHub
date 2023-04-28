@@ -1,11 +1,9 @@
 "use client";
-import React, { FC, PropsWithChildren, useState } from "react";
+import React, { FC, Fragment, PropsWithChildren, useState } from "react";
 import { NextPage } from "next";
 import {
    AccountPetCard,
    Breadcrumb,
-   IPetInfo,
-   IUserOrder,
    PetAppointmentInfoCard,
    UserOrderInfoCard,
 } from "@pethub/components";
@@ -14,16 +12,14 @@ import * as Separator from "@radix-ui/react-separator";
 import * as Form from "@radix-ui/react-form";
 
 import userAvatarLogo from "@pethub/assets/user-avatar-logo.png";
-import petAvatarLogo from "@pethub/assets/pet-avatar-logo.png";
 
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-   LOREM_IPSUM_TEXT,
-   VALID_PASSWORD_REGEX,
-} from "../../utils/string-constants";
+import { VALID_PASSWORD_REGEX } from "../../utils/string-constants";
 import { useCurrentUser } from "@pethub/state";
 import { AddPetFormModal } from "@pethub/components";
+import Link from "next/link";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
 
 const USER = {
    profilePicture: userAvatarLogo,
@@ -32,37 +28,13 @@ const USER = {
    email: "jdoe123@pethub.com",
 };
 
-const USER_PETS: IPetInfo[] = [
-   {
-      petId: "1",
-      name: "Rocky",
-      birthDate: new Date(2018, 12, 12),
-      breed: "Husky",
-      avatar: petAvatarLogo,
-      description: LOREM_IPSUM_TEXT.slice(0, 200),
-   },
-];
-
-const USER_ORDERS: IUserOrder[] = [
-   {
-      orderTotal: 100.0,
-      timestamp: new Date(),
-      address: "ул. Васил Левски 120 вх.А",
-      orderNumber: "220",
-      status: "Завършена",
-   },
-];
-
 const MyAccountPage: NextPage = () => {
    const params = useSearchParams();
    const router = useRouter();
-   const { changePassword, vetAppointments } = useCurrentUser(
-      ({ user, setPassword }) => ({
-         userPets: user?.pets,
-         changePassword: setPassword,
-         vetAppointments: user?.vetAppointments ?? [],
-      })
-   );
+   const { changePassword, user } = useCurrentUser(({ user, setPassword }) => ({
+      user,
+      changePassword: setPassword,
+   }));
    const [password, setPassword] = useState("");
 
    function handlePasswordChange(e: React.FormEvent<HTMLFormElement>) {
@@ -115,13 +87,13 @@ const MyAccountPage: NextPage = () => {
                         alt={"User avatar"}
                      />
                      <div className={`flex flex-col items-start gap-2`}>
-                        <h2 className={`text-2xl`}>{USER.firstName}</h2>
-                        <h2 className={`text-2xl`}>{USER.lastName}</h2>
+                        <h2 className={`text-2xl`}>{user?.firstName}</h2>
+                        <h2 className={`text-2xl`}>{user?.lastName}</h2>
                      </div>
                      <div className={`flex flex-col items-start gap-2`}>
                         <h2 className={`text-2xl`}>Имейл адрес</h2>
                         <h2 className={`text-xl text-gray-600`}>
-                           {USER.email}
+                           {user?.email}
                         </h2>
                      </div>
                      <div
@@ -212,29 +184,79 @@ const MyAccountPage: NextPage = () => {
                </Tabs.Content>
                <Tabs.Content value={"pets"}>
                   <div
-                     className={`w-[80%] flex gap-4 flex-col items-center mx-auto mt-6`}
+                     className={`w-[80%] flex gap-8 flex-col items-center mx-auto mt-6`}
                   >
-                     {USER_PETS.map((pet, id) => (
-                        <AccountPetCard key={id} pet={pet} />
-                     ))}
+                     {user?.pets.length ? (
+                        <Fragment>
+                           {user.pets.map((pet, id) => (
+                              <AccountPetCard key={id} pet={pet} />
+                           ))}
+                        </Fragment>
+                     ) : (
+                        <h2 className={`text-2xl mt-8 whitespace-nowrap`}>
+                           Все още нямате домашен любимец.
+                        </h2>
+                     )}
                      <AddPetFormModal />
                   </div>
                </Tabs.Content>
                <Tabs.Content value={"my-purchases"}>
                   <div className={`mt-6 mx-auto flex-col flex items-center`}>
-                     {USER_ORDERS.map((order, i) => (
-                        <UserOrderInfoCard order={order} key={i} />
-                     ))}
+                     {user?.orders.length ? (
+                        <Fragment>
+                           {user.orders.map((order, i) => (
+                              <UserOrderInfoCard
+                                 order={{ ...order, status: "Завършен" }}
+                                 key={i}
+                              />
+                           ))}
+                        </Fragment>
+                     ) : (
+                        <div
+                           className={`flex flex-col items-center justify-center gap-2`}
+                        >
+                           <h2 className={`text-2xl mt-8 whitespace-nowrap`}>
+                              Все още нямате направени поръчки.{" "}
+                           </h2>
+                           <Link
+                              className={`text-blue-700 flex items-center gap-1 text-xl underline`}
+                              href={"/shopping-cart"}
+                           >
+                              <span>Към количка</span>
+                              <span>
+                                 <ChevronRightIcon height={20} width={20} />
+                              </span>
+                           </Link>
+                        </div>
+                     )}
                   </div>
                </Tabs.Content>
                <Tabs.Content value={"history"}>
                   <div className={`mt-6 mx-auto flex-col flex items-center`}>
-                     {vetAppointments.map((appointment, i) => (
-                        <PetAppointmentInfoCard
-                           appointment={appointment}
-                           key={i}
-                        />
-                     ))}
+                     {user?.vetAppointments.length ? (
+                        <Fragment>
+                           {user.vetAppointments.map((appointment, i) => (
+                              <PetAppointmentInfoCard
+                                 appointment={appointment}
+                                 key={i}
+                              />
+                           ))}
+                        </Fragment>
+                     ) : (
+                        <div
+                           className={`flex-col flex items-center justify-center gap-2`}
+                        >
+                           <h2 className={`text-2xl mt-8 whitespace-nowrap`}>
+                              Все още нямате запазени часове.
+                           </h2>
+                           <Link
+                              className={`text-blue-700 text-xl underline`}
+                              href={"/shopping-cart"}
+                           >
+                              Запазете час сега!
+                           </Link>
+                        </div>
+                     )}
                   </div>
                </Tabs.Content>
             </Tabs.Root>

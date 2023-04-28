@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useId, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { PawLogo } from "@pethub/components";
@@ -9,9 +9,14 @@ import Image from "next/image";
 import calendarLogo from "@pethub/assets/calendar-logo.png";
 
 export const AddPetFormModal: FC = () => {
+   const id = useId();
    const [formValues, setFormValues] = useState<IPet>({
       name: "",
       type: PetType.Dog,
+      avatar: null!,
+      breed: "",
+      description: "",
+      id,
       birthDate: new Date(),
    });
    const [isOpen, setIsOpen] = useState(false);

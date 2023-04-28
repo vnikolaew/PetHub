@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Image, { StaticImageData } from "next/image";
+import { IPet } from "@pethub/state";
 
 export interface IPetInfo {
    petId: string;
@@ -11,11 +12,11 @@ export interface IPetInfo {
 }
 
 export interface AccountPetCardProps {
-   pet: IPetInfo;
+   pet: IPet;
 }
 
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-   dateStyle: "medium",
+export const dateTimeFormatter = new Intl.DateTimeFormat("bg", {
+   dateStyle: "long",
 });
 
 export const AccountPetCard: FC<AccountPetCardProps> = ({ pet }) => {
@@ -23,39 +24,56 @@ export const AccountPetCard: FC<AccountPetCardProps> = ({ pet }) => {
       <div
          className={`flex items-start gap-12 p-5 rounded-xl shadow-md border border-gray-100`}
       >
-         <div className={`flex flex-col items-center gap-2`}>
+         <div className={`flex flex-col items-center gap-4`}>
             <Image
                height={100}
                width={100}
                src={pet.avatar}
                alt={"Pet avatar"}
             />
-            <h2 className={`text-2xl`}>{pet.name}</h2>
+            <h2 className={`text-2xl text-raw-sienna font-semibold`}>
+               {pet.name}
+            </h2>
          </div>
          <div className={`flex w-[300px] flex-1 flex-col items-start gap-2`}>
             <div className={`flex w-full justify-between items-center gap-2`}>
                <h2 className={`text-lg font-semibold`}>Вид </h2>
-               <span className={`text-lg`}>{pet.breed}</span>
+               <span
+                  className={`text-lg ${
+                     pet.breed.length ? "text-black" : "text-gray-400"
+                  }`}
+               >
+                  {pet.breed?.length ? pet.breed : "Неуточнен"}
+               </span>
             </div>
 
-            <div className={`flex w-full justify-between items-center gap-2`}>
-               <h2 className={`text-lg font-semibold`}>Дата на раждане </h2>
-               <span className={`text-lg inline`}>
-                  {dateFormatter.format(pet.birthDate)}
+            <div className={`flex w-full justify-between items-center gap-8`}>
+               <h2 className={`text-lg font-semibold whitespace-nowrap`}>
+                  Дата на раждане{" "}
+               </h2>
+               <span className={`text-lg inline whitespace-nowrap`}>
+                  {dateTimeFormatter.format(pet.birthDate)}
                </span>
             </div>
 
             <div className={`flex w-full justify-between items-center gap-2`}>
                <h2 className={`text-lg font-semibold`}>Възраст </h2>
                <span className={`text-lg `}>
-                  {new Date().getFullYear() - pet.birthDate.getFullYear()}
+                  {new Date().getFullYear() - pet.birthDate.getFullYear()}{" "}
+                  години
                </span>
             </div>
          </div>
-         <div className={`flex w-[500px] flex-col items-start gap-4`}>
+         <div className={`flex w-[500px] flex-col items-center gap-4`}>
             <h2 className={`text-lg font-semibold`}>Описание </h2>
-            <p className={`p-2 rounded-md border border-black`}>
-               {pet.description}
+            <p
+               className={`p-2 px-4 rounded-md text-center w-full shadow-md border border-gray-200 ${
+                  pet.description.length ? "text-black" : "text-gray-500"
+               }`}
+            >
+               {pet.description && pet.description?.length
+                  ? pet.description
+                  : "Липсва."}
             </p>
          </div>
       </div>

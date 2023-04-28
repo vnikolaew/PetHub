@@ -11,6 +11,16 @@ export interface IProductRating {
    rating: number;
 }
 
+export interface IRecipientInfo {
+   firstName: string;
+   lastName: string;
+   phoneNumber: string;
+   livingAddress: string;
+   officeAddress: string;
+   orderComment: string;
+   paymentType: string;
+}
+
 export interface IProductDetails {
    name: string;
    id: string;
@@ -20,6 +30,7 @@ export interface IProductDetails {
    readonly averageRating: number;
    description: string;
    ratings: IProductRating[];
+   readonly total?: number;
 }
 
 export interface IShoppingCartProduct {
@@ -40,6 +51,7 @@ export interface Actions {
    removeProduct: (productId: string) => void;
    applyDiscount: (discount: number) => void;
    removeDiscount: () => void;
+   clearShoppingCart: () => void;
 }
 
 export const initialState: IShoppingCartState = {
@@ -94,10 +106,16 @@ export const useShoppingCart = create<IShoppingCartState & Actions>((set) => ({
    removeProduct: (productId: string) =>
       set(
          produce((state: IShoppingCartState) => {
-            const existing = state.products.find(
-               (p) => p.product.id === productId
+            state.products = state.products.filter(
+               (p) => p.product.id !== productId
             );
-            if (existing && existing.quantity > 0) existing.quantity--;
+         })
+      ),
+
+   clearShoppingCart: () =>
+      set(
+         produce((state: IShoppingCartState) => {
+            state.products = [];
          })
       ),
 }));
