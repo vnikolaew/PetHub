@@ -6,11 +6,11 @@ import Link from "next/link";
 
 const RODENTS_ACCESSORY_CATEGORIES = [
    {
-      href: "/accessories",
+      href: "/accessories/rodents/toys",
       name: "Играчки и други",
    },
    {
-      href: "/accessories",
+      href: "/accessories/rodents/cages",
       name: "Клетки за гризачи",
    },
 ];

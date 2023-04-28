@@ -1,6 +1,5 @@
 "use client";
 import React, { FC } from "react";
-import Image from "next/image";
 import { NavigationTab } from "@pethub/components";
 import sampleLogo from "../public/assets/sample-logo.svg";
 import ropeLogo from "../public/assets/rope-logo.png";
@@ -15,7 +14,57 @@ import fishFoodLogo from "../public/assets/fish-food-logo.png";
 
 import sampleProductLogo from "../public/assets/sample-product-logo.png";
 import * as Separator from "@radix-ui/react-separator";
-import Link from "next/link";
+import ProductCard, {
+   PetType,
+   ProductCardProps,
+   ProductType,
+} from "../../../libs/components/src/products/ProductCard";
+
+const BEST_SELLERS: ProductCardProps[] = Array.from({
+   length: 6,
+}).map<ProductCardProps>((_, i) => ({
+   product: {
+      image: sampleProductLogo,
+      price: Math.round(Math.random() * 100),
+      ratings: [],
+      id: `id-${i}`,
+      sizes: [],
+      name: `Sample product ${i}`,
+      get averageRating() {
+         return (
+            this.ratings.reduce((acc, curr) => acc + curr.rating, 0) /
+            this.ratings.length
+         );
+      },
+      description: `Sample description ${i}`,
+   },
+   category: "dry-food",
+   petType: PetType.Dogs,
+   productType: ProductType.Food,
+}));
+
+const ON_SALE_PRODUCTS: ProductCardProps[] = Array.from({
+   length: 6,
+}).map<ProductCardProps>((_, i) => ({
+   product: {
+      image: sampleProductLogo,
+      price: Math.round(Math.random() * 30),
+      ratings: [],
+      id: `id-${i}`,
+      sizes: [],
+      name: `Sample product on sale ${i}`,
+      get averageRating() {
+         return (
+            this.ratings.reduce((acc, curr) => acc + curr.rating, 0) /
+            this.ratings.length
+         );
+      },
+      description: `Sample description ${i}`,
+   },
+   category: "goodies",
+   petType: PetType.Birds,
+   productType: ProductType.Food,
+}));
 
 const NAVIGATION_TABS = [
    {
@@ -113,14 +162,26 @@ const NAVIGATION_TABS = [
             logo: dogFoodLogo!,
             href: "dogs",
             subMenu: [
-               { logo: null!, label: "Гребени и четки" },
-               { logo: null!, label: "Поводи, каишки и нагръдници" },
-               { logo: null!, label: "Дрехи" },
-               { logo: null!, label: "Чанти и клетки" },
-               { logo: null!, label: "Легла и къщички" },
-               { logo: null!, label: "Купички" },
-               { logo: null!, label: "Играчки" },
-               { logo: null!, label: "Намордници" },
+               {
+                  logo: null!,
+                  label: "Гребени и четки",
+                  href: "combs-and-brushes",
+               },
+               {
+                  logo: null!,
+                  label: "Поводи, каишки и нагръдници",
+                  href: "straps-and-breastplates",
+               },
+               { logo: null!, label: "Дрехи", href: "clothes" },
+               { logo: null!, label: "Чанти и клетки", href: "bags-and-cages" },
+               {
+                  logo: null!,
+                  label: "Легла и къщички",
+                  href: "beds-and-houses",
+               },
+               { logo: null!, label: "Купички", href: "cups" },
+               { logo: null!, label: "Играчки", href: "toys" },
+               { logo: null!, label: "Намордници", href: "muzzles" },
             ],
          },
          {
@@ -128,13 +189,21 @@ const NAVIGATION_TABS = [
             logo: catFoodLogo!,
             href: "cats",
             subMenu: [
-               { logo: null!, label: "Котешка тоалетна" },
-               { logo: null!, label: "Гребени и четки" },
-               { logo: null!, label: "Играчки и катерушки" },
-               { logo: null!, label: "Поводи, каишки и нагръдници" },
-               { logo: null!, label: "Легла" },
-               { logo: null!, label: "Купички" },
-               { logo: null!, label: "Чанти" },
+               { logo: null!, label: "Котешка тоалетна", href: "toilet" },
+               {
+                  logo: null!,
+                  label: "Гребени и четки",
+                  href: "combs-and-brushes",
+               },
+               { logo: null!, label: "Играчки и катерушки", href: "toys" },
+               {
+                  logo: null!,
+                  label: "Поводи, каишки и нагръдници",
+                  href: "straps-and-breastplates",
+               },
+               { logo: null!, label: "Легла", href: "beds" },
+               { logo: null!, label: "Купички", href: "cups" },
+               { logo: null!, label: "Чанти", href: "bags" },
             ],
          },
          {
@@ -142,8 +211,12 @@ const NAVIGATION_TABS = [
             logo: birdFoodLogo!,
             href: "birds",
             subMenu: [
-               { logo: null!, label: "Играчки, хранилки и други" },
-               { logo: null!, label: "Клетки" },
+               {
+                  logo: null!,
+                  label: "Играчки, хранилки и други",
+                  href: "toys-and-feeders",
+               },
+               { logo: null!, label: "Клетки", href: "cages" },
             ],
          },
          {
@@ -151,8 +224,8 @@ const NAVIGATION_TABS = [
             logo: rodentFoodLogo!,
             href: "rodents",
             subMenu: [
-               { logo: null!, label: "Играчки и други" },
-               { logo: null!, label: "Клетки за гризачи" },
+               { logo: null!, label: "Играчки и други", href: "toys" },
+               { logo: null!, label: "Клетки за гризачи", href: "cages" },
             ],
          },
          {
@@ -160,9 +233,9 @@ const NAVIGATION_TABS = [
             logo: fishFoodLogo!,
             href: "fish",
             subMenu: [
-               { logo: null!, label: "Аквариуми" },
-               { logo: null!, label: "Декорации" },
-               { logo: null!, label: "Други" },
+               { logo: null!, label: "Аквариуми", href: "aquariums" },
+               { logo: null!, label: "Декорации", href: "decorations" },
+               { logo: null!, label: "Други", href: "others" },
             ],
          },
       ],
@@ -198,25 +271,8 @@ const IndexPage: FC = () => {
                <section className={`mt-4`} id={"best-selling-products"}>
                   <h1 className={`text-3xl`}>Най-продавани продукти</h1>
                   <div className={`flex gap-20 mt-8 items-center`}>
-                     {Array.from({ length: 6 }).map((_, i) => (
-                        <Link
-                           key={i}
-                           href={`/foods/dogs/dry-food/sample-product-${i + 1}`}
-                        >
-                           <div
-                              className={`flex gap-2 flex-col items-center justify-center`}
-                           >
-                              <Image
-                                 height={120}
-                                 width={120}
-                                 src={sampleProductLogo}
-                                 alt={`Sample product #${i + 1}`}
-                              />
-                              <h2 className={`text-lg`}>
-                                 Sample product #{i + 1}
-                              </h2>
-                           </div>
-                        </Link>
+                     {BEST_SELLERS.map((props, i) => (
+                        <ProductCard key={i} {...props} />
                      ))}
                   </div>
                </section>
@@ -227,32 +283,11 @@ const IndexPage: FC = () => {
                <section className={`mt-4`} id={"best-selling-products"}>
                   <h1 className={`text-3xl`}>Намалени продукти</h1>
                   <div className={`flex gap-20 mt-8 items-center`}>
-                     {Array.from({ length: 6 }).map((_, i) => (
-                        <Link
-                           key={i}
-                           href={`/foods/dogs/dry-food/sample-product-${i + 1}`}
-                        >
-                           <div
-                              className={`flex gap-2 flex-col items-center justify-center`}
-                           >
-                              <Image
-                                 height={120}
-                                 width={120}
-                                 src={sampleProductLogo}
-                                 alt={`Sample product #${i + 1}`}
-                              />
-                              <h2 className={`text-lg`}>
-                                 Sample product #{i + 1}
-                              </h2>
-                           </div>
-                        </Link>
+                     {ON_SALE_PRODUCTS.map((props, i) => (
+                        <ProductCard key={i} {...props} />
                      ))}
                   </div>
                </section>
-               {/*<Separator.Root*/}
-               {/*   orientation={"horizontal"}*/}
-               {/*   className={`text-gray-300 mt-4 w-[90%] h-[1px] bg-gray-300`}*/}
-               {/*/>*/}
             </div>
          </div>
       </div>

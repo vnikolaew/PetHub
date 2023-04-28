@@ -6,15 +6,15 @@ import Link from "next/link";
 
 const FISH_ACCESSORY_CATEGORIES = [
    {
-      href: "/accessories",
+      href: "/accessories/fish/aquariums",
       name: "Аквариуми",
    },
    {
-      href: "/accessories",
+      href: "/accessories/fish/decorations",
       name: "Декорации",
    },
    {
-      href: "/accessories",
+      href: "/accessories/fish/others",
       name: "Други",
    },
 ];

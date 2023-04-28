@@ -17,7 +17,7 @@ export interface IProductDetails {
    image: string | StaticImageData;
    sizes: string[];
    price: number;
-   averageRating: number;
+   readonly averageRating: number;
    description: string;
    ratings: IProductRating[];
 }

@@ -4,33 +4,35 @@ import { NextPage } from "next";
 import { Breadcrumb } from "@pethub/components";
 import Link from "next/link";
 
+const COMMON_URL_PREFIX = "/accessories/cats";
+
 const CATS_ACCESSORY_CATEGORIES = [
    {
-      href: "/accessories",
+      href: `${COMMON_URL_PREFIX}/toilet`,
       name: "Котешка тоалетна",
    },
    {
-      href: "/accessories",
+      href: `${COMMON_URL_PREFIX}/combs-and-brushes`,
       name: "Гребени и четки",
    },
    {
-      href: "/accessories",
+      href: `${COMMON_URL_PREFIX}/toys`,
       name: "Играчки и катерушки",
    },
    {
-      href: "/accessories",
+      href: `${COMMON_URL_PREFIX}/straps-and-breastplates`,
       name: "Поводи, каишки и нагръдници",
    },
    {
-      href: "/accessories",
+      href: `${COMMON_URL_PREFIX}/beds`,
       name: "Легла",
    },
    {
-      href: "/accessories",
+      href: `${COMMON_URL_PREFIX}/cups`,
       name: "Купички",
    },
    {
-      href: "/accessories",
+      href: `${COMMON_URL_PREFIX}/bags`,
       name: "Чанти",
    },
 ];

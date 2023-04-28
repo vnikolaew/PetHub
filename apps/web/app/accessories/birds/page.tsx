@@ -4,13 +4,15 @@ import { NextPage } from "next";
 import { Breadcrumb } from "@pethub/components";
 import Link from "next/link";
 
+const COMMON_URL_PREFIX = "/accessories/birds";
+
 const BIRDS_ACCESSORY_CATEGORIES = [
    {
-      href: "/accessories",
+      href: `${COMMON_URL_PREFIX}/toys-and-feeders`,
       name: "Играчки, хранилки и други",
    },
    {
-      href: "/accessories",
+      href: `${COMMON_URL_PREFIX}/cages`,
       name: "Клетки",
    },
 ];
