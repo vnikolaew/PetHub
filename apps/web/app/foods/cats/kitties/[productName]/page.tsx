@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
-import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
-import { ProductDetailsPage } from "@pethub/components";
-import { LOREM_IPSUM_TEXT } from "@pethub/web/utils/string-constants";
+import { ALL_PRODUCTS, ProductDetailsPage } from "@pethub/components";
 import { StaticImageData } from "next/image";
+import { IProductRating } from "@pethub/state";
 
 export interface IProductDetails {
    name: string;
@@ -13,12 +12,7 @@ export interface IProductDetails {
    price: number;
    averageRating: number;
    description: string;
-   ratings: {
-      from: string;
-      image: string | StaticImageData;
-      reviewText: string;
-      rating: number;
-   }[];
+   ratings: IProductRating[];
 }
 
 export default function CatsKittiesProductDetailsPage({
@@ -26,16 +20,9 @@ export default function CatsKittiesProductDetailsPage({
 }: {
    params: { productName: string };
 }) {
-   const product: IProductDetails = {
-      name: productName,
-      image: sampleProductLogo,
-      id: "some-product-id",
-      price: 30.5,
-      sizes: ["XS", "S", "L"],
-      averageRating: Math.round(Math.random() * 5),
-      description: LOREM_IPSUM_TEXT.slice(0, 200),
-      ratings: [],
-   };
+   const product: IProductDetails = ALL_PRODUCTS.find(
+      (p) => p.product.id === productName
+   )!.product;
 
    return (
       <ProductDetailsPage

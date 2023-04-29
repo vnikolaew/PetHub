@@ -5,20 +5,21 @@ import sampleLogo from "@pethub/assets/sample-logo.svg";
 import ropeLogo from "@pethub/assets/rope-logo.png";
 import vetToolLogo from "@pethub/assets/vet-tool-logo.png";
 import dogHouseLogo from "@pethub/assets/dog-house-logo.png";
-import dogsFoodLogo from "../public/assets/dogs-food-logo.png";
-import dogFoodLogo from "../public/assets/dog-food-logo.png";
-import catFoodLogo from "../public/assets/cat-food-logo.png";
-import birdFoodLogo from "../public/assets/bird-food-logo.png";
-import rodentFoodLogo from "../public/assets/rodent-food-logo.png";
-import fishFoodLogo from "../public/assets/fish-food-logo.png";
+import dogsFoodLogo from "@pethub/assets/dogs-food-logo.png";
+import dogFoodLogo from "@pethub/assets/dog-food-logo.png";
+import catFoodLogo from "@pethub/assets/cat-food-logo.png";
+import birdFoodLogo from "@pethub/assets/bird-food-logo.png";
+import rodentFoodLogo from "@pethub/assets/rodent-food-logo.png";
+import fishFoodLogo from "@pethub/assets/fish-food-logo.png";
 
-import sampleProductLogo from "../public/assets/sample-product-logo.png";
+import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
 import * as Separator from "@radix-ui/react-separator";
-import ProductCard, {
+import {
+   ProductCard,
    PetType,
    ProductCardProps,
    ProductType,
-} from "../../../libs/components/src/products/ProductCard";
+} from "@pethub/components";
 
 const BEST_SELLERS: ProductCardProps[] = Array.from({
    length: 6,
@@ -296,26 +297,6 @@ const IndexPage: FC = () => {
                      />
                   }
                />
-               <section className={`mt-4`} id={"best-selling-products"}>
-                  <h1 className={`text-3xl`}>Най-продавани продукти</h1>
-                  <div className={`flex gap-20 mt-8 items-center`}>
-                     {BEST_SELLERS.map((props, i) => (
-                        <ProductCard key={i} {...props} />
-                     ))}
-                  </div>
-               </section>
-               <Separator.Root
-                  orientation={"horizontal"}
-                  className={`text-gray-300 mt-8 w-[90%] h-[1.5px] bg-gray-300`}
-               />
-               <section className={`mt-4`} id={"best-selling-products"}>
-                  <h1 className={`text-3xl`}>Намалени продукти</h1>
-                  <div className={`flex gap-20 mt-8 items-center`}>
-                     {ON_SALE_PRODUCTS.map((props, i) => (
-                        <ProductCard key={i} {...props} />
-                     ))}
-                  </div>
-               </section>
             </div>
          </div>
       </div>

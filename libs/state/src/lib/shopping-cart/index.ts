@@ -6,6 +6,8 @@ import sampleImageLogo from "@pethub/assets/sample-product-logo.png";
 
 export interface IProductRating {
    from: string;
+   userImage: string | StaticImageData;
+   timestamp: Date;
    image: string | StaticImageData;
    reviewText: string;
    rating: number;

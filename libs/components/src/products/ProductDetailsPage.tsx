@@ -16,9 +16,12 @@ import {
    StarIcon,
 } from "@radix-ui/react-icons";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
+import * as Progress from "@radix-ui/react-progress";
 import * as Separator from "@radix-ui/react-separator";
 import Link from "next/link";
-import { useShoppingCart } from "@pethub/state";
+import { IProductRating, useShoppingCart } from "@pethub/state";
+import ProductReviewCard from "./ProductReviewCard";
+import * as R from "ramda";
 
 export interface IProductDetails {
    name: string;
@@ -28,12 +31,7 @@ export interface IProductDetails {
    price: number;
    averageRating: number;
    description: string;
-   ratings: {
-      from: string;
-      image: string | StaticImageData;
-      reviewText: string;
-      rating: number;
-   }[];
+   ratings: IProductRating[];
 }
 
 export interface ProductDetailsPageProps {
@@ -47,7 +45,9 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
 }) => {
    const addProduct = useShoppingCart((state) => state.addProduct);
    const [productQuantity, setProductQuantity] = useState(1);
+   const [reviewsSortOrder, setReviewsSortOrder] = useState("");
 
+   console.log(reviewsSortOrder);
    return (
       <div className={`mt-12 mx-16`}>
          <Breadcrumb
@@ -216,9 +216,14 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                         className={`w-[2px] bg-black h-[40px]`}
                         orientation={"vertical"}
                      />
-                     <h2 className={`text-2xl text-blue-700 underline`}>
+                     <Link
+                        target={"_self"}
+                        href={`${window.location.pathname}#reviews`}
+                        scroll
+                        className={`text-2xl text-blue-700 underline`}
+                     >
                         Отзиви ({product.ratings.length})
-                     </h2>
+                     </Link>
                   </div>
                   <div>
                      <p className={`text-md max-w-[600px]`}>
@@ -262,6 +267,129 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                   <ChevronRightIcon height={20} width={20} />
                </div>
             </div>
+            <section
+               id={"reviews"}
+               className={`flex mt-4 flex-col w-full items-start gap-2`}
+            >
+               <h2 className={`text-3xl font-semibold text-raw-sienna`}>
+                  Отзиви
+               </h2>
+               <Separator.Root
+                  className={`w-full bg-gray-100 h-[1px]`}
+                  orientation={"horizontal"}
+               />
+               <div
+                  className={`flex items-center w-full mt-2 justify-around gap-4`}
+               >
+                  <div className={`flex flex-col gap-2`}>
+                     {[1, 2, 3, 4, 5].map((rating, i) => (
+                        <div
+                           className={`flex items-center gap-8 justify-between`}
+                           key={i}
+                        >
+                           <span>{rating} звезди</span>
+                           <Progress.Root
+                              max={product.ratings.length}
+                              value={
+                                 product.ratings.filter(
+                                    (r) => r.rating === rating
+                                 ).length
+                              }
+                              className={`h-6 w-64 relative rounded-full overflow-hidden`}
+                           >
+                              <Progress.Indicator
+                                 className={`bg-raw-sienna h-full w-full`}
+                              />
+                           </Progress.Root>
+                        </div>
+                     ))}
+                  </div>
+                  <section className={`flex-col flex items-center gap-4`}>
+                     <h2 className={`text-2xl text-black`}>Цялостен рейтинг</h2>
+                     <div className={`flex items-end justify-center gap-4`}>
+                        <span className={`text-7xl`}>
+                           {product.averageRating.toFixed(1)}
+                        </span>
+                        <div className={`flex flex-col items-center gap-0`}>
+                           <div className={`flex items-center gap-0`}>
+                              {Array.from({ length: 5 }).map((_, i) => (
+                                 <StarFilledIcon
+                                    color={"orange"}
+                                    height={20}
+                                    width={20}
+                                    key={i}
+                                 />
+                              ))}
+                           </div>
+                           <span className={`text-2xl`}>
+                              {product.ratings.length} отзива
+                           </span>
+                        </div>
+                     </div>
+                     <span className={`text-xl text-center max-w-[300px]`}>
+                        15 от 25 души препоръчват този продукт
+                     </span>
+                  </section>
+
+                  <section className={`flex-col flex items-center gap-4`}>
+                     <h2 className={`text-2xl text-black`}>
+                        Оцени този продукт
+                     </h2>
+                     <div className={`flex items-center gap-1`}>
+                        {Array.from({ length: 5 }).map((_, i) => (
+                           <StarIcon height={40} width={40} key={i} />
+                        ))}
+                     </div>
+                  </section>
+               </div>
+               <Separator.Root
+                  className={`w-full mt-8 bg-gray-100 h-[1px]`}
+                  orientation={"horizontal"}
+               />
+               <div className={`w-full mt-8 flex items-start gap-8`}>
+                  <div className={`w-2/3 flex flex-col items-center gap-8`}>
+                     {R.sort((ra, rb) => {
+                        if (reviewsSortOrder === "1")
+                           return (
+                              rb.timestamp.getTime() - ra.timestamp.getTime()
+                           );
+                        if (reviewsSortOrder === "2")
+                           return rb.rating - ra.rating;
+                        if (reviewsSortOrder === "3")
+                           return ra.rating - rb.rating;
+                        return rb.rating - ra.rating;
+                     }, product.ratings).map((r, i) => (
+                        <ProductReviewCard key={i} review={r} />
+                     ))}
+                  </div>
+                  <div className={`w-[250px]`}>
+                     <SelectInput
+                        placeholder={"Сортирай по"}
+                        defaultValue={"0"}
+                        value={reviewsSortOrder}
+                        options={[
+                           {
+                              value: "0",
+                              label: "Сортирай по",
+                           },
+                           {
+                              value: "1",
+                              label: "Най-скорошни",
+                           },
+                           {
+                              value: "2",
+                              label: "Най-позитивни",
+                           },
+                           {
+                              value: "3",
+                              label: "Най-негативни",
+                           },
+                        ]}
+                        onChange={setReviewsSortOrder}
+                     />
+                  </div>
+               </div>
+            </section>
          </section>
       </div>
    );
