@@ -5,8 +5,8 @@ import {
    BreadcrumbSegment,
    currencyFormatter,
    SelectInput,
+   useRecommendedProducts,
 } from "@pethub/components";
-import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
 import {
    CheckIcon,
    ChevronLeftIcon,
@@ -46,8 +46,10 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
    const addProduct = useShoppingCart((state) => state.addProduct);
    const [productQuantity, setProductQuantity] = useState(1);
    const [reviewsSortOrder, setReviewsSortOrder] = useState("");
+   const recommendedProducts = useRecommendedProducts(product.id);
 
-   console.log(reviewsSortOrder);
+   console.log(product);
+
    return (
       <div className={`mt-12 mx-16`}>
          <Breadcrumb
@@ -242,10 +244,10 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                />
                <div className={`flex mt-2 self-center items-center gap-8`}>
                   <ChevronLeftIcon height={20} width={20} />
-                  {Array.from({ length: 8 }).map((_, i) => (
+                  {recommendedProducts.map((p, i) => (
                      <Fragment key={i}>
                         <Link
-                           href={`/foods/dogs/dry-food/sample-product-${i + 1}`}
+                           href={`/${p.productType}/${p.petType}/${p.category}/${p.product.id}`}
                         >
                            <div
                               className={`flex gap-4 flex-col items-center justify-center`}
@@ -254,11 +256,11 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                               <Image
                                  height={80}
                                  width={80}
-                                 src={sampleProductLogo}
-                                 alt={`Sample product #${i + 1}`}
+                                 src={p.product.image}
+                                 alt={p.product.name}
                               />
                               <h2 className={`text-md`}>
-                                 Sample product #{i + 1}
+                                 {p.product.name.slice(0, 20)}...
                               </h2>
                            </div>
                         </Link>
@@ -281,7 +283,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                <div
                   className={`flex items-center w-full mt-2 justify-around gap-4`}
                >
-                  <div className={`flex flex-col gap-2`}>
+                  <div className={`flex flex-col gap-3`}>
                      {[1, 2, 3, 4, 5].map((rating, i) => (
                         <div
                            className={`flex items-center gap-8 justify-between`}
@@ -292,12 +294,22 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                               max={product.ratings.length}
                               value={
                                  product.ratings.filter(
-                                    (r) => r.rating === rating
+                                    (r) => Math.round(r.rating) === rating
                                  ).length
                               }
-                              className={`h-6 w-64 relative rounded-full overflow-hidden`}
+                              className={`h-6 w-64 relative rounded-full overflow-hidden bg-gray-100 shadow-sm bg-opacity-40`}
                            >
                               <Progress.Indicator
+                                 style={{
+                                    transform: `translateX(-${
+                                       100 -
+                                       (product.ratings.filter(
+                                          (r) => Math.round(r.rating) === rating
+                                       ).length /
+                                          product.ratings.length) *
+                                          100
+                                    }%)`,
+                                 }}
                                  className={`bg-raw-sienna h-full w-full`}
                               />
                            </Progress.Root>
@@ -312,7 +324,9 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                         </span>
                         <div className={`flex flex-col items-center gap-0`}>
                            <div className={`flex items-center gap-0`}>
-                              {Array.from({ length: 5 }).map((_, i) => (
+                              {Array.from({
+                                 length: Math.round(product.averageRating),
+                              }).map((_, i) => (
                                  <StarFilledIcon
                                     color={"orange"}
                                     height={20}
@@ -346,8 +360,10 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                   className={`w-full mt-8 bg-gray-100 h-[1px]`}
                   orientation={"horizontal"}
                />
-               <div className={`w-full mt-8 flex items-start gap-8`}>
-                  <div className={`w-2/3 flex flex-col items-center gap-8`}>
+               <div
+                  className={`w-full mt-8 flex justify-around items-start gap-8`}
+               >
+                  <div className={`w-2/5 flex flex-col items-center gap-8`}>
                      {R.sort((ra, rb) => {
                         if (reviewsSortOrder === "1")
                            return (

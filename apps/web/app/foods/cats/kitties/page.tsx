@@ -4,7 +4,8 @@ import { NextPage } from "next";
 import { ProductsGenericPage, useProducts } from "@pethub/components";
 
 const CatKittiesFoodsPage: NextPage = () => {
-   const { products, page } = useProducts();
+   const { page, products } = useProducts();
+   console.log(products);
 
    return (
       <ProductsGenericPage

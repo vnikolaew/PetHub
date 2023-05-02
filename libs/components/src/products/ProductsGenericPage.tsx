@@ -110,23 +110,25 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                className={`flex-1 w-full flex items-center flex-col gap-12 justify-center text-xl`}
             >
                <div className={`grid gap-12 place-center grid-cols-4`}>
-                  {products.map((product, i) => (
-                     <Fragment key={i}>
-                        <Link href={`${basePath}/${product.id}`}>
-                           <div
-                              className={`flex gap-4 flex-col items-center justify-center`}
-                           >
-                              <Image
-                                 height={120}
-                                 width={120}
-                                 src={product.image}
-                                 alt={`${product.name} logo`}
-                              />
-                              <h2 className={`text-lg`}>{product.name}</h2>
-                           </div>
-                        </Link>
-                     </Fragment>
-                  ))}
+                  {products
+                     .slice((page - 1) * 8, page * 8)
+                     .map((product, i) => (
+                        <Fragment key={i}>
+                           <Link href={`${basePath}/${product.id}`}>
+                              <div
+                                 className={`flex gap-4 flex-col items-center justify-center`}
+                              >
+                                 <Image
+                                    height={120}
+                                    width={120}
+                                    src={product.image}
+                                    alt={`${product.name} logo`}
+                                 />
+                                 <h2 className={`text-lg`}>{product.name}</h2>
+                              </div>
+                           </Link>
+                        </Fragment>
+                     ))}
                </div>
                <div className={`flex items-center gap-4`}>
                   {page !== 1 && (
@@ -144,30 +146,32 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                         />
                      </Fragment>
                   )}
-                  {Array.from({ length: 5 }).map((_, i) => (
-                     <Fragment key={i}>
-                        <span
-                           className={`text-xl ${
-                              i + 1 === page
-                                 ? "text-black font-bold"
-                                 : "text-blue-700 hover:underline"
-                           }`}
-                        >
-                           <Link
-                              href={`${basePath}?page=${i + 1}`}
-                              className={`${
-                                 i + 1 === page ? "cursor-default" : ""
+                  {Array.from({ length: products.length / 8 + 1 }).map(
+                     (_, i) => (
+                        <Fragment key={i}>
+                           <span
+                              className={`text-xl ${
+                                 i + 1 === page
+                                    ? "text-black font-bold"
+                                    : "text-blue-700 hover:underline"
                               }`}
                            >
-                              {i + 1}
-                           </Link>
-                        </span>
-                        <Separator.Root
-                           orientation={"vertical"}
-                           className={`h-[30px] bg-black w-[1.5px]`}
-                        />
-                     </Fragment>
-                  ))}
+                              <Link
+                                 href={`${basePath}?page=${i + 1}`}
+                                 className={`${
+                                    i + 1 === page ? "cursor-default" : ""
+                                 }`}
+                              >
+                                 {i + 1}
+                              </Link>
+                           </span>
+                           <Separator.Root
+                              orientation={"vertical"}
+                              className={`h-[30px] bg-black w-[1.5px]`}
+                           />
+                        </Fragment>
+                     )
+                  )}
 
                   {page !== 5 && (
                      <span className={`text-xl hover:underline text-blue-700`}>

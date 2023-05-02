@@ -12,6 +12,7 @@ import {
    Footer,
    Navbar,
    Social,
+   ProductsProvider,
 } from "@pethub/components";
 
 // export const metadata: Metadata = {
@@ -41,19 +42,21 @@ function PethubLayout({ children }: PropsWithChildren) {
    return (
       <html lang={"bg"}>
          <body>
-            <header>
-               <Navbar
-                  shoppingCartLogo={shoppingCartLogo}
-                  avatarLogo={avatarLogo}
-                  siteLogo={logo}
-               />
-            </header>
-            <main className={`app min-h-[70vh] ${bonaNova.className}`}>
-               {children}
-            </main>
-            <footer>
-               <Footer socials={SOCIALS} />
-            </footer>
+            <ProductsProvider>
+               <header>
+                  <Navbar
+                     shoppingCartLogo={shoppingCartLogo}
+                     avatarLogo={avatarLogo}
+                     siteLogo={logo}
+                  />
+               </header>
+               <main className={`app min-h-[70vh] ${bonaNova.className}`}>
+                  {children}
+               </main>
+               <footer>
+                  <Footer socials={SOCIALS} />
+               </footer>
+            </ProductsProvider>
          </body>
       </html>
    );

@@ -3,23 +3,7 @@ import React from "react";
 import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
 import { ProductDetailsPage } from "@pethub/components";
 import { LOREM_IPSUM_TEXT } from "@pethub/web/utils/string-constants";
-import { StaticImageData } from "next/image";
-
-export interface IProductDetails {
-   name: string;
-   id: string;
-   image: string | StaticImageData;
-   sizes: string[];
-   price: number;
-   averageRating: number;
-   description: string;
-   ratings: {
-      from: string;
-      image: string | StaticImageData;
-      reviewText: string;
-      rating: number;
-   }[];
-}
+import { IProductDetails } from "@pethub/state";
 
 export default function DogsSupplementProductDetailsPage({
    params: { productName },

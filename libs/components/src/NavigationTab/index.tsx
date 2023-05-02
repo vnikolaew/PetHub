@@ -89,7 +89,9 @@ export const NavigationTab: FC<NavigationTabProps> = ({
                                     alt={"Sample logo"}
                                  />
                               </span>
-                              <div className={`text-lg`}>{item.label}</div>
+                              <Link href={`/${baseRoute}/${item.href}`}>
+                                 <div className={`text-lg`}>{item.label}</div>
+                              </Link>
                               <ChevronRightIcon width={16} />
                            </DropdownMenu.SubTrigger>
                            <DropdownMenu.Portal>

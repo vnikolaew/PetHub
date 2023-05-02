@@ -14,6 +14,7 @@ import fishFoodLogo from "@pethub/assets/fish-food-logo.png";
 
 import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
 import * as Separator from "@radix-ui/react-separator";
+import CookieConsent from "react-cookie-consent";
 import {
    ProductCard,
    PetType,
@@ -298,6 +299,17 @@ const IndexPage: FC = () => {
                   }
                />
             </div>
+            <CookieConsent
+               enableDeclineButton
+               expires={30_000}
+               buttonText={"Yes"}
+               declineButtonText={"No"}
+               buttonClasses={`bg-raw-sienna p-2 bg-white shadow-md`}
+               declineButtonClasses={`bg-raw-sienna p-2 bg-white shadow-md`}
+               location={"bottom"}
+            >
+               Cookie Consent
+            </CookieConsent>
          </div>
       </div>
    );

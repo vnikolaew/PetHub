@@ -2,9 +2,9 @@ import React, { FC, useMemo, useRef, useState } from "react";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useDebounce } from "./useDebounce";
 import {
-   ALL_PRODUCTS,
    currencyFormatter,
    ProductCardProps,
+   useProductsContext,
 } from "@pethub/components";
 import { AnimatePresence, motion } from "framer-motion";
 import * as Separator from "@radix-ui/react-separator";
@@ -18,6 +18,7 @@ const SearchBar: FC = () => {
    const [showResults, setShowResults] = useState(false);
    const debouncedSearch = useDebounce(searchTerm, 2000, (_) => true);
    const resultsRef = useRef(null!);
+   const ALL_PRODUCTS = useProductsContext();
    useOnClickOutside(resultsRef, (_) => setShowResults(false));
 
    const searchResults = useMemo(() => {
@@ -29,7 +30,9 @@ const SearchBar: FC = () => {
          ? {}
          : groupByCategory(
               ALL_PRODUCTS.filter((item) =>
-                 item.product!.name!.includes(debouncedSearch)
+                 item.product?.name
+                    ?.toLowerCase()
+                    ?.includes(debouncedSearch.toLowerCase())
               )
            );
    }, [debouncedSearch]);
@@ -120,7 +123,7 @@ const SearchBar: FC = () => {
                                                 setShowResults(false);
                                                 setSearchTerm("");
                                              }}
-                                             href={`${category}/${result.product.id}`}
+                                             href={`/${category}/${result.product.id}`}
                                           >
                                              <div
                                                 className={`flex justify-between w-full items-center gap-4`}

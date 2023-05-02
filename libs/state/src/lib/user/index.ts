@@ -6,7 +6,7 @@ import petLogo from "@pethub/assets/pet-avatar-logo.png";
 import { IVetAppointment, PetAppointmentStatus } from "../vet-appointments";
 import { IRecipientInfo, IShoppingCartState } from "../shopping-cart";
 
-export enum PetType {
+export enum PetInfoType {
    Dog = "Dog",
    Cat = "Cat",
    Bird = "Bird",
@@ -19,7 +19,7 @@ export interface IPet {
    avatar: string | StaticImageData;
    breed: string;
    description: string;
-   type: PetType;
+   type: PetInfoType;
    name: string;
    birthDate: Date;
 }
@@ -61,7 +61,7 @@ export const TEST_USER_PASSWORD = "test123";
 
 export const TEST_PET = {
    name: "Rocky",
-   type: PetType.Dog,
+   type: PetInfoType.Dog,
    birthDate: new Date(2018, 2, 2),
    breed: "",
    description: "",

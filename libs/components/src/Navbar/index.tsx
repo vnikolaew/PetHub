@@ -5,6 +5,7 @@ import * as Tooltip from "@radix-ui/react-tooltip";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import UserDropdown from "./UserDropdown";
+import { useShoppingCart } from "@pethub/state";
 
 export interface NavbarProps {
    siteLogo: string | StaticImageData;
@@ -17,6 +18,8 @@ export const Navbar: FC<NavbarProps> = ({
    avatarLogo,
    shoppingCartLogo,
 }) => {
+   const products = useShoppingCart((state) => state.products);
+
    return (
       <div className={`w-[100vw] mb-1`}>
          <nav
@@ -38,7 +41,12 @@ export const Navbar: FC<NavbarProps> = ({
                <UserDropdown avatarLogo={avatarLogo} />
                <Tooltip.Provider>
                   <Tooltip.Root delayDuration={300}>
-                     <Tooltip.Trigger>
+                     <Tooltip.Trigger className={`relative`}>
+                        <div
+                           className={`w-4 absolute -top-1/4 -right-1/3 h-4 rounded-full text-xs bg-red-500 text-white flex items-center justify-center`}
+                        >
+                           {products.length}
+                        </div>
                         <Link href={"/shopping-cart"}>
                            <Image
                               width={30}

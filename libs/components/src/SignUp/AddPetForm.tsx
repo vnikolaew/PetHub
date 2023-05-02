@@ -4,7 +4,7 @@ import Image from "next/image";
 import calendarLogo from "@pethub/assets/calendar-logo.png";
 import { IPet } from "@pethub/web/app/signup/page";
 import { SelectInput } from "../common";
-import { PetType } from "@pethub/state";
+import { PetInfoType } from "@pethub/state";
 
 interface AddPetFormProps {
    petIndex: number;
@@ -12,25 +12,25 @@ interface AddPetFormProps {
    pet: IPet;
 }
 
-const PET_TYPE_OPTIONS: { value: PetType; label: string }[] = [
+const PET_TYPE_OPTIONS: { value: PetInfoType; label: string }[] = [
    {
-      value: PetType.Dog,
+      value: PetInfoType.Dog,
       label: "куче",
    },
    {
-      value: PetType.Cat,
+      value: PetInfoType.Cat,
       label: "котка",
    },
    {
-      value: PetType.Fish,
+      value: PetInfoType.Fish,
       label: "риба",
    },
    {
-      value: PetType.Rodent,
+      value: PetInfoType.Rodent,
       label: "гризач",
    },
    {
-      value: PetType.Bird,
+      value: PetInfoType.Bird,
       label: "птица",
    },
 ];

@@ -42,6 +42,7 @@ const nextConfig = {
       loader: "default",
       unoptimized: true,
       disableStaticImages: false,
+      domains: ["zoobg.bg"],
    },
    experimental: {
       appDir: true,
