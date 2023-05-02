@@ -19,16 +19,22 @@ export const ProductCard: FC<ProductCardProps> = ({
 }) => {
    return (
       <Link href={`/${productType}/${petType}/${category}/${product.id}`}>
-         <div className={`flex gap-2 flex-col p-2 items-center justify-center`}>
+         <div
+            className={`flex gap-2 flex-col border border-1 rounded-xl border-gray-100 shadow-md p-4 px-8 items-center justify-center`}
+         >
             <Image
                height={120}
                width={120}
                src={product.image}
                alt={product.name}
             />
-            <div className={`flex flex-col items-start justify-between gap-0`}>
-               <h2 className={`text-lg max-w-[140px]`}>{product.name}</h2>
-               <span className={`text-lg self-center font-semibold`}>
+            <div
+               className={`flex flex-col items-start mt-2 justify-between gap-2`}
+            >
+               <h2 className={`text-lg max-w-[140px] leading-5`}>
+                  {product.name}
+               </h2>
+               <span className={`text-2xl self-center font-semibold`}>
                   {currencyFormatter.format(product.price)}
                </span>
             </div>

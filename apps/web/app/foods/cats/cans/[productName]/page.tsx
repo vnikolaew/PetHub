@@ -1,10 +1,12 @@
 "use client";
-import React, { useState } from "react";
-import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
-import { LOREM_IPSUM_TEXT } from "@pethub/web/utils/string-constants";
+import React from "react";
 import { StaticImageData } from "next/image";
-import { IProductRating, useShoppingCart } from "@pethub/state";
-import { ALL_PRODUCTS, ProductDetailsPage } from "@pethub/components";
+import { IProductRating } from "@pethub/state";
+import {
+   ProductDetailsPage,
+   useProduct,
+   useProductsContext,
+} from "@pethub/components";
 
 export interface IProductDetails {
    name: string;
@@ -18,18 +20,15 @@ export interface IProductDetails {
 }
 
 export default function CansProductDetailsPage({
-   params,
+   params: { productName },
 }: {
    params: { productName: string };
 }) {
-   const { productName } = params;
-   const product: IProductDetails = ALL_PRODUCTS.find(
-      (p) => p.product.name === productName
-   )!.product;
+   const product = useProduct(productName)!.product;
 
    return (
       <ProductDetailsPage
-         product={product}
+         product={product!}
          breadcrumbs={[
             { label: "PetHub", path: "/" },
             { label: "Храна", path: "foods" },

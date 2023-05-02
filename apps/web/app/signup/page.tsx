@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { NextPage } from "next";
+import { v4 as uuidv4 } from "uuid";
 import * as Form from "@radix-ui/react-form";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { AddPetForm, Breadcrumb } from "@pethub/components";
@@ -9,8 +10,9 @@ import {
    VALID_NAME_REGEX,
    VALID_PASSWORD_REGEX,
 } from "../../utils/string-constants";
-import { useCurrentUser } from "@pethub/state";
+import { PetInfoType, useCurrentUser } from "@pethub/state";
 import { useRouter } from "next/navigation";
+import samplePetLogo from "@pethub/assets/pet-avatar-logo.png";
 import userLogo from "@pethub/assets/user-logo.svg";
 
 export enum PetType {
@@ -22,7 +24,7 @@ export enum PetType {
 }
 
 export interface IPet {
-   type: PetType;
+   type: PetInfoType;
    name: string;
    birthDate: Date;
 }
@@ -51,9 +53,19 @@ const SignUpPage: NextPage = () => {
    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       setUser({
-         ...formValues,
+         ...{
+            ...formValues,
+            pets: formValues.pets.map((p) => ({
+               ...p,
+               id: uuidv4(),
+               description: "",
+               avatar: samplePetLogo,
+               breed: "",
+            })),
+         },
          vetAppointments: [],
          profilePicture: userLogo,
+         orders: [],
       });
       router.push(`/`);
    };
@@ -70,7 +82,7 @@ const SignUpPage: NextPage = () => {
                     length: value,
                  }).map((_) => ({
                     name: "",
-                    type: PetType.Dog,
+                    type: PetInfoType.Dog,
                     birthDate: new Date(),
                  })),
       }));

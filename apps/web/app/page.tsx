@@ -1,6 +1,6 @@
 "use client";
 import React, { FC } from "react";
-import { List, NavigationTab } from "@pethub/components";
+import { List, NavigationTab, useProductsContext } from "@pethub/components";
 import sampleLogo from "@pethub/assets/sample-logo.svg";
 import ropeLogo from "@pethub/assets/rope-logo.png";
 import vetToolLogo from "@pethub/assets/vet-tool-logo.png";
@@ -12,61 +12,9 @@ import birdFoodLogo from "@pethub/assets/bird-food-logo.png";
 import rodentFoodLogo from "@pethub/assets/rodent-food-logo.png";
 import fishFoodLogo from "@pethub/assets/fish-food-logo.png";
 
-import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
 import * as Separator from "@radix-ui/react-separator";
 import CookieConsent from "react-cookie-consent";
-import {
-   ProductCard,
-   PetType,
-   ProductCardProps,
-   ProductType,
-} from "@pethub/components";
-
-const BEST_SELLERS: ProductCardProps[] = Array.from({
-   length: 6,
-}).map<ProductCardProps>((_, i) => ({
-   product: {
-      image: sampleProductLogo,
-      price: Math.round(Math.random() * 100),
-      ratings: [],
-      id: `id-${i}`,
-      sizes: [],
-      name: `Sample product ${i}`,
-      get averageRating() {
-         return (
-            this.ratings.reduce((acc, curr) => acc + curr.rating, 0) /
-            this.ratings.length
-         );
-      },
-      description: `Sample description ${i}`,
-   },
-   category: "dry-food",
-   petType: PetType.Dogs,
-   productType: ProductType.Food,
-}));
-
-const ON_SALE_PRODUCTS: ProductCardProps[] = Array.from({
-   length: 6,
-}).map<ProductCardProps>((_, i) => ({
-   product: {
-      image: sampleProductLogo,
-      price: Math.round(Math.random() * 30),
-      ratings: [],
-      id: `id-${i}`,
-      sizes: [],
-      name: `Sample product on sale ${i}`,
-      get averageRating() {
-         return (
-            this.ratings.reduce((acc, curr) => acc + curr.rating, 0) /
-            this.ratings.length
-         );
-      },
-      description: `Sample description ${i}`,
-   },
-   category: "goodies",
-   petType: PetType.Birds,
-   productType: ProductType.Food,
-}));
+import { ProductCard } from "@pethub/components";
 
 const NAVIGATION_TABS = [
    {
@@ -255,6 +203,12 @@ const NAVIGATION_TABS = [
 ];
 
 const IndexPage: FC = () => {
+   const products = useProductsContext();
+
+   const RANDOM_INDEX = 500;
+   const BEST_SELLERS = products.slice(RANDOM_INDEX, RANDOM_INDEX + 6);
+   const ON_SALE_PRODUCTS = products.slice(RANDOM_INDEX, RANDOM_INDEX + 6);
+
    return (
       <div>
          <div className="wrapper">
@@ -304,8 +258,12 @@ const IndexPage: FC = () => {
                expires={30_000}
                buttonText={"Yes"}
                declineButtonText={"No"}
-               buttonClasses={`bg-raw-sienna p-2 bg-white shadow-md`}
+               contentClasses={``}
+               containerClasses={`bg-black fixed bottom-0 flex w-full px-8 py-4 items-center justify-between`}
+               disableStyles={true}
+               buttonClasses={`bg-raw-sienna p-2 text-white shadow-md`}
                declineButtonClasses={`bg-raw-sienna p-2 bg-white shadow-md`}
+               declineButtonStyle={{}}
                location={"bottom"}
             >
                Cookie Consent

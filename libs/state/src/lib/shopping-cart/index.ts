@@ -50,6 +50,7 @@ export interface IShoppingCartState {
 
 export interface Actions {
    addProduct: (product: IProductDetails, quantity?: number) => void;
+   changeQuantity: (productId: string, quantity: number) => void;
    removeProduct: (productId: string) => void;
    applyDiscount: (discount: number) => void;
    removeDiscount: () => void;
@@ -118,6 +119,16 @@ export const useShoppingCart = create<IShoppingCartState & Actions>((set) => ({
       set(
          produce((state: IShoppingCartState) => {
             state.products = [];
+         })
+      ),
+   changeQuantity: (productId: string, quantity: number) =>
+      set(
+         produce((state: IShoppingCartState) => {
+            const product = state.products.find(
+               (p) => p.product.id === productId
+            );
+            if (!product) return;
+            product.quantity = quantity;
          })
       ),
 }));

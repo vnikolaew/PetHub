@@ -7,11 +7,13 @@ import { IShoppingCartProduct } from "@pethub/state";
 export interface ShoppingCartProductRowProps {
    product: IShoppingCartProduct;
    onRemoveProduct: () => void;
+   onChangeQuantity: (quantity: number) => void;
 }
 
 export const ShoppingCartProductRow: FC<ShoppingCartProductRowProps> = ({
    product: { product, quantity },
    onRemoveProduct,
+   onChangeQuantity,
 }) => {
    return (
       <div className={`grid relative gap-2 grid-cols-productRow`}>
@@ -32,7 +34,12 @@ export const ShoppingCartProductRow: FC<ShoppingCartProductRowProps> = ({
             {currencyFormatter.format(product.price)}
          </div>
          <div className={`text-xl flex items-center justify-center`}>
-            {quantity.toFixed(2)}
+            <input
+               className={`text-right`}
+               onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
+               value={quantity.toFixed(2)}
+               type={"number"}
+            />
          </div>
          <div className={`text-xl`}>
             {currencyFormatter.format(product.price * quantity)}

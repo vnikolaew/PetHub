@@ -11,6 +11,7 @@ import { SelectProps } from "@radix-ui/react-select";
 export interface SelectOption {
    value: string;
    label: React.ReactNode;
+   disabled?: boolean;
 }
 
 export interface SelectInputProps extends SelectProps {
@@ -67,17 +68,24 @@ export const SelectInput: FC<SelectInputProps> = ({
                         <ChevronUpIcon />
                      </Select.SelectScrollUpButton>
                      <Select.Viewport className={`p-2`}>
-                        {options.map(({ value, label }, i) => (
-                           <Select.Item
-                              className={`text-md whitespace-nowrap outline-none cursor-pointer hover:bg-gray-100 transition-all duration-200 px-3 border-b border-gray-100 flex items-center justify-between py-2 relative select-none rounded-sm`}
-                              value={value}
-                           >
-                              <Select.ItemText>{label}</Select.ItemText>
-                              <Select.ItemIndicator>
-                                 <CheckIcon />
-                              </Select.ItemIndicator>
-                           </Select.Item>
-                        ))}
+                        {options.map(
+                           ({ value, label, disabled = false }, i) => (
+                              <Select.Item
+                                 className={`text-md whitespace-nowrap outline-none ${
+                                    disabled
+                                       ? "cursor-not-allowed text-gray-400"
+                                       : "cursor-pointer hover:bg-gray-100 transition-all duration-200"
+                                 }   px-3 border-b border-gray-100 flex items-center justify-between py-2 relative select-none rounded-sm`}
+                                 disabled={disabled}
+                                 value={value}
+                              >
+                                 <Select.ItemText>{label}</Select.ItemText>
+                                 <Select.ItemIndicator>
+                                    <CheckIcon />
+                                 </Select.ItemIndicator>
+                              </Select.Item>
+                           )
+                        )}
                      </Select.Viewport>
                      <Select.SelectScrollDownButton
                         className={`flex items-center justify-center h-12 bg-white cursor-default`}

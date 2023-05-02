@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import SearchBar from "./SearchBar";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import UserDropdown from "./UserDropdown";
 import { useShoppingCart } from "@pethub/state";
+import ShoppingCartDropdown from "./ShoppingCartDropdown";
 
 export interface NavbarProps {
    siteLogo: string | StaticImageData;
@@ -19,6 +20,7 @@ export const Navbar: FC<NavbarProps> = ({
    shoppingCartLogo,
 }) => {
    const products = useShoppingCart((state) => state.products);
+   const [isShoppingCartOpen, setIsShoppingCartOpen] = useState(false);
 
    return (
       <div className={`w-[100vw] mb-1`}>
@@ -40,7 +42,11 @@ export const Navbar: FC<NavbarProps> = ({
             >
                <UserDropdown avatarLogo={avatarLogo} />
                <Tooltip.Provider>
-                  <Tooltip.Root delayDuration={300}>
+                  <Tooltip.Root
+                     onOpenChange={setIsShoppingCartOpen}
+                     open={isShoppingCartOpen}
+                     delayDuration={300}
+                  >
                      <Tooltip.Trigger className={`relative`}>
                         <div
                            className={`w-4 absolute -top-1/4 -right-1/3 h-4 rounded-full text-xs bg-red-500 text-white flex items-center justify-center`}
@@ -61,7 +67,7 @@ export const Navbar: FC<NavbarProps> = ({
                            asChild
                            side={"bottom"}
                            sideOffset={5}
-                           className={`rounded-sm w-24 h-auto px-3 py-1 bg-white shadow-md select-none`}
+                           className={`rounded-sm z-50 w-auto h-auto px-3 py-1 bg-white shadow-md select-none`}
                            // forceMount
                         >
                            <motion.div
@@ -78,7 +84,9 @@ export const Navbar: FC<NavbarProps> = ({
                               }}
                               transition={{ duration: 0.2 }}
                            >
-                              <span>Количка</span>
+                              <ShoppingCartDropdown
+                                 onClose={() => setIsShoppingCartOpen(false)}
+                              />
                               <Tooltip.Arrow className={`fill-white`} />
                            </motion.div>
                         </Tooltip.Content>

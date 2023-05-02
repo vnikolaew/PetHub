@@ -45,7 +45,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
 }) => {
    const addProduct = useShoppingCart((state) => state.addProduct);
    const [productQuantity, setProductQuantity] = useState(1);
-   const [reviewsSortOrder, setReviewsSortOrder] = useState("");
+   const [reviewsSortOrder, setReviewsSortOrder] = useState("2");
    const recommendedProducts = useRecommendedProducts(product.id);
 
    console.log(product);
@@ -103,7 +103,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                         ))}
                      </div>
                   </div>
-                  <div className={`flex items-center gap-12`}>
+                  <div className={`flex items-center w-1/4 gap-12`}>
                      <span className={`text-xl`}>Размер: </span>
                      <SelectInput
                         placeholder={"Избери"}
@@ -118,7 +118,9 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                      <span className={`text-xl`}>Цена: </span>
                      <span>{currencyFormatter.format(product.price)}</span>
                   </div>
-                  <div className={`flex mt-0 justify-end items-center gap-8`}>
+                  <div
+                     className={`flex w-full mt-2 justify-end items-center gap-8`}
+                  >
                      <span className={`text-lg`}>Количество: </span>
                      <input
                         defaultValue={"1"}
@@ -210,31 +212,19 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                         </AlertDialog.Portal>
                      </AlertDialog.Root>
                   </div>
-               </div>
-               <div className={`flex flex-col items-start gap-4`}>
-                  <div className={`flex items-center gap-4`}>
-                     <h2 className={`text-2xl`}>Описание</h2>
-                     <Separator.Root
-                        className={`w-[2px] bg-black h-[40px]`}
-                        orientation={"vertical"}
-                     />
-                     <Link
-                        target={"_self"}
-                        href={`${window.location.pathname}#reviews`}
-                        scroll
-                        className={`text-2xl text-blue-700 underline`}
-                     >
-                        Отзиви ({product.ratings.length})
-                     </Link>
-                  </div>
-                  <div>
-                     <p className={`text-md max-w-[600px]`}>
-                        {product.description}
-                     </p>
+                  <div className={`flex flex-col mt-4 items-start gap-4`}>
+                     <div className={`flex items-center gap-4`}>
+                        <h2 className={`text-2xl`}>Описание</h2>
+                     </div>
+                     <div>
+                        <p className={`text-lg leading-5 w-full`}>
+                           {product.description}
+                        </p>
+                     </div>
                   </div>
                </div>
             </div>
-            <div className={`flex flex-col w-full items-start gap-2`}>
+            <div className={`flex flex-col mt-8 w-full items-start gap-2`}>
                <h2 className={`text-2xl font-semibold text-raw-sienna`}>
                   Може да харесате
                </h2>
@@ -381,12 +371,13 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                   <div className={`w-[250px]`}>
                      <SelectInput
                         placeholder={"Сортирай по"}
-                        defaultValue={"0"}
+                        defaultValue={"2"}
                         value={reviewsSortOrder}
                         options={[
                            {
                               value: "0",
-                              label: "Сортирай по",
+                              disabled: true,
+                              label: "Сортитай по",
                            },
                            {
                               value: "1",

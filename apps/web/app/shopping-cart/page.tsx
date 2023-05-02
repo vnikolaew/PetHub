@@ -12,14 +12,22 @@ import { useCurrentUser, useShoppingCart } from "@pethub/state";
 
 const ShoppingCartPage: NextPage = () => {
    const user = useCurrentUser((state) => state.user);
-   const { discount, products, applyDiscount, removeProduct } = useShoppingCart(
-      ({ products, discount, applyDiscount, removeProduct }) => ({
-         products,
-         discount,
-         removeProduct,
-         applyDiscount,
-      })
-   );
+   const { discount, products, applyDiscount, removeProduct, changeQuantity } =
+      useShoppingCart(
+         ({
+            products,
+            discount,
+            applyDiscount,
+            removeProduct,
+            changeQuantity,
+         }) => ({
+            products,
+            discount,
+            removeProduct,
+            applyDiscount,
+            changeQuantity,
+         })
+      );
    console.log(products);
 
    return (
@@ -71,6 +79,9 @@ const ShoppingCartPage: NextPage = () => {
                      <ShoppingCartProductRow
                         onRemoveProduct={() =>
                            removeProduct(product.product.id)
+                        }
+                        onChangeQuantity={(q) =>
+                           changeQuantity(product.product.id, q)
                         }
                         product={product}
                      />

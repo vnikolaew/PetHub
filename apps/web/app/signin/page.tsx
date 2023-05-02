@@ -8,12 +8,7 @@ import {
    VALID_EMAIL_REGEX,
    VALID_PASSWORD_REGEX,
 } from "../../utils/string-constants";
-import {
-   TEST_USER,
-   TEST_USER_EMAIL,
-   TEST_USER_PASSWORD,
-   useCurrentUser,
-} from "@pethub/state";
+import { useCurrentUser } from "@pethub/state";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export interface SignInFormValues {
@@ -22,13 +17,17 @@ export interface SignInFormValues {
 }
 
 const SignInPage: NextPage = () => {
-   const { setUser } = useCurrentUser();
+   const { setUser, user, users } = useCurrentUser();
    const router = useRouter();
    const searchParams = useSearchParams();
    const [formValues, setFormValues] = useState<SignInFormValues>({
       email: "",
       password: "",
    });
+
+   if (user !== null) {
+      router.push(`/`);
+   }
 
    const handleFormChange = ({
       target: { name, value },
@@ -37,11 +36,12 @@ const SignInPage: NextPage = () => {
 
    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (
-         formValues.password === TEST_USER_PASSWORD &&
-         formValues.email === TEST_USER_EMAIL
-      ) {
-         setUser(TEST_USER);
+      const { password, email } = formValues;
+      const user = users.find(
+         (u) => u.email === email && u.password === password
+      );
+      if (user) {
+         setUser(user);
          router.push(searchParams.get("redirect") ?? `/`);
       }
    };
@@ -108,10 +108,18 @@ const SignInPage: NextPage = () => {
                         Забравена парола?
                      </Link>
                   </div>
-                  <Form.Submit className={`mx-auto mt-4`} asChild>
+                  <div className={`mt-0`}>
+                     <Link
+                        className={`text-blue-700 text-md underline`}
+                        href={"/signup"}
+                     >
+                        Нямаш профил? Регистрирай се сега!
+                     </Link>
+                  </div>
+                  <Form.Submit className={`mx-auto mt-6`} asChild>
                      <button
                         type={"submit"}
-                        className={`flex text-xl hover:opacity-80 transition-all duration-200 shadow-md mt-6 px-8 py-1.5 bg-whiskey text-white border-2 border-whiskey rounded-lg outline-none items-center gap-2`}
+                        className={`flex text-xl hover:opacity-80 transition-all duration-200 shadow-md mt-6 px-12 py-1.5 bg-whiskey text-white border-2 border-whiskey rounded-lg outline-none items-center gap-2`}
                      >
                         Влизане
                      </button>
@@ -122,5 +130,4 @@ const SignInPage: NextPage = () => {
       </div>
    );
 };
-
 export default SignInPage;

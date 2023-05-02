@@ -45,6 +45,7 @@ export interface IUser {
 
 interface ICurrentUserState {
    user: IUser | null;
+   users: IUser[];
 }
 
 interface Actions {
@@ -92,6 +93,7 @@ export const TEST_USER: IUser = {
 
 export const useCurrentUser = create<ICurrentUserState & Actions>((set) => ({
    user: { ...TEST_USER },
+   users: [TEST_USER],
    setUser: (user: IUser) =>
       set(
          produce((state: ICurrentUserState) => {

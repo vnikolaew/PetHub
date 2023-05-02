@@ -3,7 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { PawLogo } from "@pethub/components";
 import * as Separator from "@radix-ui/react-separator";
-import { IPet, PetType, useCurrentUser } from "@pethub/state";
+import { IPet, PetInfoType, useCurrentUser } from "@pethub/state";
 import * as Form from "@radix-ui/react-form";
 import Image from "next/image";
 import calendarLogo from "@pethub/assets/calendar-logo.png";
@@ -12,7 +12,7 @@ export const AddPetFormModal: FC = () => {
    const id = useId();
    const [formValues, setFormValues] = useState<IPet>({
       name: "",
-      type: PetType.Dog,
+      type: PetInfoType.Dog,
       avatar: null!,
       breed: "",
       description: "",

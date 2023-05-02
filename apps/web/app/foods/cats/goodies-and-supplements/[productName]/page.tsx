@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
-import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
-import { ALL_PRODUCTS, ProductDetailsPage } from "@pethub/components";
-import { LOREM_IPSUM_TEXT } from "@pethub/web/utils/string-constants";
+import { ProductDetailsPage, useProductsContext } from "@pethub/components";
 import { StaticImageData } from "next/image";
 import { IProductRating } from "@pethub/state";
 
@@ -22,7 +20,8 @@ export default function CatsGoodiesProductDetailsPage({
 }: {
    params: { productName: string };
 }) {
-   const product: IProductDetails = ALL_PRODUCTS.find(
+   const products = useProductsContext();
+   const product: IProductDetails = products.find(
       (p) => p.product.name === productName
    )!.product;
 

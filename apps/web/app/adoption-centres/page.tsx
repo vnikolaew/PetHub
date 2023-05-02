@@ -7,6 +7,8 @@ import * as Separator from "@radix-ui/react-separator";
 import Image from "next/image";
 import Link from "next/link";
 import { LOREM_IPSUM_TEXT } from "@pethub/web/utils/string-constants";
+import mapMarkerLogo from "@pethub/assets/map-marker-logo.png";
+import pawLogo from "@pethub/assets/paw-solid-logo.png";
 
 const AdoptionCentresPage: NextPage = () => {
    const [showSearchResults, setShowSearchResults] = useState(false);
@@ -32,12 +34,21 @@ const AdoptionCentresPage: NextPage = () => {
                      >
                         Моля въведете населено място
                      </h1>
-                     <input
-                        placeholder={"Varna, BG"}
-                        autoComplete={"off"}
-                        className={`text-lg mt-4 w-96 mt-1 px-4 py-1 block rounded-md shadow-md`}
-                        type={"text"}
-                     />
+                     <div className={`relative`}>
+                        <Image
+                           className={`absolute top-2 -left-8`}
+                           height={20}
+                           width={20}
+                           src={mapMarkerLogo}
+                           alt={""}
+                        />
+                        <input
+                           placeholder={"Varna, BG"}
+                           autoComplete={"off"}
+                           className={`text-lg mt-4 w-96 mt-1 px-4 py-1 block rounded-md shadow-md`}
+                           type={"text"}
+                        />
+                     </div>
                   </div>
 
                   <div className={`flex flex-col items-start gap-4`}>
@@ -46,11 +57,22 @@ const AdoptionCentresPage: NextPage = () => {
                      >
                         Търсете приюти с:
                      </h1>
-                     <SelectInput
-                        placeholder={"Избери"}
-                        options={[]}
-                        onChange={(_) => {}}
-                     />
+                     <div className={`relative w-full`}>
+                        <Image
+                           className={`absolute top-2 -left-8`}
+                           height={20}
+                           width={20}
+                           src={pawLogo}
+                           alt={""}
+                        />
+                        <div className={`w-full`}>
+                           <SelectInput
+                              placeholder={"Избери"}
+                              options={[]}
+                              onChange={(_) => {}}
+                           />
+                        </div>
+                     </div>
                   </div>
                   <div className={`self-end`}>
                      <Image

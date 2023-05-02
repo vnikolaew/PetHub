@@ -1,10 +1,7 @@
 "use client";
-import React, { useState } from "react";
-import sampleProductLogo from "@pethub/assets/sample-product-logo.png";
-import { LOREM_IPSUM_TEXT } from "@pethub/web/utils/string-constants";
+import React from "react";
 import { StaticImageData } from "next/image";
-import { useShoppingCart } from "@pethub/state";
-import { ProductDetailsPage } from "@pethub/components";
+import { ProductDetailsPage, useProductsContext } from "@pethub/components";
 
 export interface IProductDetails {
    name: string;
@@ -28,18 +25,8 @@ export default function CansAndPouchesProductDetailsPage({
    params: { productName: string };
 }) {
    const { productName } = params;
-   const addProduct = useShoppingCart((state) => state.addProduct);
-   const [productQuantity, setProductQuantity] = useState(1);
-   const product: IProductDetails = {
-      name: productName,
-      image: sampleProductLogo,
-      id: "some-product-id",
-      price: 30.5,
-      sizes: ["XS", "S", "L"],
-      averageRating: Math.round(Math.random() * 5),
-      description: LOREM_IPSUM_TEXT.slice(0, 200),
-      ratings: [],
-   };
+   const products = useProductsContext();
+   const product = products!.find((p) => p.product.id === productName)!.product;
 
    return (
       <ProductDetailsPage
