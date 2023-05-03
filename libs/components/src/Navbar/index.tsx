@@ -53,14 +53,12 @@ export const Navbar: FC<NavbarProps> = ({
                         >
                            {products.length}
                         </div>
-                        <Link href={"/shopping-cart"}>
-                           <Image
-                              width={30}
-                              height={30}
-                              src={shoppingCartLogo}
-                              alt={"Shopping Cart"}
-                           />
-                        </Link>
+                        <Image
+                           width={30}
+                           height={30}
+                           src={shoppingCartLogo}
+                           alt={"Shopping Cart"}
+                        />
                      </Tooltip.Trigger>
                      <Tooltip.Portal>
                         <Tooltip.Content

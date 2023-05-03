@@ -1,6 +1,12 @@
 "use client";
 import React, { FC } from "react";
-import { List, NavigationTab, useProductsContext } from "@pethub/components";
+import {
+   List,
+   NavigationTab,
+   ProductCard,
+   ProductCardProps,
+   useProductsContext,
+} from "@pethub/components";
 import sampleLogo from "@pethub/assets/sample-logo.svg";
 import ropeLogo from "@pethub/assets/rope-logo.png";
 import vetToolLogo from "@pethub/assets/vet-tool-logo.png";
@@ -14,7 +20,7 @@ import fishFoodLogo from "@pethub/assets/fish-food-logo.png";
 
 import * as Separator from "@radix-ui/react-separator";
 import CookieConsent from "react-cookie-consent";
-import { ProductCard } from "@pethub/components";
+import { PetInfoType } from "@pethub/state";
 
 const NAVIGATION_TABS = [
    {
@@ -185,7 +191,7 @@ const NAVIGATION_TABS = [
             subMenu: [
                { logo: null!, label: "Аквариуми", href: "aquariums" },
                { logo: null!, label: "Декорации", href: "decorations" },
-               { logo: null!, label: "Други", href: "others" },
+               { logo: null!, label: "Други", href: "other" },
             ],
          },
       ],
@@ -202,12 +208,34 @@ const NAVIGATION_TABS = [
    },
 ];
 
+function generateRandomProducts(
+   products: ProductCardProps[]
+): ProductCardProps[] {
+   const petTypes = [
+      PetInfoType.Dog,
+      PetInfoType.Cat,
+      PetInfoType.Fish,
+      PetInfoType.Rodent,
+      PetInfoType.Bird,
+   ];
+
+   return [
+      ...petTypes.map(
+         (pt) =>
+            products.filter((p) => p.petType === pt)[
+               Math.round(Math.random() * 5)
+            ]
+      ),
+      products[Math.round(Math.random() * 10)],
+   ];
+}
+
 const IndexPage: FC = () => {
    const products = useProductsContext();
-
-   const RANDOM_INDEX = 500;
-   const BEST_SELLERS = products.slice(RANDOM_INDEX, RANDOM_INDEX + 6);
-   const ON_SALE_PRODUCTS = products.slice(RANDOM_INDEX, RANDOM_INDEX + 6);
+   const BEST_SELLERS = generateRandomProducts(products);
+   const ON_SALE_PRODUCTS = generateRandomProducts(products);
+   console.log(BEST_SELLERS);
+   console.log(ON_SALE_PRODUCTS);
 
    return (
       <div>
@@ -222,7 +250,7 @@ const IndexPage: FC = () => {
                ))}
             </div>
             <div
-               className={`mt-2 flex flex-col gap-2 justify-center items-center text-woodsmoke w-full text-4xl text-center mx-auto`}
+               className={`mt-2 flex flex-col gap-2 justify-center items-center text-woodsmoke w-3/4 text-4xl text-center mx-auto`}
             >
                <List
                   items={[
@@ -238,7 +266,7 @@ const IndexPage: FC = () => {
                   render={(item) => (
                      <section className={`mt-4`} id={"best-selling-products"}>
                         <h1 className={`text-3xl`}>{item.heading}</h1>
-                        <div className={`flex gap-20 mt-8 items-center`}>
+                        <div className={`grid grid-cols-4 gap-6 mt-8`}>
                            {item.products.map((props, i) => (
                               <ProductCard key={i} {...props} />
                            ))}
@@ -248,7 +276,7 @@ const IndexPage: FC = () => {
                   separator={
                      <Separator.Root
                         orientation={"horizontal"}
-                        className={`text-gray-300 mt-8 w-[90%] h-[1.5px] bg-gray-300`}
+                        className={`text-gray-300 mt-8 w-full shado h-[1.3px] bg-gray-200`}
                      />
                   }
                />

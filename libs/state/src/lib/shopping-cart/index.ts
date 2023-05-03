@@ -1,8 +1,7 @@
 import { create } from "zustand";
 import { produce } from "immer";
 import { StaticImageData } from "next/image";
-import { LOREM_IPSUM_TEXT } from "@pethub/web/utils/string-constants";
-import sampleImageLogo from "@pethub/assets/sample-product-logo.png";
+import { catsSupplements, dogsDryFoods } from "@pethub/data";
 
 export interface IProductRating {
    from: string;
@@ -58,21 +57,23 @@ export interface Actions {
 }
 
 export const initialState: IShoppingCartState = {
-   products: [
-      {
-         product: {
-            name: `Sample product 1`,
-            description: LOREM_IPSUM_TEXT.slice(0, 50),
-            id: "sdf32r322ajdab",
-            sizes: ["S", "M", "XL"],
-            ratings: [],
-            price: 32.5,
-            averageRating: 4.5,
-            image: sampleImageLogo,
-         },
-         quantity: 2,
+   products: [...dogsDryFoods, ...catsSupplements].slice(100, 103).map((p) => ({
+      product: {
+         ...p.product,
+         image: `http://zoobg.bg/${p.product?.image ?? ""}`,
+         averageRating: p.product.average_rating,
+         ratings:
+            p.product?.ratings.map((r) => ({
+               ...r,
+               image: "",
+               from: r.username,
+               userImage: r.user_image,
+               reviewText: r.review_text,
+               timestamp: new Date(r.timestamp),
+            })) ?? [],
       },
-   ],
+      quantity: Math.round(Math.random() * 5),
+   })),
    get total() {
       return this.products.reduce(
          (acc, curr) => acc + curr.quantity * curr.product.price,

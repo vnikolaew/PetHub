@@ -1,6 +1,7 @@
 import { useSearchParams } from "next/navigation";
-import { PetType, ProductType, useProductsContext } from "./products";
+import { ProductType, useProductsContext } from "./products";
 import { ProductCardProps } from "./ProductCard";
+import { PetInfoType } from "@pethub/state";
 
 export function useProducts() {
    const params = useSearchParams();
@@ -11,11 +12,11 @@ export function useProducts() {
       .split("/")
       .filter((s) => s.length !== 0);
 
-   const pt: ProductType =
-      pathSegments[0] === "foods" ? ProductType.Food : ProductType.Accessory;
-   const petType: PetType = pathSegments[1] as PetType;
-
+   const pt: ProductType = pathSegments[0] as ProductType;
+   const petType: PetInfoType = pathSegments[1] as PetInfoType;
    const category = pathSegments[2];
+
+   console.log(pt, petType, category);
    const filteredProducts = products.filter(
       (p) =>
          p.productType === pt &&

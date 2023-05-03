@@ -42,6 +42,7 @@ const nextConfig = {
       loader: "default",
       unoptimized: true,
       disableStaticImages: false,
+      minimumCacheTTL: 60 * 60,
       domains: ["zoobg.bg"],
    },
    experimental: {

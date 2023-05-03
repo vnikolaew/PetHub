@@ -7,11 +7,11 @@ import { IVetAppointment, PetAppointmentStatus } from "../vet-appointments";
 import { IRecipientInfo, IShoppingCartState } from "../shopping-cart";
 
 export enum PetInfoType {
-   Dog = "Dog",
-   Cat = "Cat",
-   Bird = "Bird",
-   Fish = "Fish",
-   Rodent = "Rodent",
+   Dog = "dogs",
+   Cat = "cats",
+   Bird = "birds",
+   Fish = "fish",
+   Rodent = "rodents",
 }
 
 export interface IPet {

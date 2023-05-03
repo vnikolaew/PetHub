@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { ProductsGenericPage, useProducts } from "@pethub/components";
+import { CATEGORY_NAMES } from "@pethub/web/app/accessories/dogs/[category]/CATEGORY_NAMES";
 
 export default function DogsAccessoriesPage({
    params: { category },
@@ -15,7 +16,10 @@ export default function DogsAccessoriesPage({
             { label: "PetHub", path: "/" },
             { label: "Аксесоари", path: "accessories" },
             { label: "Кучета", path: "dogs" },
-            { label: category, path: category },
+            {
+               label: CATEGORY_NAMES.find((c) => c.href === category)!.name,
+               path: category,
+            },
          ]}
          basePath={window.location.pathname}
          products={products.map((p) => p.product)}

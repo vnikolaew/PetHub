@@ -19,6 +19,12 @@ export const currencyFormatter = new Intl.NumberFormat("bg", {
    maximumFractionDigits: 2,
 });
 
+export const currencyFormatterRounded = new Intl.NumberFormat("bg", {
+   currency: "BGN",
+   style: "currency",
+   maximumFractionDigits: 0,
+});
+
 export const dateTimeFormatter = new Intl.DateTimeFormat("bg", {
    dateStyle: "long",
 });

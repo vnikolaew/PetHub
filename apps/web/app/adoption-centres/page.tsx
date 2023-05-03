@@ -68,7 +68,28 @@ const AdoptionCentresPage: NextPage = () => {
                         <div className={`w-full`}>
                            <SelectInput
                               placeholder={"Избери"}
-                              options={[]}
+                              options={[
+                                 {
+                                    label: "Кучета",
+                                    value: "dogs",
+                                 },
+                                 {
+                                    label: "Котки",
+                                    value: "cats",
+                                 },
+                                 {
+                                    label: "Птици",
+                                    value: "birds",
+                                 },
+                                 {
+                                    label: "Гризачи",
+                                    value: "rodents",
+                                 },
+                                 {
+                                    label: "Риби",
+                                    value: "fish",
+                                 },
+                              ]}
                               onChange={(_) => {}}
                            />
                         </div>

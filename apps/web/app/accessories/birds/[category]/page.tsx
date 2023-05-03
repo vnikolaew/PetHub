@@ -3,6 +3,7 @@ import React from "react";
 import { useSearchParams } from "next/navigation";
 import { ProductsGenericPage } from "@pethub/components";
 import sampleImageLogo from "@pethub/assets/sample-product-logo.png";
+import { CATEGORY_NAMES } from "@pethub/web/app/accessories/birds/[category]/CATEGORY_NAMES";
 
 export default function BirdsAccessoriesPage({
    params: { category },
@@ -18,7 +19,10 @@ export default function BirdsAccessoriesPage({
             { label: "PetHub", path: "/" },
             { label: "Аксесоари", path: "accessories" },
             { label: "Птици", path: "birds" },
-            { label: category, path: category },
+            {
+               label: CATEGORY_NAMES.find((c) => c.href === category)!.name,
+               path: category,
+            },
          ]}
          basePath={window.location.pathname}
          products={Array.from({ length: 8 })

@@ -1,22 +1,31 @@
 import { ProductCardProps } from "@pethub/components";
 import { createContext, FC, PropsWithChildren, useContext } from "react";
-import dogsDryFoods from "./data/zoobg_dogs_dry_food.json";
-import dogsGoodies from "./data/zoobg_dogs_goodies.json";
-import dogsSupplements from "./data/zoobg_dogs_supplements.json";
-import dogsCansAndPouches from "./data/zoobg_dogs_cans_and_pouches.json";
-
-import catsDryFoods from "./data/zoobg_cats_dry_food.json";
-import catsSupplements from "./data/zoobg_cats_supplements.json";
-import catsCansAndPouches from "./data/zoobg_cats_cans_and_pouches.json";
-
-import fishFoods from "./data/zoobg_fish_foods.json";
-
-import birdsFoods from "./data/zoobg_birds_foods.json";
-import birdsGoodies from "./data/zoobg_birds_goodies.json";
-
-import rodentsFoods from "./data/zoobg_rodents_foods.json";
-import rodentsFoods2 from "./data/zoobg_rodents_foods-2.json";
-import rodentsGoodies from "./data/zoobg_rodents_goodies.json";
+import {
+   catsDryFoods,
+   dogsDryFoods,
+   rodentsFoods,
+   rodentsFoods2,
+   birdsFoods,
+   rodentsGoodies,
+   fishFoods,
+   dogsSupplements,
+   catsSupplements,
+   dogsGoodies,
+   birdsGoodies,
+   dogsCansAndPouches,
+   catsCansAndPouches,
+   fishDecorations,
+   dogsCombs,
+   dogsStraps,
+   fishOther,
+   fishAquariums,
+   dogsClothes,
+   dogsBags,
+   rodentsToys,
+   birdsToys,
+   birdsCages,
+   rodentsCages,
+} from "@pethub/data";
 
 export enum ProductType {
    Food = "foods",
@@ -41,8 +50,14 @@ function memoize<T>(func: (...args: any[]) => T) {
    };
 }
 
-const ALL_PRODUCTS = [
+export const ALL_PRODUCTS = [
+   ...rodentsToys,
+   ...rodentsCages,
+   ...dogsClothes,
+   ...dogsStraps,
    ...dogsDryFoods,
+   ...dogsCombs,
+   ...dogsBags,
    ...dogsSupplements,
    ...dogsGoodies,
    ...dogsCansAndPouches,
@@ -50,11 +65,16 @@ const ALL_PRODUCTS = [
    ...catsCansAndPouches,
    ...catsSupplements,
    ...fishFoods,
+   ...fishDecorations,
+   ...fishAquariums,
+   ...fishOther,
    ...birdsFoods,
    ...birdsGoodies,
    ...rodentsGoodies,
    ...rodentsFoods,
    ...rodentsFoods2,
+   ...birdsCages,
+   ...birdsToys,
 ];
 
 const getAllProducts = (): ProductCardProps[] => {
@@ -78,7 +98,7 @@ const getAllProducts = (): ProductCardProps[] => {
 
 const ProductsContext = createContext<ProductCardProps[]>([]);
 
-const memoizedProducts = memoize(getAllProducts);
+export const memoizedProducts = memoize(getAllProducts);
 
 export const ProductsProvider: FC<PropsWithChildren> = ({ children }) => {
    const products = memoizedProducts();
@@ -90,74 +110,3 @@ export const ProductsProvider: FC<PropsWithChildren> = ({ children }) => {
 };
 
 export const useProductsContext = () => useContext(ProductsContext);
-
-function getCategory(productType: ProductType, petType: PetType): string {
-   if (productType === ProductType.Food) {
-      switch (petType) {
-         case PetType.Cats:
-            return ["cans", "dry-food", "goodies-and-supplements", "kitties"][
-               Math.round(Math.random() * 4)
-            ];
-         case PetType.Dogs:
-            return ["cans-and-pouches", "dry-food", "goodies", "supplements"][
-               Math.round(Math.random() * 4)
-            ];
-         case PetType.Birds:
-            return ["goodies", "pelleted"][Math.round(Math.random() * 2)];
-         case PetType.Fish:
-            return ["aquarium", "pond"][Math.round(Math.random() * 2)];
-         case PetType.Rodents:
-            return ["goodies", "general"][Math.round(Math.random() * 2)];
-      }
-   } else {
-      switch (petType) {
-         case PetType.Cats:
-            return [
-               "toilet",
-               "combs-and-brushes",
-               "toys",
-               "straps-and-breastplates",
-               "beds",
-               "cups",
-               "bags",
-            ][Math.round(Math.random() * 4)];
-         case PetType.Dogs:
-            return [
-               "combs-and-brushes",
-               "straps-and-breastplates",
-               "clothes",
-               "bags-and-cages",
-               "beds-and-houses",
-               "cups",
-               "toys",
-               "muzzles",
-            ][Math.round(Math.random() * 4)];
-         case PetType.Birds:
-            return ["toys-and-feeders", "cages"][Math.round(Math.random() * 2)];
-         case PetType.Fish:
-            return ["aquariums", "decorations", "others"][
-               Math.round(Math.random() * 2)
-            ];
-         case PetType.Rodents:
-            return ["toys", "cages"][Math.round(Math.random() * 2)];
-      }
-   }
-}
-
-function getPetType(): PetType {
-   const random = Math.round(Math.random() * 5);
-   switch (random) {
-      case 0:
-         return PetType.Cats;
-      case 1:
-         return PetType.Dogs;
-      case 2:
-         return PetType.Birds;
-      case 3:
-         return PetType.Fish;
-      case 4:
-         return PetType.Rodents;
-      default:
-         return PetType.Cats;
-   }
-}

@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { NextPage } from "next";
 import {
    Breadcrumb,
@@ -9,9 +9,18 @@ import {
 import Link from "next/link";
 import * as Separator from "@radix-ui/react-separator";
 import { useCurrentUser, useShoppingCart } from "@pethub/state";
+import * as AlertDialog from "@radix-ui/react-alert-dialog";
+import { CheckIcon, Cross1Icon } from "@radix-ui/react-icons";
+
+interface IPromoCodeState {
+   value: string;
+   errorMessage?: string;
+}
 
 const ShoppingCartPage: NextPage = () => {
    const user = useCurrentUser((state) => state.user);
+   const [promoCode, setPromoCode] = useState<IPromoCodeState>({ value: "" });
+   const [isAlertOpen, setIsAlertOpen] = useState(false);
    const { discount, products, applyDiscount, removeProduct, changeQuantity } =
       useShoppingCart(
          ({
@@ -28,7 +37,6 @@ const ShoppingCartPage: NextPage = () => {
             changeQuantity,
          })
       );
-   console.log(products);
 
    return (
       <div className={`mt-12 mx-16`}>
@@ -70,7 +78,9 @@ const ShoppingCartPage: NextPage = () => {
                   <div className={`text-2xl text-raw-sienna font-normal`}>
                      Количество
                   </div>
-                  <div className={`text-2xl text-raw-sienna font-normal`}>
+                  <div
+                     className={`text-2xl text-raw-sienna text-right font-normal`}
+                  >
                      Общо
                   </div>
                </div>
@@ -97,7 +107,11 @@ const ShoppingCartPage: NextPage = () => {
                         htmlFor={"total"}
                         className={`text-xl text-raw-sienna font-normal`}
                      >
-                        Отстъпка({discount * 100}%):
+                        Отстъпка(
+                        <span className={`font-semibold`}>
+                           -{discount * 100}%
+                        </span>
+                        ):
                      </label>
                      <span className={`text-xl font-normal`} id={"total"}>
                         {currencyFormatter.format(
@@ -112,18 +126,116 @@ const ShoppingCartPage: NextPage = () => {
                   </div>
                </div>
                <div className={`flex items-center justify-between w-full`}>
-                  <div className={`flex items-center mt-2 gap-8`}>
-                     <input
-                        className={`text-md w-40 px-4 text-center py-1 block rounded-md shadow-md`}
-                        placeholder={"промокод"}
-                        type={"text"}
-                     />
-                     <button
-                        onClick={(_) => applyDiscount(0.1)}
-                        className={`flex text-md hover:opacity-90 transition-all duration-200 shadow-md px-8 py-1 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
+                  <div className={`flex items-start mt-2 gap-8`}>
+                     <div className={`flex flex-col items-start gap-2`}>
+                        <input
+                           value={promoCode.value}
+                           onChange={(e) =>
+                              setPromoCode((c) => ({
+                                 ...c,
+                                 value: e.target.value,
+                              }))
+                           }
+                           className={`text-md w-40 px-4 text-center py-1 block rounded-md shadow-md`}
+                           placeholder={"промокод"}
+                           type={"text"}
+                        />
+                        {promoCode.errorMessage && (
+                           <span className={`text-red-500 font-semibold`}>
+                              {promoCode.errorMessage}
+                           </span>
+                        )}
+                     </div>
+                     <AlertDialog.Root
+                        open={isAlertOpen}
+                        onOpenChange={setIsAlertOpen}
                      >
-                        Приложи кода за отстъпка
-                     </button>
+                        <button
+                           onClick={(_) => {
+                              if (promoCode.value === "SLAVI10") {
+                                 applyDiscount(0.1);
+                                 setIsAlertOpen(true);
+                              } else {
+                                 setIsAlertOpen(false);
+                                 setPromoCode((c) => ({
+                                    ...c,
+                                    errorMessage: "Кодът е невалиден!",
+                                 }));
+                              }
+                           }}
+                           className={`flex text-md hover:opacity-90 transition-all duration-200 shadow-md px-8 py-1 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
+                        >
+                           Приложи кода за отстъпка
+                        </button>
+                        <AlertDialog.Portal>
+                           <AlertDialog.Overlay
+                              className={`bg-black animate-overlayShow bg-opacity-40 fixed inset-0`}
+                           />
+                           <AlertDialog.Content
+                              className={`bg-white flex items-center flex-col justify-center shadow-md fixed top-1/2 left-1/2 -translate-x-1/2 w-[90vw] max-w-[500px] focus:outline-none max-h-[85vh] p-4 animate-contentShow -translate-y-1/2 rounded-md`}
+                           >
+                              <div
+                                 className={`w-full relative items-center justify-center flex gap-8`}
+                              >
+                                 <AlertDialog.Title
+                                    className={`m-0 font-semibold text-black text-2xl`}
+                                 >
+                                    Известие
+                                 </AlertDialog.Title>
+                                 <AlertDialog.Cancel
+                                    className={`absolute flex items-center justify-center p-1 hover:bg-red-50 rounded-full right-2 top-1`}
+                                 >
+                                    <Cross1Icon
+                                       height={16}
+                                       width={16}
+                                       color={"red"}
+                                    />
+                                 </AlertDialog.Cancel>
+                              </div>
+                              <AlertDialog.Description
+                                 className={`my-5 flex flex-col items-center text-lg`}
+                              >
+                                 <div
+                                    className={`flex flex-col items-center gap-0`}
+                                 >
+                                    <div>
+                                       Кодът за отстъпка{" "}
+                                       <span
+                                          className={`font-semibold inline text-lg text-red-500`}
+                                       >
+                                          {promoCode.value}
+                                       </span>{" "}
+                                       бе успешно приложен!{" "}
+                                    </div>
+                                    <CheckIcon
+                                       height={30}
+                                       width={30}
+                                       color={"green"}
+                                    />
+                                    <div className={`mt-4`}>
+                                       Отстъпка:{" "}
+                                       <span
+                                          className={`font-semibold text-xl text-green-500`}
+                                       >
+                                          -{(discount * 100).toFixed(0)}%{" "}
+                                       </span>
+                                    </div>
+                                 </div>
+                              </AlertDialog.Description>
+                              <div
+                                 className={`flex items-center justify-center w-full mt-4 gap-4`}
+                              >
+                                 <AlertDialog.Action asChild>
+                                    <button
+                                       className={`text-black hover:opacity-90 transition-all duration-200 shadow-md bg-albescent-white py-1 rounded-lg text-lg w-1/2`}
+                                    >
+                                       ОК
+                                    </button>
+                                 </AlertDialog.Action>
+                              </div>
+                           </AlertDialog.Content>
+                        </AlertDialog.Portal>
+                     </AlertDialog.Root>
                   </div>
                   <div className={`flex mt-0 items-center gap-8`}>
                      <label

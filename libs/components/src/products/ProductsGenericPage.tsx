@@ -1,8 +1,21 @@
-import React, { FC, forwardRef, Fragment, useState } from "react";
-import { Breadcrumb, BreadcrumbSegment, SelectInput } from "@pethub/components";
+import React, { FC, forwardRef, Fragment, useMemo, useState } from "react";
+import {
+   Breadcrumb,
+   BreadcrumbSegment,
+   currencyFormatterRounded,
+   SelectInput,
+} from "@pethub/components";
 import * as Accordion from "@radix-ui/react-accordion";
+import * as Slider from "@radix-ui/react-slider";
+import * as Checkbox from "@radix-ui/react-checkbox";
 import * as Separator from "@radix-ui/react-separator";
-import { ArrowRightIcon, ChevronDownIcon } from "@radix-ui/react-icons";
+import {
+   ArrowRightIcon,
+   CheckIcon,
+   ChevronDownIcon,
+   StarFilledIcon,
+   StarIcon,
+} from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -22,6 +35,11 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
    breadcrumbs,
 }) => {
    const [openedTabs, setOpenedTabs] = useState<string[]>([]);
+   const [priceRange, setPriceRange] = useState<number[]>([50, 150]);
+   const [ratings, setRatings] = useState<number[]>([]);
+   const [filteredProducts, setFilteredProducts] = useState<IProductDetails[]>(
+      () => products
+   );
 
    const handleToggleTab = (tab: string) => {
       setOpenedTabs((tabs) =>
@@ -80,7 +98,56 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                      </Accordion.Header>
                      <AnimatePresence>
                         {openedTabs.some((t) => t === "3") && (
-                           <AccordionContent>10, 20, 30</AccordionContent>
+                           <AccordionContent>
+                              <div
+                                 className={`w-full flex items-center justify-between`}
+                              >
+                                 <span>
+                                    {currencyFormatterRounded.format(0)}
+                                 </span>
+                                 <span>
+                                    {currencyFormatterRounded.format(500)}
+                                 </span>
+                              </div>
+                              <Slider.Root
+                                 className={`relative flex items-center select-none touch-none w-full h-[20px]`}
+                                 step={5}
+                                 max={500}
+                                 value={priceRange}
+                                 onValueChange={setPriceRange}
+                                 defaultValue={[50, 100]}
+                              >
+                                 <Slider.Track
+                                    className={`bg-black rounded-full h-[3px] relative flex-1`}
+                                 >
+                                    <Slider.Range
+                                       className={`absolute rounded-full h-full bg-black`}
+                                    />
+                                 </Slider.Track>
+                                 <Slider.Thumb
+                                    className={`block rounded-full shadow-md w-3 h-3 bg-white`}
+                                 />
+                                 <Slider.Thumb
+                                    className={`block rounded-full shadow-md w-3 h-3 bg-white`}
+                                 />
+                              </Slider.Root>
+                              <div
+                                 className={`w-full mt-2 flex items-center justify-center`}
+                              >
+                                 <span>
+                                    от{" "}
+                                    {currencyFormatterRounded.format(
+                                       priceRange[0]
+                                    )}
+                                 </span>
+                                 <span>
+                                    до{" "}
+                                    {currencyFormatterRounded.format(
+                                       priceRange[1]
+                                    )}
+                                 </span>
+                              </div>
+                           </AccordionContent>
                         )}
                      </AnimatePresence>
                   </Accordion.Item>
@@ -92,13 +159,83 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                      </Accordion.Header>
                      <AnimatePresence>
                         {openedTabs.some((t) => t === "4") && (
-                           <AccordionContent>10, 20, 30</AccordionContent>
+                           <AccordionContent>
+                              <div
+                                 className={`flex flex-col items-start gap-2`}
+                              >
+                                 {Array.from({ length: 6 }).map((_, i) => (
+                                    <div
+                                       className={`flex items-center justify-start gap-2`}
+                                    >
+                                       <Checkbox.Root
+                                          onCheckedChange={(c) => {
+                                             setRatings((r) =>
+                                                c
+                                                   ? [...r, i]
+                                                   : r.filter((r) => r !== i)
+                                             );
+                                          }}
+                                          value={i}
+                                          className={`bg-white rounded-s items-center justify-center shadow-md w-4 h-4`}
+                                       >
+                                          <Checkbox.Indicator>
+                                             <CheckIcon />
+                                          </Checkbox.Indicator>
+                                       </Checkbox.Root>
+                                       <div
+                                          className={`flex items-center gap-1`}
+                                       >
+                                          {Array.from({ length: i }).map(
+                                             (_, i) => (
+                                                <StarFilledIcon
+                                                   key={i}
+                                                   color={"orange"}
+                                                />
+                                             )
+                                          )}
+                                          {Array.from({ length: 5 - i }).map(
+                                             (_, i) => (
+                                                <StarIcon
+                                                   key={i}
+                                                   color={"orange"}
+                                                />
+                                             )
+                                          )}
+                                          <span>
+                                             (
+                                             {
+                                                products.filter(
+                                                   (p) =>
+                                                      Math.round(
+                                                         p.averageRating
+                                                      ) === i
+                                                ).length
+                                             }
+                                             )
+                                          </span>
+                                       </div>
+                                    </div>
+                                 ))}
+                              </div>
+                           </AccordionContent>
                         )}
                      </AnimatePresence>
                   </Accordion.Item>
                </Accordion.Root>
                <div>
                   <button
+                     onClick={(_) => {
+                        setFilteredProducts(
+                           products.filter(
+                              (p) =>
+                                 p.price >= priceRange[0] &&
+                                 p.price <= priceRange[1] &&
+                                 ratings.some(
+                                    (r) => Math.round(p.averageRating) === r
+                                 )
+                           )
+                        );
+                     }}
                      type={"submit"}
                      className={`flex mx-auto text-xl hover:opacity-80 transition-all duration-200 shadow-md my-5 px-10 py-1 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
                   >
@@ -110,7 +247,7 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                className={`flex-1 w-full flex items-center flex-col gap-12 justify-center text-xl`}
             >
                <div className={`grid gap-12 place-center grid-cols-4`}>
-                  {products
+                  {filteredProducts
                      .slice((page - 1) * 8, page * 8)
                      .map((product, i) => (
                         <Fragment key={i}>
@@ -146,7 +283,7 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                         />
                      </Fragment>
                   )}
-                  {Array.from({ length: products.length / 8 + 1 }).map(
+                  {Array.from({ length: filteredProducts.length / 8 + 1 }).map(
                      (_, i) => (
                         <Fragment key={i}>
                            <span
@@ -182,6 +319,7 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                   )}
                </div>
             </div>
+            ;
             <div className={`mt-8`}>
                <SelectInput
                   placeholder={"Подреждане по подразбиране"}
@@ -254,6 +392,7 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                   onChange={(_) => {}}
                />
             </div>
+            ;
          </section>
       </div>
    );

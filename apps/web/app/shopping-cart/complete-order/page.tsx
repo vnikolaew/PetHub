@@ -120,7 +120,7 @@ const CompleteOrderPage: NextPage = () => {
                            Вашата поръчка
                         </h1>
                         <div
-                           className={`grid grid-cols-orderCompleteSummary gap-6`}
+                           className={`grid grid-cols-orderCompleteSummary gap-3`}
                         >
                            <h1 className={`text-xl`}>Продукти</h1>
                            <h1 className={`text-xl text-center`}>Цена</h1>
@@ -129,31 +129,37 @@ const CompleteOrderPage: NextPage = () => {
                                  <div className={`flex items-center gap-6`}>
                                     <Image
                                        className={`rounded-md`}
-                                       height={80}
-                                       width={80}
+                                       height={60}
+                                       width={60}
                                        src={product.product.image}
                                        alt={"Product image"}
                                     />
                                     <div
                                        className={`flex flex-col items-start gap-0`}
                                     >
-                                       <h2 className={`text-lg font-semibold`}>
+                                       <h2
+                                          className={`text-lg max-w-[400px] font-semibold`}
+                                       >
                                           {product.product.name}
                                        </h2>
                                        <p
-                                          className={`max-w-[250px] text-sm leading-4`}
+                                          className={`max-w-[500px] line-clamp-2 text-sm leading-4`}
                                        >
                                           {product.product.description}
                                        </p>
                                     </div>
                                  </div>
                                  <div
-                                    className={`font-semibold flex items-center justify-center text-xl`}
+                                    className={`font-semibold m-0 flex items-center justify-center text-xl`}
                                  >
                                     {currencyFormatter.format(
                                        product.product.price * product.quantity
                                     )}
                                  </div>
+                                 <Separator.Root
+                                    className={`h-[1px] col-span-2 w-2/3 self-center mr-auto bg-gray-200`}
+                                    orientation={"horizontal"}
+                                 />
                               </Fragment>
                            ))}
                         </div>
@@ -206,11 +212,9 @@ const CompleteOrderPage: NextPage = () => {
                            </div>
                         </div>
                      </div>
-                     <Separator.Root
-                        orientation={"vertical"}
-                        className={`h-[400px] bg-black w-[1px]`}
-                     />
-                     <div className={`flex flex-col items-start gap-8`}>
+                  </div>
+                  <div className={`flex mt-8 items-start gap-12`}>
+                     <div className={`flex flex-1 flex-col items-start gap-8`}>
                         <h1
                            className={`text-2xl text-raw-sienna font-semibold`}
                         >
@@ -257,7 +261,7 @@ const CompleteOrderPage: NextPage = () => {
                         orientation={"vertical"}
                         className={`h-[400px] bg-black w-[1px]`}
                      />
-                     <div className={`flex flex-1 flex-col items-start gap-8`}>
+                     <div className={`flex flex-2 flex-col items-start gap-8`}>
                         <h1
                            className={`text-2xl text-raw-sienna font-semibold`}
                         >
@@ -282,7 +286,7 @@ const CompleteOrderPage: NextPage = () => {
                                  onChange={handleFormChange}
                                  label={"Фамилия"}
                                  name={"lastName"}
-                                 placeholder={"John"}
+                                 placeholder={"Doe"}
                                  validate={(value) =>
                                     !VALID_NAME_REGEX.test(value)
                                  }

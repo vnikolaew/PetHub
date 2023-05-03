@@ -14,7 +14,7 @@ const FISH_ACCESSORY_CATEGORIES = [
       name: "Декорации",
    },
    {
-      href: "/accessories/fish/others",
+      href: "/accessories/fish/other",
       name: "Други",
    },
 ];
