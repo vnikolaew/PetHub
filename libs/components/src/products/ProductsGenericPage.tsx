@@ -1,4 +1,4 @@
-import React, { FC, forwardRef, Fragment, useMemo, useState } from "react";
+import React, { FC, forwardRef, Fragment, useState } from "react";
 import {
    Breadcrumb,
    BreadcrumbSegment,
@@ -20,6 +20,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { IProductDetails } from "@pethub/state";
+import FilterLogo from "../Logos/FilterLogo";
+import SortLogo from "../Logos/SortLogo";
 
 export interface ProductsGenericPageProps {
    products: IProductDetails[];
@@ -62,166 +64,182 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
             }
          />
          <section className={`flex mt-8 items-start gap-8`}>
-            <div className={`border border-gray-100 mt-8 rounded-lg border-2`}>
-               <Accordion.Root type={"multiple"}>
-                  <Accordion.Item value={"1"}>
-                     <Accordion.Header>
-                        <AccordionTrigger onClick={(_) => handleToggleTab("1")}>
-                           Големина на породата
-                        </AccordionTrigger>
-                     </Accordion.Header>
-                     <AnimatePresence>
-                        {openedTabs.some((t) => t === "1") && (
-                           <AccordionContent>
-                              Дребни, средни, едри
-                           </AccordionContent>
-                        )}
-                     </AnimatePresence>
-                  </Accordion.Item>
-                  <Accordion.Item value={"2"}>
-                     <Accordion.Header>
-                        <AccordionTrigger onClick={(_) => handleToggleTab("2")}>
-                           Марка
-                        </AccordionTrigger>
-                     </Accordion.Header>
-                     <AnimatePresence>
-                        {openedTabs.some((t) => t === "2") && (
-                           <AccordionContent>1,2,3</AccordionContent>
-                        )}
-                     </AnimatePresence>
-                  </Accordion.Item>
-                  <Accordion.Item value={"3"}>
-                     <Accordion.Header>
-                        <AccordionTrigger onClick={(_) => handleToggleTab("3")}>
-                           Цена
-                        </AccordionTrigger>
-                     </Accordion.Header>
-                     <AnimatePresence>
-                        {openedTabs.some((t) => t === "3") && (
-                           <AccordionContent>
-                              <div
-                                 className={`w-full flex items-center justify-between`}
-                              >
-                                 <span>
-                                    {currencyFormatterRounded.format(0)}
-                                 </span>
-                                 <span>
-                                    {currencyFormatterRounded.format(500)}
-                                 </span>
-                              </div>
-                              <Slider.Root
-                                 className={`relative flex items-center select-none touch-none w-full h-[20px]`}
-                                 step={5}
-                                 max={500}
-                                 value={priceRange}
-                                 onValueChange={setPriceRange}
-                                 defaultValue={[50, 100]}
-                              >
-                                 <Slider.Track
-                                    className={`bg-black rounded-full h-[3px] relative flex-1`}
+            <div className={`flex flex-col mt-2 items-start gap-2`}>
+               <h2 className={`flex items-center gap-2`}>
+                  <FilterLogo color={"black"} size={20} />
+                  <span className={`text-xl`}>Филтрирай</span>
+               </h2>
+               <div
+                  className={`border border-gray-100 mt-0 rounded-lg border-2`}
+               >
+                  <Accordion.Root type={"multiple"}>
+                     <Accordion.Item value={"1"}>
+                        <Accordion.Header>
+                           <AccordionTrigger
+                              onClick={(_) => handleToggleTab("1")}
+                           >
+                              Големина на породата
+                           </AccordionTrigger>
+                        </Accordion.Header>
+                        <AnimatePresence>
+                           {openedTabs.some((t) => t === "1") && (
+                              <AccordionContent>
+                                 Дребни, средни, едри
+                              </AccordionContent>
+                           )}
+                        </AnimatePresence>
+                     </Accordion.Item>
+                     <Accordion.Item value={"2"}>
+                        <Accordion.Header>
+                           <AccordionTrigger
+                              onClick={(_) => handleToggleTab("2")}
+                           >
+                              Марка
+                           </AccordionTrigger>
+                        </Accordion.Header>
+                        <AnimatePresence>
+                           {openedTabs.some((t) => t === "2") && (
+                              <AccordionContent>1,2,3</AccordionContent>
+                           )}
+                        </AnimatePresence>
+                     </Accordion.Item>
+                     <Accordion.Item value={"3"}>
+                        <Accordion.Header>
+                           <AccordionTrigger
+                              onClick={(_) => handleToggleTab("3")}
+                           >
+                              Цена
+                           </AccordionTrigger>
+                        </Accordion.Header>
+                        <AnimatePresence>
+                           {openedTabs.some((t) => t === "3") && (
+                              <AccordionContent>
+                                 <div
+                                    className={`w-full flex items-center justify-between`}
                                  >
-                                    <Slider.Range
-                                       className={`absolute rounded-full h-full bg-black`}
-                                    />
-                                 </Slider.Track>
-                                 <Slider.Thumb
-                                    className={`block rounded-full shadow-md w-3 h-3 bg-white`}
-                                 />
-                                 <Slider.Thumb
-                                    className={`block rounded-full shadow-md w-3 h-3 bg-white`}
-                                 />
-                              </Slider.Root>
-                              <div
-                                 className={`w-full mt-2 flex items-center justify-center`}
-                              >
-                                 <span>
-                                    от{" "}
-                                    {currencyFormatterRounded.format(
-                                       priceRange[0]
-                                    )}
-                                 </span>
-                                 <span>
-                                    до{" "}
-                                    {currencyFormatterRounded.format(
-                                       priceRange[1]
-                                    )}
-                                 </span>
-                              </div>
-                           </AccordionContent>
-                        )}
-                     </AnimatePresence>
-                  </Accordion.Item>
-                  <Accordion.Item value={"4"}>
-                     <Accordion.Header>
-                        <AccordionTrigger onClick={(_) => handleToggleTab("4")}>
-                           Рейтинг
-                        </AccordionTrigger>
-                     </Accordion.Header>
-                     <AnimatePresence>
-                        {openedTabs.some((t) => t === "4") && (
-                           <AccordionContent>
-                              <div
-                                 className={`flex flex-col items-start gap-2`}
-                              >
-                                 {Array.from({ length: 6 }).map((_, i) => (
-                                    <div
-                                       className={`flex items-center justify-start gap-2`}
+                                    <span>
+                                       {currencyFormatterRounded.format(0)}
+                                    </span>
+                                    <span>
+                                       {currencyFormatterRounded.format(500)}
+                                    </span>
+                                 </div>
+                                 <Slider.Root
+                                    className={`relative flex items-center select-none touch-none w-full h-[20px]`}
+                                    step={5}
+                                    max={500}
+                                    value={priceRange}
+                                    onValueChange={setPriceRange}
+                                    defaultValue={[50, 100]}
+                                 >
+                                    <Slider.Track
+                                       className={`bg-black rounded-full h-[3px] relative flex-1`}
                                     >
-                                       <Checkbox.Root
-                                          onCheckedChange={(c) => {
-                                             setRatings((r) =>
-                                                c
-                                                   ? [...r, i]
-                                                   : r.filter((r) => r !== i)
-                                             );
-                                          }}
-                                          value={i}
-                                          className={`bg-white rounded-s items-center justify-center shadow-md w-4 h-4`}
-                                       >
-                                          <Checkbox.Indicator>
-                                             <CheckIcon />
-                                          </Checkbox.Indicator>
-                                       </Checkbox.Root>
+                                       <Slider.Range
+                                          className={`absolute rounded-full h-full bg-black`}
+                                       />
+                                    </Slider.Track>
+                                    <Slider.Thumb
+                                       className={`block rounded-full shadow-md w-3 h-3 bg-white`}
+                                    />
+                                    <Slider.Thumb
+                                       className={`block rounded-full shadow-md w-3 h-3 bg-white`}
+                                    />
+                                 </Slider.Root>
+                                 <div
+                                    className={`w-full mt-2 flex items-center justify-center`}
+                                 >
+                                    <span>
+                                       от{" "}
+                                       {currencyFormatterRounded.format(
+                                          priceRange[0]
+                                       )}
+                                    </span>
+                                    <span>
+                                       до{" "}
+                                       {currencyFormatterRounded.format(
+                                          priceRange[1]
+                                       )}
+                                    </span>
+                                 </div>
+                              </AccordionContent>
+                           )}
+                        </AnimatePresence>
+                     </Accordion.Item>
+                     <Accordion.Item value={"4"}>
+                        <Accordion.Header>
+                           <AccordionTrigger
+                              onClick={(_) => handleToggleTab("4")}
+                           >
+                              Рейтинг
+                           </AccordionTrigger>
+                        </Accordion.Header>
+                        <AnimatePresence>
+                           {openedTabs.some((t) => t === "4") && (
+                              <AccordionContent>
+                                 <div
+                                    className={`flex flex-col items-start gap-2`}
+                                 >
+                                    {Array.from({ length: 6 }).map((_, i) => (
                                        <div
-                                          className={`flex items-center gap-1`}
+                                          className={`flex items-center justify-start gap-2`}
                                        >
-                                          {Array.from({ length: i }).map(
-                                             (_, i) => (
-                                                <StarFilledIcon
-                                                   key={i}
-                                                   color={"orange"}
-                                                />
-                                             )
-                                          )}
-                                          {Array.from({ length: 5 - i }).map(
-                                             (_, i) => (
-                                                <StarIcon
-                                                   key={i}
-                                                   color={"orange"}
-                                                />
-                                             )
-                                          )}
-                                          <span>
-                                             (
-                                             {
-                                                products.filter(
-                                                   (p) =>
-                                                      Math.round(
-                                                         p.averageRating
-                                                      ) === i
-                                                ).length
-                                             }
-                                             )
-                                          </span>
+                                          <Checkbox.Root
+                                             onCheckedChange={(c) => {
+                                                setRatings((r) =>
+                                                   c
+                                                      ? [...r, i]
+                                                      : r.filter((r) => r !== i)
+                                                );
+                                             }}
+                                             value={i}
+                                             className={`bg-white rounded-s items-center justify-center shadow-md w-4 h-4`}
+                                          >
+                                             <Checkbox.Indicator>
+                                                <CheckIcon />
+                                             </Checkbox.Indicator>
+                                          </Checkbox.Root>
+                                          <div
+                                             className={`flex items-center gap-1`}
+                                          >
+                                             {Array.from({ length: i }).map(
+                                                (_, i) => (
+                                                   <StarFilledIcon
+                                                      key={i}
+                                                      color={"orange"}
+                                                   />
+                                                )
+                                             )}
+                                             {Array.from({ length: 5 - i }).map(
+                                                (_, i) => (
+                                                   <StarIcon
+                                                      key={i}
+                                                      color={"orange"}
+                                                   />
+                                                )
+                                             )}
+                                             <span>
+                                                (
+                                                {
+                                                   products.filter(
+                                                      (p) =>
+                                                         Math.round(
+                                                            p.averageRating
+                                                         ) === i
+                                                   ).length
+                                                }
+                                                )
+                                             </span>
+                                          </div>
                                        </div>
-                                    </div>
-                                 ))}
-                              </div>
-                           </AccordionContent>
-                        )}
-                     </AnimatePresence>
-                  </Accordion.Item>
-               </Accordion.Root>
+                                    ))}
+                                 </div>
+                              </AccordionContent>
+                           )}
+                        </AnimatePresence>
+                     </Accordion.Item>
+                  </Accordion.Root>
+               </div>
                <div>
                   <button
                      onClick={(_) => {
@@ -319,80 +337,96 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                   )}
                </div>
             </div>
-            ;
-            <div className={`mt-8`}>
-               <SelectInput
-                  placeholder={"Подреждане по подразбиране"}
-                  options={[
-                     {
-                        label: "Най-продавани",
-                        value: "Best-sellers",
-                     },
-                     {
-                        label: (
-                           <span>
-                              {" "}
-                              Скъпи <ArrowRightIcon className={`inline`} />{" "}
-                              евтини
-                           </span>
-                        ),
-                        value: "Most expensive",
-                     },
-                     {
-                        label: (
-                           <span>
-                              {" "}
-                              Евтини <ArrowRightIcon
-                                 className={`inline`}
-                              />{" "}
-                              скъпи
-                           </span>
-                        ),
-                        value: "Cheapest",
-                     },
-                     {
-                        label: (
-                           <span>
-                              {" "}
-                              Нови <ArrowRightIcon className={`inline`} /> стари
-                           </span>
-                        ),
-                        value: "Newest",
-                     },
-                     {
-                        label: (
-                           <span>
-                              {" "}
-                              Стари <ArrowRightIcon className={`inline`} /> нови
-                           </span>
-                        ),
-                        value: "Oldest",
-                     },
-                     {
-                        label: (
-                           <span>
-                              {" "}
-                              Висок <ArrowRightIcon className={`inline`} />{" "}
-                              нисък рейтинг
-                           </span>
-                        ),
-                        value: "Best rated",
-                     },
-                     {
-                        label: (
-                           <span>
-                              {" "}
-                              Нисък <ArrowRightIcon className={`inline`} />{" "}
-                              висок рейтинг
-                           </span>
-                        ),
-                        value: "Worst rated",
-                     },
-                  ]}
-                  onChange={(_) => {}}
-               />
+            <div className={`mt-2`}>
+               <div className={`flex flex-col items-start gap-2`}>
+                  <h2 className={`flex items-center gap-2`}>
+                     <SortLogo color={"black"} size={20} />
+                     <span className={`text-xl`}>Сортирай</span>
+                  </h2>
+                  <SelectInput
+                     placeholder={"Подреждане по подразбиране"}
+                     options={[
+                        {
+                           label: "Най-продавани",
+                           value: "Best-sellers",
+                        },
+                        {
+                           label: (
+                              <span>
+                                 {" "}
+                                 Скъпи <ArrowRightIcon
+                                    className={`inline`}
+                                 />{" "}
+                                 евтини
+                              </span>
+                           ),
+                           value: "Most expensive",
+                        },
+                        {
+                           label: (
+                              <span>
+                                 {" "}
+                                 Евтини <ArrowRightIcon
+                                    className={`inline`}
+                                 />{" "}
+                                 скъпи
+                              </span>
+                           ),
+                           value: "Cheapest",
+                        },
+                        {
+                           label: (
+                              <span>
+                                 {" "}
+                                 Нови <ArrowRightIcon
+                                    className={`inline`}
+                                 />{" "}
+                                 стари
+                              </span>
+                           ),
+                           value: "Newest",
+                        },
+                        {
+                           label: (
+                              <span>
+                                 {" "}
+                                 Стари <ArrowRightIcon
+                                    className={`inline`}
+                                 />{" "}
+                                 нови
+                              </span>
+                           ),
+                           value: "Oldest",
+                        },
+                        {
+                           label: (
+                              <span>
+                                 {" "}
+                                 Висок <ArrowRightIcon
+                                    className={`inline`}
+                                 />{" "}
+                                 нисък рейтинг
+                              </span>
+                           ),
+                           value: "Best rated",
+                        },
+                        {
+                           label: (
+                              <span>
+                                 {" "}
+                                 Нисък <ArrowRightIcon
+                                    className={`inline`}
+                                 />{" "}
+                                 висок рейтинг
+                              </span>
+                           ),
+                           value: "Worst rated",
+                        },
+                     ]}
+                     onChange={(_) => {}}
+                  />
+               </div>
             </div>
-            ;
          </section>
       </div>
    );

@@ -13,6 +13,19 @@ import * as R from "ramda";
 import Link from "next/link";
 import { useOnClickOutside } from "./useOnClickOutside";
 
+const CATEGORY_NAMES = {
+   foods: "Храни",
+   accessories: "Аксесоари",
+};
+
+const PET_TYPES_NAMES = {
+   dogs: "Кучета",
+   cats: "Котки",
+   birds: "Птици",
+   rodents: "Гризачи",
+   fish: "Риби",
+};
+
 const SearchBar: FC = () => {
    const [searchTerm, setSearchTerm] = useState("");
    const [showResults, setShowResults] = useState(false);
@@ -23,7 +36,7 @@ const SearchBar: FC = () => {
 
    const searchResults = useMemo(() => {
       const groupByCategory = R.groupBy<ProductCardProps>(
-         (res) => `${res.productType}/${res.petType}/${res.category}`
+         (res) => `${res.productType}/${res.petType}`
       );
 
       return !debouncedSearch.length
@@ -81,14 +94,34 @@ const SearchBar: FC = () => {
                      </div>
                   ) : (
                      Object.entries(searchResults)
+                        .slice(0, 20)
                         .sort(([cat1], [cat2]) => cat1.localeCompare(cat2))
                         .map(([category, results], i) => (
                            <div
                               className={`flex-col w-full flex m-2 items-start gap-1`}
                            >
-                              <h2 className={`text-xl mb-1`}>
-                                 {category.replaceAll("/", " > ")}
-                              </h2>
+                              <Link
+                                 onClick={(_) => {
+                                    setShowResults(false);
+                                    setSearchTerm("");
+                                 }}
+                                 href={`/${category}`}
+                              >
+                                 <h2 className={`text-xl mb-1`}>
+                                    {category
+                                       .split("/")
+                                       .map((c, i) =>
+                                          i === 0
+                                             ? CATEGORY_NAMES[
+                                                  c as keyof typeof CATEGORY_NAMES
+                                               ]
+                                             : PET_TYPES_NAMES[
+                                                  c as keyof typeof PET_TYPES_NAMES
+                                               ]
+                                       )
+                                       .join(" > ")}
+                                 </h2>
+                              </Link>
                               <AnimatePresence>
                                  {results
                                     .slice(0, 10)
@@ -123,7 +156,7 @@ const SearchBar: FC = () => {
                                                 setShowResults(false);
                                                 setSearchTerm("");
                                              }}
-                                             href={`/${category}/${result.product.id}`}
+                                             href={`/${category}/${result.category}/${result.product.id}`}
                                           >
                                              <div
                                                 className={`flex justify-between w-full items-center gap-4`}
@@ -139,11 +172,11 @@ const SearchBar: FC = () => {
                                                       alt={""}
                                                    />
                                                    <span
-                                                      className={`text-gray-600 text-lg`}
+                                                      className={`text-gray-600 max-w-[350px] text-md`}
                                                    >
                                                       {`${result.product.name.slice(
                                                          0,
-                                                         10
+                                                         30
                                                       )}...`}
                                                    </span>
                                                 </div>

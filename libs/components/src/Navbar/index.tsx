@@ -3,7 +3,7 @@ import Image, { StaticImageData } from "next/image";
 import SearchBar from "./SearchBar";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import UserDropdown from "./UserDropdown";
 import { useShoppingCart } from "@pethub/state";
 import ShoppingCartDropdown from "./ShoppingCartDropdown";

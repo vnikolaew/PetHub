@@ -20,8 +20,15 @@ export const ProductCard: FC<ProductCardProps> = ({
    return (
       <Link href={`/${productType}/${petType}/${category}/${product.id}`}>
          <div
-            className={`flex gap-2 hover:scale-105 transition-all duration-300 flex-col border border-1 rounded-xl border-gray-100 shadow-md p-4 px-8 items-center justify-center`}
+            className={`flex relative gap-2 hover:scale-105 transition-all duration-300 flex-col border border-1 rounded-xl border-gray-100 shadow-md p-4 px-8 items-center justify-center`}
          >
+            {(product as any).discount !== undefined && (
+               <div
+                  className={`absolute flex items-center justify-center p-2 -top-2 -right-2 bg-red-500 text-white text-sm w-10 h-10 rounded-full`}
+               >
+                  -{Math.round((product as any).discount * 100)}%
+               </div>
+            )}
             <Image
                height={120}
                width={120}

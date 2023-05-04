@@ -54,24 +54,43 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
       <div className={`mt-12 mx-16`}>
          <Breadcrumb
             segments={
-               breadcrumbs ?? [
+               breadcrumbs.map((b, i) =>
+                  i === breadcrumbs.length - 1
+                     ? {
+                          ...b,
+                          label: `${product.name.slice(0, 30)}...`,
+                       }
+                     : b
+               ) ?? [
                   { label: "PetHub", path: "/" },
                   { label: "Храна", path: "foods" },
                   { label: "Кучета", path: "dogs" },
                   { label: "Суха храна", path: "dry-food" },
-                  { label: product.name, path: product.name },
+                  {
+                     label: `${product.name.slice(0, 30)}...`,
+                     path: product.name,
+                  },
                ]
             }
          />
-         <section className={`flex flex-col mt-8 items-start gap-12`}>
+         <section className={`flex flex-col mt-12 items-start gap-12`}>
             <div className={`flex items-start gap-8`}>
-               <Image
-                  width={350}
-                  height={350}
-                  className={`rounded-lg shadow-md`}
-                  src={product.image}
-                  alt={"Product image"}
-               />
+               <div className={`relative`}>
+                  {(product as any).discount !== undefined && (
+                     <div
+                        className={`absolute flex items-center justify-center p-2 -top-2 -right-2 bg-red-500 text-white text-sm w-10 h-10 rounded-full`}
+                     >
+                        -{Math.round((product as any).discount * 100)}%
+                     </div>
+                  )}
+                  <Image
+                     width={350}
+                     height={350}
+                     className={`rounded-lg shadow-md`}
+                     src={product.image}
+                     alt={"Product image"}
+                  />
+               </div>
                <div
                   className={`flex flex-col items-start gap-6 justify-between`}
                >
@@ -114,12 +133,14 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                         onChange={(_) => {}}
                      />
                   </div>
-                  <div className={`flex self-end text-2xl items-center gap-12`}>
+                  <div
+                     className={`flex text-2xl self-center items-center gap-12`}
+                  >
                      <span className={`text-xl`}>Цена: </span>
                      <span>{currencyFormatter.format(product.price)}</span>
                   </div>
                   <div
-                     className={`flex w-full mt-2 justify-end items-center gap-8`}
+                     className={`flex w-full self-center mt-2 justify-center items-center gap-8`}
                   >
                      <span className={`text-lg`}>Количество: </span>
                      <input
@@ -130,7 +151,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                         }
                         min={0}
                         autoComplete={"off"}
-                        className={`text-lg w-1/5 px-4 py-1 block rounded-md shadow-md`}
+                        className={`text-lg w-1/6 px-4 py-1 block rounded-md shadow-md`}
                         type={"number"}
                      />
                      <AlertDialog.Root>
@@ -218,7 +239,13 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                      </div>
                      <div>
                         <p className={`text-lg leading-5 w-full`}>
-                           {product.description}
+                           {product.description.replaceAll("\n", "").length ? (
+                              <span className={`text-black`}>
+                                 {product.description}
+                              </span>
+                           ) : (
+                              <span className={`text-gray-400`}>Липсва.</span>
+                           )}
                         </p>
                      </div>
                   </div>
@@ -240,9 +267,16 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                            href={`/${p.productType}/${p.petType}/${p.category}/${p.product.id}`}
                         >
                            <div
-                              className={`flex gap-4 flex-col items-center justify-center`}
+                              className={`flex relative gap-4 flex-col items-center justify-center`}
                               key={i}
                            >
+                              {(p as any).discount !== undefined && (
+                                 <div
+                                    className={`absolute flex items-center justify-center p-2 -top-2 -right-2 bg-red-500 text-white text-sm w-10 h-10 rounded-full`}
+                                 >
+                                    -{Math.round((p as any).discount * 100)}%
+                                 </div>
+                              )}
                               <Image
                                  height={80}
                                  width={80}

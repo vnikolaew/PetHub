@@ -78,22 +78,41 @@ export const ALL_PRODUCTS = [
 ];
 
 const getAllProducts = (): ProductCardProps[] => {
-   return (ALL_PRODUCTS as unknown as any[]).map((p) => ({
-      ...p,
-      product: {
-         ...p.product,
-         averageRating: p.product?.average_rating ?? 3.0,
-         image: `http://zoobg.bg/${p.product?.image ?? ""}`,
-         ratings:
-            p.product?.ratings.map((r) => ({
-               ...r,
-               from: r.username,
-               userImage: r.user_image,
-               reviewText: r.review_text,
-               timestamp: new Date(r.timestamp),
-            })) ?? [],
-      },
-   }));
+   const onSaleRandomIndices = Array.from({ length: 6 }).map((_, i) =>
+      Math.round(Math.random() * ALL_PRODUCTS.length)
+   );
+
+   return (ALL_PRODUCTS as unknown as any[])
+      .map((p, i) =>
+         onSaleRandomIndices.some((idx) => idx === i)
+            ? {
+                 ...p,
+                 product: {
+                    ...p.product,
+                    discount: 0.1 * Math.round(Math.random() * 5),
+                 },
+              }
+            : p
+      )
+      .map((p) => ({
+         ...p,
+         product: {
+            ...p.product,
+            description: p.product.description
+               ?.replaceAll("\r", "")
+               ?.replaceAll("\t", ""),
+            averageRating: p.product?.average_rating ?? 3.0,
+            image: `http://zoobg.bg/${p.product?.image ?? ""}`,
+            ratings:
+               p.product?.ratings.map((r) => ({
+                  ...r,
+                  from: r.username,
+                  userImage: r.user_image,
+                  reviewText: r.review_text,
+                  timestamp: new Date(r.timestamp),
+               })) ?? [],
+         },
+      }));
 };
 
 const ProductsContext = createContext<ProductCardProps[]>([]);

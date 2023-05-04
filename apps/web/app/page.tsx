@@ -233,7 +233,10 @@ function generateRandomProducts(
 const IndexPage: FC = () => {
    const products = useProductsContext();
    const BEST_SELLERS = generateRandomProducts(products);
-   const ON_SALE_PRODUCTS = generateRandomProducts(products);
+   const ON_SALE_PRODUCTS = products.filter(
+      (p) => (p as any).product.discount !== undefined
+   );
+
    console.log(BEST_SELLERS);
    console.log(ON_SALE_PRODUCTS);
 
@@ -284,17 +287,18 @@ const IndexPage: FC = () => {
             <CookieConsent
                enableDeclineButton
                expires={30_000}
-               buttonText={"Yes"}
-               declineButtonText={"No"}
-               contentClasses={``}
-               containerClasses={`bg-black fixed bottom-0 flex w-full px-8 py-4 items-center justify-between`}
+               style={{}}
+               buttonText={"Приеми бисквитки"}
+               declineButtonText={"Отхвърли"}
+               contentClasses={`text-white`}
+               containerClasses={`bg-black z-20 fixed bottom-0 flex w-full px-8 py-4 items-center justify-between`}
                disableStyles={true}
                buttonClasses={`bg-raw-sienna p-2 text-white shadow-md`}
                declineButtonClasses={`bg-raw-sienna p-2 bg-white shadow-md`}
                declineButtonStyle={{}}
                location={"bottom"}
             >
-               Cookie Consent
+               Нашият сайт ползва бисквитки.
             </CookieConsent>
          </div>
       </div>
