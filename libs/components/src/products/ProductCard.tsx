@@ -42,9 +42,18 @@ export const ProductCard: FC<ProductCardProps> = ({
                   {product.name}
                </h2>
                <span
-                  className={`text-2xl mt-2 bg-whiskey text-woodsmoke rounded-full px-4 py-0.5 self-center font-semibold`}
+                  className={`text-2xl mt-2 bg-white text-woodsmoke rounded-full px-4 py-0.5 self-center font-semibold`}
                >
-                  {currencyFormatter.format(product.price)}
+                  {currencyFormatter.format(
+                     product.price * (1 - ((product as any).discount ?? 0))
+                  )}{" "}
+                  {(product as any).discount !== undefined && (
+                     <span
+                        className={`line-through font-thin text-[1.2rem] text-gray-400`}
+                     >
+                        {currencyFormatter.format(product.price)}
+                     </span>
+                  )}
                </span>
             </div>
          </div>

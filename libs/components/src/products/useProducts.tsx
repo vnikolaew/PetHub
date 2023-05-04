@@ -6,7 +6,7 @@ import { PetInfoType } from "@pethub/state";
 export function useProducts() {
    const params = useSearchParams();
    const page = Number(params.get("page") ?? "1");
-   const products = useProductsContext();
+   const { products } = useProductsContext();
 
    const pathSegments = window.location.pathname
       .split("/")
@@ -29,7 +29,7 @@ export function useProducts() {
 }
 
 export function useProduct(idOrName: string): ProductCardProps | null {
-   const products = useProductsContext();
+   const { products } = useProductsContext();
    return (
       products.find(
          (p) => p.product.id === idOrName || p.product.name === idOrName
@@ -40,7 +40,7 @@ export function useProduct(idOrName: string): ProductCardProps | null {
 export function useRecommendedProducts(
    productIdOrName: string
 ): ProductCardProps[] {
-   const products = useProductsContext();
+   const { products } = useProductsContext();
    const product = products.find(
       (p) =>
          p.product.id === productIdOrName || p.product.name === productIdOrName

@@ -1,5 +1,13 @@
 import { ProductCardProps } from "@pethub/components";
-import { createContext, FC, PropsWithChildren, useContext } from "react";
+import {
+   createContext,
+   Dispatch,
+   FC,
+   PropsWithChildren,
+   SetStateAction,
+   useContext,
+   useState,
+} from "react";
 import {
    catsDryFoods,
    dogsDryFoods,
@@ -102,7 +110,7 @@ const getAllProducts = (): ProductCardProps[] => {
                ?.replaceAll("\r", "")
                ?.replaceAll("\t", ""),
             averageRating: p.product?.average_rating ?? 3.0,
-            image: `http://zoobg.bg/${p.product?.image ?? ""}`,
+            image: `http://zoobg.bg${p.product?.image ?? ""}`,
             ratings:
                p.product?.ratings.map((r) => ({
                   ...r,
@@ -115,14 +123,18 @@ const getAllProducts = (): ProductCardProps[] => {
       }));
 };
 
-const ProductsContext = createContext<ProductCardProps[]>([]);
+const ProductsContext = createContext<{
+   products: ProductCardProps[];
+   setProducts: Dispatch<SetStateAction<ProductCardProps[]>>;
+}>(null!);
 
 export const memoizedProducts = memoize(getAllProducts);
 
 export const ProductsProvider: FC<PropsWithChildren> = ({ children }) => {
-   const products = memoizedProducts();
+   const [products, setProducts] = useState(() => memoizedProducts());
+
    return (
-      <ProductsContext.Provider value={products}>
+      <ProductsContext.Provider value={{ products, setProducts }}>
          {children}
       </ProductsContext.Provider>
    );

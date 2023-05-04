@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { ProductDetailsPage, useProductsContext } from "@pethub/components";
+import { ProductDetailsPage, useProduct } from "@pethub/components";
 import { StaticImageData } from "next/image";
 
 export interface IProductDetails {
@@ -24,8 +24,7 @@ export default function DogsDryFoodProductDetailsPage({
 }: {
    params: { productName: string };
 }) {
-   const products = useProductsContext();
-   const product = products!.find((p) => p.product.id === productName)!.product;
+   const product = useProduct(productName)!.product;
 
    return (
       <ProductDetailsPage

@@ -1,7 +1,8 @@
-import React, { FC, forwardRef, Fragment, useState } from "react";
+import React, { FC, forwardRef, Fragment, useMemo, useState } from "react";
 import {
    Breadcrumb,
    BreadcrumbSegment,
+   currencyFormatter,
    currencyFormatterRounded,
    SelectInput,
 } from "@pethub/components";
@@ -37,11 +38,18 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
    breadcrumbs,
 }) => {
    const [openedTabs, setOpenedTabs] = useState<string[]>([]);
-   const [priceRange, setPriceRange] = useState<number[]>([50, 150]);
    const [ratings, setRatings] = useState<number[]>([]);
    const [filteredProducts, setFilteredProducts] = useState<IProductDetails[]>(
       () => products
    );
+   const maxProductPrice = useMemo(
+      () => Math.max(...products.map((p) => Math.round(p.price))),
+      [products]
+   );
+   const [priceRange, setPriceRange] = useState<number[]>(() => [
+      Math.round(maxProductPrice / 3),
+      Math.round((maxProductPrice * 2) / 3),
+   ]);
 
    const handleToggleTab = (tab: string) => {
       setOpenedTabs((tabs) =>
@@ -121,13 +129,15 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                                        {currencyFormatterRounded.format(0)}
                                     </span>
                                     <span>
-                                       {currencyFormatterRounded.format(500)}
+                                       {currencyFormatterRounded.format(
+                                          maxProductPrice
+                                       )}
                                     </span>
                                  </div>
                                  <Slider.Root
                                     className={`relative flex items-center select-none touch-none w-full h-[20px]`}
                                     step={5}
-                                    max={500}
+                                    max={maxProductPrice}
                                     value={priceRange}
                                     onValueChange={setPriceRange}
                                     defaultValue={[50, 100]}
@@ -271,8 +281,19 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                         <Fragment key={i}>
                            <Link href={`${basePath}/${product.id}`}>
                               <div
-                                 className={`flex gap-4 flex-col items-center justify-center`}
+                                 className={`flex relative gap-4 flex-col items-center justify-center`}
                               >
+                                 {(product as any).discount !== undefined && (
+                                    <div
+                                       className={`absolute flex items-center justify-center p-2 -top-2 -right-2 bg-red-500 text-white text-sm w-10 h-10 rounded-full`}
+                                    >
+                                       -
+                                       {Math.round(
+                                          (product as any).discount * 100
+                                       )}
+                                       %
+                                    </div>
+                                 )}
                                  <Image
                                     height={120}
                                     width={120}
@@ -280,6 +301,9 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                                     alt={`${product.name} logo`}
                                  />
                                  <h2 className={`text-lg`}>{product.name}</h2>
+                                 <span className={`font-semibold self-end`}>
+                                    {currencyFormatter.format(product.price)}
+                                 </span>
                               </div>
                            </Link>
                         </Fragment>

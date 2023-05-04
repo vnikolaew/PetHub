@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { StaticImageData } from "next/image";
-import { ProductDetailsPage, useProductsContext } from "@pethub/components";
+import { ProductDetailsPage, useProduct } from "@pethub/components";
 import { IProductRating } from "@pethub/state";
 
 export interface IProductDetails {
@@ -20,10 +20,7 @@ export default function PelletedFoodProductDetailsPage({
 }: {
    params: { productName: string };
 }) {
-   const products = useProductsContext();
-   const product: IProductDetails = products.find(
-      (p) => p.product.name === productName
-   )!.product;
+   const product = useProduct(productName)!.product!;
 
    return (
       <ProductDetailsPage

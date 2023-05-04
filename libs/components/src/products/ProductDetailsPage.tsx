@@ -1,10 +1,14 @@
 import React, { FC, Fragment, useState } from "react";
 import Image, { StaticImageData } from "next/image";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import {
    Breadcrumb,
    BreadcrumbSegment,
    currencyFormatter,
    SelectInput,
+   useProductsContext,
    useRecommendedProducts,
 } from "@pethub/components";
 import {
@@ -19,9 +23,10 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import * as Progress from "@radix-ui/react-progress";
 import * as Separator from "@radix-ui/react-separator";
 import Link from "next/link";
-import { IProductRating, useShoppingCart } from "@pethub/state";
+import { IProductRating, useCurrentUser, useShoppingCart } from "@pethub/state";
 import ProductReviewCard from "./ProductReviewCard";
 import * as R from "ramda";
+import RateProductSection from "./RateProductSection";
 
 export interface IProductDetails {
    name: string;
@@ -47,9 +52,12 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
    const [productQuantity, setProductQuantity] = useState(1);
    const [reviewsSortOrder, setReviewsSortOrder] = useState("2");
    const recommendedProducts = useRecommendedProducts(product.id);
+   const { setProducts } = useProductsContext();
+   const user = useCurrentUser();
 
    console.log(product);
 
+   // @ts-ignore
    return (
       <div className={`mt-12 mx-16`}>
          <Breadcrumb
@@ -259,38 +267,67 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                   className={`w-full bg-gray-100 h-[1px]`}
                   orientation={"horizontal"}
                />
-               <div className={`flex mt-2 self-center items-center gap-8`}>
-                  <ChevronLeftIcon height={20} width={20} />
-                  {recommendedProducts.map((p, i) => (
-                     <Fragment key={i}>
-                        <Link
-                           href={`/${p.productType}/${p.petType}/${p.category}/${p.product.id}`}
-                        >
-                           <div
-                              className={`flex relative gap-4 flex-col items-center justify-center`}
-                              key={i}
+               <div
+                  className={`flex max-w-[800px] mt-2 self-center items-center gap-8`}
+               >
+                  <Slider
+                     fade
+                     className={`w-full`}
+                     centerMode={true}
+                     swipe
+                     nextArrow={
+                        <ChevronRightIcon
+                           color={"black"}
+                           className={`bg-black text-black z-20`}
+                           height={20}
+                           width={20}
+                        />
+                     }
+                     prevArrow={
+                        <ChevronLeftIcon
+                           color={"black"}
+                           className={`bg-black text-black z-20`}
+                           height={20}
+                           width={20}
+                        />
+                     }
+                     arrows
+                     dots
+                     speed={500}
+                     infinite
+                     slidesToScroll={3}
+                     slidesToShow={3}
+                  >
+                     {recommendedProducts.map((p, i) => (
+                        <Fragment index={i} key={i}>
+                           <Link
+                              href={`/${p.productType}/${p.petType}/${p.category}/${p.product.id}`}
                            >
-                              {(p as any).discount !== undefined && (
-                                 <div
-                                    className={`absolute flex items-center justify-center p-2 -top-2 -right-2 bg-red-500 text-white text-sm w-10 h-10 rounded-full`}
-                                 >
-                                    -{Math.round((p as any).discount * 100)}%
-                                 </div>
-                              )}
-                              <Image
-                                 height={80}
-                                 width={80}
-                                 src={p.product.image}
-                                 alt={p.product.name}
-                              />
-                              <h2 className={`text-md`}>
-                                 {p.product.name.slice(0, 20)}...
-                              </h2>
-                           </div>
-                        </Link>
-                     </Fragment>
-                  ))}
-                  <ChevronRightIcon height={20} width={20} />
+                              <div
+                                 className={`flex relative gap-4 flex-col items-center justify-center`}
+                                 key={i}
+                              >
+                                 {(p as any).discount !== undefined && (
+                                    <div
+                                       className={`absolute flex items-center justify-center p-2 -top-2 -right-2 bg-red-500 text-white text-sm w-10 h-10 rounded-full`}
+                                    >
+                                       -{Math.round((p as any).discount * 100)}%
+                                    </div>
+                                 )}
+                                 <Image
+                                    height={80}
+                                    width={80}
+                                    src={p.product.image}
+                                    alt={p.product.name}
+                                 />
+                                 <h2 className={`text-md`}>
+                                    {p.product.name.slice(0, 20)}...
+                                 </h2>
+                              </div>
+                           </Link>
+                        </Fragment>
+                     ))}
+                  </Slider>
                </div>
             </div>
             <section
@@ -373,11 +410,35 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                      <h2 className={`text-2xl text-black`}>
                         Оцени този продукт
                      </h2>
-                     <div className={`flex items-center gap-1`}>
-                        {Array.from({ length: 5 }).map((_, i) => (
-                           <StarIcon height={40} width={40} key={i} />
-                        ))}
-                     </div>
+                     <RateProductSection
+                        onRate={(rating, comment) =>
+                           setProducts((p) =>
+                              p.map((pr, i) =>
+                                 pr.product.id === product.id
+                                    ? {
+                                         ...pr,
+                                         product: {
+                                            ...pr.product,
+                                            ratings: [
+                                               ...pr.product.ratings,
+                                               {
+                                                  rating,
+                                                  from: user.user!.firstName,
+                                                  image: "",
+                                                  reviewText: comment,
+                                                  timestamp: new Date(),
+                                                  userImage:
+                                                     user.user!.profilePicture!,
+                                               },
+                                            ],
+                                         },
+                                      }
+                                    : pr
+                              )
+                           )
+                        }
+                        productId={product.id}
+                     />
                   </section>
                </div>
                <Separator.Root
