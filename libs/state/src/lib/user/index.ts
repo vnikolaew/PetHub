@@ -52,6 +52,7 @@ interface Actions {
    setUser: (user: IUser) => void;
    setPassword: (password: string) => void;
    addPet: (pet: IPet) => void;
+   changePetDescription: (petId: string, description: string) => void;
    addVetAppointment: (appointment: IVetAppointment) => void;
    removePet: (petIndex: number) => void;
    addOrder: (order: IOrder) => void;
@@ -94,6 +95,13 @@ export const TEST_USER: IUser = {
 export const useCurrentUser = create<ICurrentUserState & Actions>((set) => ({
    user: { ...TEST_USER },
    users: [TEST_USER],
+   changePetDescription: (petId: string, description: string) =>
+      set(
+         produce((state: ICurrentUserState) => {
+            const pet = state.user?.pets.find((p) => p.id === petId);
+            if (pet) pet.description = description;
+         })
+      ),
    setUser: (user: IUser) =>
       set(
          produce((state: ICurrentUserState) => {

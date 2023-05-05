@@ -55,14 +55,25 @@ const ShoppingCartDropdown: FC<ShoppingCartDropdownProps> = ({ onClose }) => {
             </div>
          )}
          <div className={`w-full flex items-center justify-center`}>
-            <Link href={`/shopping-cart`}>
-               <button
-                  onClick={(_) => onClose?.()}
-                  className={`self-center transition-opacity duration-200 hover:opacity-90 rounded-md shadow-md m-4 px-5 py-1 bg-raw-sienna text-white text-lg`}
-               >
-                  Завърши поръчка
-               </button>
-            </Link>
+            {products.length === 0 ? (
+               <Link href={`/`}>
+                  <button
+                     onClick={(_) => onClose?.()}
+                     className={`self-center transition-opacity duration-200 hover:opacity-90 rounded-md shadow-md m-4 px-5 py-1 bg-raw-sienna text-white text-lg`}
+                  >
+                     Към начална страница
+                  </button>
+               </Link>
+            ) : (
+               <Link href={`/shopping-cart`}>
+                  <button
+                     onClick={(_) => onClose?.()}
+                     className={`self-center transition-opacity duration-200 hover:opacity-90 rounded-md shadow-md m-4 px-5 py-1 bg-raw-sienna text-white text-lg`}
+                  >
+                     Завърши поръчка
+                  </button>
+               </Link>
+            )}
          </div>
       </div>
    );

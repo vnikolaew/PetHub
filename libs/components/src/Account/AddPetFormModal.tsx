@@ -59,10 +59,10 @@ export const AddPetFormModal: FC = () => {
          </Dialog.Trigger>
          <Dialog.Portal>
             <Dialog.Overlay
-               className={`bg-black animate-overlayShow bg-opacity-60 fixed inset-0`}
+               className={`bg-black z-30 animate-overlayShow bg-opacity-60 fixed inset-0`}
             />
             <Dialog.Content
-               className={`bg-white focus:outline-none animate-contentShow rounded-md shadow-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[500px] px-6 py-4`}
+               className={`bg-white z-50 focus:outline-none animate-contentShow rounded-md shadow-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[500px] px-6 py-4`}
             >
                <Dialog.Title className={`text-lg`}>
                   Добавяне на домашен любимец към профила

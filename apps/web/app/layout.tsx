@@ -2,7 +2,7 @@
 import { bonaNova } from "../fonts";
 import "./styles.css";
 import logo from "@pethub/assets/site-logo.webp";
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import avatarLogo from "@pethub/assets/user-logo.svg";
 import shoppingCartLogo from "@pethub/assets/cart-logo.png";
 import {
@@ -13,6 +13,7 @@ import {
    Navbar,
    Social,
    ProductsProvider,
+   CookieBanner,
 } from "@pethub/components";
 
 // export const metadata: Metadata = {
@@ -54,6 +55,7 @@ function PethubLayout({ children }: PropsWithChildren) {
                <footer>
                   <Footer socials={SOCIALS} />
                </footer>
+               <CookieBanner cookieName={"PetHubConsentCookie"} />
             </ProductsProvider>
          </body>
       </html>

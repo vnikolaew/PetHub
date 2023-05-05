@@ -23,7 +23,7 @@ export const Navbar: FC<NavbarProps> = ({
    const [isShoppingCartOpen, setIsShoppingCartOpen] = useState(false);
 
    return (
-      <header className={`sticky bg-white z-50 top-0`}>
+      <header className={`sticky bg-white z-20 top-0`}>
          <div className={`w-[100vw] bg-white z-50  mb-1`}>
             <nav
                className={`flex bg-white shadow-md border-b-gray-400 w-full items-center gap-2 p-2 m-0`}
