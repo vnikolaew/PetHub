@@ -43,13 +43,11 @@ function PethubLayout({ children }: PropsWithChildren) {
       <html lang={"bg"}>
          <body>
             <ProductsProvider>
-               <header>
-                  <Navbar
-                     shoppingCartLogo={shoppingCartLogo}
-                     avatarLogo={avatarLogo}
-                     siteLogo={logo}
-                  />
-               </header>
+               <Navbar
+                  shoppingCartLogo={shoppingCartLogo}
+                  avatarLogo={avatarLogo}
+                  siteLogo={logo}
+               />
                <main className={`app min-h-[70vh] ${bonaNova.className}`}>
                   {children}
                </main>

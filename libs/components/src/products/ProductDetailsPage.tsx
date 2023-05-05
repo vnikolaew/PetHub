@@ -1,8 +1,5 @@
 import React, { FC, Fragment, useState } from "react";
 import Image, { StaticImageData } from "next/image";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import {
    Breadcrumb,
    BreadcrumbSegment,
@@ -13,8 +10,6 @@ import {
 } from "@pethub/components";
 import {
    CheckIcon,
-   ChevronLeftIcon,
-   ChevronRightIcon,
    Cross1Icon,
    StarFilledIcon,
    StarIcon,
@@ -27,6 +22,7 @@ import { IProductRating, useCurrentUser, useShoppingCart } from "@pethub/state";
 import ProductReviewCard from "./ProductReviewCard";
 import * as R from "ramda";
 import RateProductSection from "./RateProductSection";
+import RecommendedProductsSection from "./RecommendedProductsSection";
 
 export interface IProductDetails {
    name: string;
@@ -56,6 +52,31 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
    const user = useCurrentUser();
 
    console.log(product);
+
+   const rateProduct = (rating: number, comment: string) =>
+      setProducts((p) =>
+         p.map((pr, i) =>
+            pr.product.id === product.id
+               ? {
+                    ...pr,
+                    product: {
+                       ...pr.product,
+                       ratings: [
+                          ...pr.product.ratings,
+                          {
+                             rating,
+                             from: user.user!.firstName,
+                             image: "",
+                             reviewText: comment,
+                             timestamp: new Date(),
+                             userImage: user.user!.profilePicture!,
+                          },
+                       ],
+                    },
+                 }
+               : pr
+         )
+      );
 
    // @ts-ignore
    return (
@@ -145,7 +166,19 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                      className={`flex text-2xl self-center items-center gap-12`}
                   >
                      <span className={`text-xl`}>Цена: </span>
-                     <span>{currencyFormatter.format(product.price)}</span>
+                     <span>
+                        {currencyFormatter.format(
+                           product.price *
+                              (1 - ((product as any).discount ?? 0))
+                        )}{" "}
+                        {(product as any).discount !== undefined && (
+                           <span
+                              className={`line-through font-thin text-[1.2rem] text-gray-400`}
+                           >
+                              {currencyFormatter.format(product.price)}
+                           </span>
+                        )}
+                     </span>
                   </div>
                   <div
                      className={`flex w-full self-center mt-2 justify-center items-center gap-8`}
@@ -260,79 +293,18 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                </div>
             </div>
             <div className={`flex flex-col mt-8 w-full items-start gap-2`}>
-               <h2 className={`text-2xl font-semibold text-raw-sienna`}>
+               <h2 className={`text-3xl font-semibold text-raw-sienna`}>
                   Може да харесате
                </h2>
                <Separator.Root
                   className={`w-full bg-gray-100 h-[1px]`}
                   orientation={"horizontal"}
                />
-               <div
-                  className={`flex max-w-[800px] mt-2 self-center items-center gap-8`}
-               >
-                  <Slider
-                     fade
-                     className={`w-full`}
-                     centerMode={true}
-                     swipe
-                     nextArrow={
-                        <ChevronRightIcon
-                           color={"black"}
-                           className={`bg-black text-black z-20`}
-                           height={20}
-                           width={20}
-                        />
-                     }
-                     prevArrow={
-                        <ChevronLeftIcon
-                           color={"black"}
-                           className={`bg-black text-black z-20`}
-                           height={20}
-                           width={20}
-                        />
-                     }
-                     arrows
-                     dots
-                     speed={500}
-                     infinite
-                     slidesToScroll={3}
-                     slidesToShow={3}
-                  >
-                     {recommendedProducts.map((p, i) => (
-                        <Fragment index={i} key={i}>
-                           <Link
-                              href={`/${p.productType}/${p.petType}/${p.category}/${p.product.id}`}
-                           >
-                              <div
-                                 className={`flex relative gap-4 flex-col items-center justify-center`}
-                                 key={i}
-                              >
-                                 {(p as any).discount !== undefined && (
-                                    <div
-                                       className={`absolute flex items-center justify-center p-2 -top-2 -right-2 bg-red-500 text-white text-sm w-10 h-10 rounded-full`}
-                                    >
-                                       -{Math.round((p as any).discount * 100)}%
-                                    </div>
-                                 )}
-                                 <Image
-                                    height={80}
-                                    width={80}
-                                    src={p.product.image}
-                                    alt={p.product.name}
-                                 />
-                                 <h2 className={`text-md`}>
-                                    {p.product.name.slice(0, 20)}...
-                                 </h2>
-                              </div>
-                           </Link>
-                        </Fragment>
-                     ))}
-                  </Slider>
-               </div>
+               <RecommendedProductsSection products={recommendedProducts} />
             </div>
             <section
                id={"reviews"}
-               className={`flex mt-4 flex-col w-full items-start gap-2`}
+               className={`flex flex-col w-full items-start gap-2`}
             >
                <h2 className={`text-3xl font-semibold text-raw-sienna`}>
                   Отзиви
@@ -358,7 +330,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                                     (r) => Math.round(r.rating) === rating
                                  ).length
                               }
-                              className={`h-6 w-64 relative rounded-full overflow-hidden bg-gray-100 shadow-sm bg-opacity-40`}
+                              className={`h-6 w-64 relative rounded-full overflow-hidden bg-gray-200 shadow-md bg-opacity-40`}
                            >
                               <Progress.Indicator
                                  style={{
@@ -395,6 +367,16 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                                     key={i}
                                  />
                               ))}
+                              {Array.from({
+                                 length: 5 - Math.round(product.averageRating),
+                              }).map((_, i) => (
+                                 <StarIcon
+                                    color={"orange"}
+                                    height={20}
+                                    width={20}
+                                    key={i}
+                                 />
+                              ))}
                            </div>
                            <span className={`text-2xl`}>
                               {product.ratings.length} отзива
@@ -410,35 +392,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                      <h2 className={`text-2xl text-black`}>
                         Оцени този продукт
                      </h2>
-                     <RateProductSection
-                        onRate={(rating, comment) =>
-                           setProducts((p) =>
-                              p.map((pr, i) =>
-                                 pr.product.id === product.id
-                                    ? {
-                                         ...pr,
-                                         product: {
-                                            ...pr.product,
-                                            ratings: [
-                                               ...pr.product.ratings,
-                                               {
-                                                  rating,
-                                                  from: user.user!.firstName,
-                                                  image: "",
-                                                  reviewText: comment,
-                                                  timestamp: new Date(),
-                                                  userImage:
-                                                     user.user!.profilePicture!,
-                                               },
-                                            ],
-                                         },
-                                      }
-                                    : pr
-                              )
-                           )
-                        }
-                        productId={product.id}
-                     />
+                     <RateProductSection onRate={rateProduct} />
                   </section>
                </div>
                <Separator.Root
@@ -446,7 +400,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                   orientation={"horizontal"}
                />
                <div
-                  className={`w-full mt-8 flex justify-around items-start gap-8`}
+                  className={`w-full mt-12 flex justify-around items-start gap-8`}
                >
                   <div className={`w-2/5 flex flex-col items-center gap-8`}>
                      {R.sort((ra, rb) => {

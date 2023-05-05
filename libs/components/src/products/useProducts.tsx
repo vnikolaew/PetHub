@@ -54,5 +54,5 @@ export function useRecommendedProducts(
                  p.petType === product.petType &&
                  p.category === product.category
            )
-           .slice(0, 6) ?? null;
+           .slice(0, 10) ?? null;
 }

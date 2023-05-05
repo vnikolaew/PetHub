@@ -72,7 +72,7 @@ export const initialState: IShoppingCartState = {
                timestamp: new Date(r.timestamp),
             })) ?? [],
       },
-      quantity: Math.round(Math.random() * 5),
+      quantity: Math.round(Math.random() * 5 + 1),
    })),
    get total() {
       return this.products.reduce(

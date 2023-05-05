@@ -23,6 +23,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { IProductDetails } from "@pethub/state";
 import FilterLogo from "../Logos/FilterLogo";
 import SortLogo from "../Logos/SortLogo";
+import SadFaceLogo from "../Logos/SadFaceLogo";
 
 export interface ProductsGenericPageProps {
    products: IProductDetails[];
@@ -275,39 +276,57 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                className={`flex-1 w-full flex items-center flex-col gap-12 justify-center text-xl`}
             >
                <div className={`grid gap-12 place-center grid-cols-4`}>
-                  {filteredProducts
-                     .slice((page - 1) * 8, page * 8)
-                     .map((product, i) => (
-                        <Fragment key={i}>
-                           <Link href={`${basePath}/${product.id}`}>
-                              <div
-                                 className={`flex relative gap-4 flex-col items-center justify-center`}
-                              >
-                                 {(product as any).discount !== undefined && (
+                  {filteredProducts.length === 0 ? (
+                     <div
+                        className={`text-2xl flex items-center font-semibold gap-4 my-16 col-span-4 text-center w-full text-gray-500`}
+                     >
+                        <span>Няма намерени продукти! </span>
+                        <SadFaceLogo color={"black"} size={30} />
+                     </div>
+                  ) : (
+                     <Fragment>
+                        {filteredProducts
+                           .slice((page - 1) * 8, page * 8)
+                           .map((product, i) => (
+                              <Fragment key={i}>
+                                 <Link href={`${basePath}/${product.id}`}>
                                     <div
-                                       className={`absolute flex items-center justify-center p-2 -top-2 -right-2 bg-red-500 text-white text-sm w-10 h-10 rounded-full`}
+                                       className={`flex relative gap-4 flex-col items-center justify-center`}
                                     >
-                                       -
-                                       {Math.round(
-                                          (product as any).discount * 100
+                                       {(product as any).discount !==
+                                          undefined && (
+                                          <div
+                                             className={`absolute flex items-center justify-center p-2 -top-2 -right-2 bg-red-500 text-white text-sm w-10 h-10 rounded-full`}
+                                          >
+                                             -
+                                             {Math.round(
+                                                (product as any).discount * 100
+                                             )}
+                                             %
+                                          </div>
                                        )}
-                                       %
+                                       <Image
+                                          height={120}
+                                          width={120}
+                                          src={product.image}
+                                          alt={`${product.name} logo`}
+                                       />
+                                       <h2 className={`text-lg`}>
+                                          {product.name}
+                                       </h2>
+                                       <span
+                                          className={`font-semibold self-end`}
+                                       >
+                                          {currencyFormatter.format(
+                                             product.price
+                                          )}
+                                       </span>
                                     </div>
-                                 )}
-                                 <Image
-                                    height={120}
-                                    width={120}
-                                    src={product.image}
-                                    alt={`${product.name} logo`}
-                                 />
-                                 <h2 className={`text-lg`}>{product.name}</h2>
-                                 <span className={`font-semibold self-end`}>
-                                    {currencyFormatter.format(product.price)}
-                                 </span>
-                              </div>
-                           </Link>
-                        </Fragment>
-                     ))}
+                                 </Link>
+                              </Fragment>
+                           ))}
+                     </Fragment>
+                  )}
                </div>
                <div className={`flex items-center gap-4`}>
                   {page !== 1 && (

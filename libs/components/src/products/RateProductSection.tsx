@@ -2,14 +2,10 @@ import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
 import React, { FC, useState } from "react";
 
 export interface RateProductSectionProps {
-   productId: string;
    onRate: (rating: number, comment: string) => void;
 }
 
-const RateProductSection: FC<RateProductSectionProps> = ({
-   productId,
-   onRate,
-}) => {
+const RateProductSection: FC<RateProductSectionProps> = ({ onRate }) => {
    const [ratingHovered, setRatingHovered] = useState(0);
    const [rating, setRating] = useState<number>(0);
    const [comment, setComment] = useState("");
@@ -72,7 +68,7 @@ const RateProductSection: FC<RateProductSectionProps> = ({
          >
             <h2 className={`text-xl`}>Остави коментар: </h2>
             <textarea
-               placeholder={"Say something about the product ..."}
+               placeholder={""}
                className={`w-full min-h-[60px] p-4`}
                onChange={(e) => setComment(e.target.value)}
                value={comment}

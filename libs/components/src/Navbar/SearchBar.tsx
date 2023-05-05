@@ -31,7 +31,7 @@ const SearchBar: FC = () => {
    const [showResults, setShowResults] = useState(false);
    const debouncedSearch = useDebounce(searchTerm, 2000, (_) => true);
    const resultsRef = useRef(null!);
-   const ALL_PRODUCTS = useProductsContext();
+   const { products: ALL_PRODUCTS } = useProductsContext();
    useOnClickOutside(resultsRef, (_) => setShowResults(false));
 
    const searchResults = useMemo(() => {

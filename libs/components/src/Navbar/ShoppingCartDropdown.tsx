@@ -14,40 +14,46 @@ const ShoppingCartDropdown: FC<ShoppingCartDropdownProps> = ({ onClose }) => {
 
    return (
       <div className={`flex flex-col items-start gap-4`}>
-         {products.map((product, i) => (
-            <Fragment key={i}>
-               <div
-                  className={`flex w-full items-center justify-between gap-2 p-2`}
-               >
-                  <Image
-                     className={`rounded-full mr-2 shadow-md`}
-                     height={20}
-                     width={20}
-                     src={`${product.product.image}`}
-                     alt={""}
-                  />
-                  <span className={`text-xs max-w-[150px]`}>
-                     {product.product.name}
-                  </span>
-                  <span className={`text-sm`}>X</span>
-                  <span className={`text-sm`}>{product.quantity}</span>
-                  <span
-                     className={`font-semibold flex-1 text-right justify-self-end ml-auto`}
+         {products.length > 0 ? (
+            products.map((product, i) => (
+               <Fragment key={i}>
+                  <div
+                     className={`flex w-full items-center justify-between gap-2 p-2`}
                   >
-                     {" "}
-                     {currencyFormatter.format(
-                        product.product.price * product.quantity
-                     )}
-                  </span>
-               </div>
-               {i !== products.length - 1 && (
-                  <Separator.Root
-                     orientation={"horizontal"}
-                     className={`w-2/3 h-[1px] bg-gray-200`}
-                  />
-               )}
-            </Fragment>
-         ))}
+                     <Image
+                        className={`rounded-full mr-2 shadow-md`}
+                        height={20}
+                        width={20}
+                        src={`${product.product.image}`}
+                        alt={""}
+                     />
+                     <span className={`text-xs max-w-[150px]`}>
+                        {product.product.name}
+                     </span>
+                     <span className={`text-sm`}>X</span>
+                     <span className={`text-sm`}>{product.quantity}</span>
+                     <span
+                        className={`font-semibold flex-1 text-right justify-self-end ml-auto`}
+                     >
+                        {" "}
+                        {currencyFormatter.format(
+                           product.product.price * product.quantity
+                        )}
+                     </span>
+                  </div>
+                  {i !== products.length - 1 && (
+                     <Separator.Root
+                        orientation={"horizontal"}
+                        className={`w-2/3 h-[1px] bg-gray-200`}
+                     />
+                  )}
+               </Fragment>
+            ))
+         ) : (
+            <div className={`text-gray-400 mt-4 w-full text-center text-lg`}>
+               Количката ви е празна.{" "}
+            </div>
+         )}
          <div className={`w-full flex items-center justify-center`}>
             <Link href={`/shopping-cart`}>
                <button

@@ -1,5 +1,5 @@
 "use client";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import {
    List,
    NavigationTab,
@@ -231,11 +231,12 @@ function generateRandomProducts(
 }
 
 const IndexPage: FC = () => {
-   const products = useProductsContext();
+   const { products } = useProductsContext();
    const BEST_SELLERS = generateRandomProducts(products);
    const ON_SALE_PRODUCTS = products.filter(
       (p) => (p as any).product.discount !== undefined
    );
+   const [hasConsentValue, setHasConsentValue] = useState(false);
 
    console.log(BEST_SELLERS);
    console.log(ON_SALE_PRODUCTS);
@@ -284,22 +285,30 @@ const IndexPage: FC = () => {
                   }
                />
             </div>
-            <CookieConsent
-               enableDeclineButton
-               expires={30_000}
-               style={{}}
-               buttonText={"Приеми бисквитки"}
-               declineButtonText={"Отхвърли"}
-               contentClasses={`text-white`}
-               containerClasses={`bg-black z-20 fixed bottom-0 flex w-full px-8 py-4 items-center justify-between`}
-               disableStyles={true}
-               buttonClasses={`bg-raw-sienna p-2 text-white shadow-md`}
-               declineButtonClasses={`bg-raw-sienna p-2 bg-white shadow-md`}
-               declineButtonStyle={{}}
-               location={"bottom"}
-            >
-               Нашият сайт ползва бисквитки.
-            </CookieConsent>
+            {!hasConsentValue && (
+               <CookieConsent
+                  visible={"true"}
+                  enableDeclineButton
+                  expires={30_000}
+                  style={{}}
+                  cookieName={"PetHubConsentCookie"}
+                  hideOnAccept
+                  onAccept={(_) => setHasConsentValue(true)}
+                  onDecline={() => setHasConsentValue(true)}
+                  hideOnDecline
+                  buttonText={"Приеми бисквитки"}
+                  declineButtonText={"Отхвърли"}
+                  contentClasses={`text-white  text-xl`}
+                  containerClasses={`bg-black z-20 fixed bottom-0 flex w-full px-8 py-5 items-center justify-between`}
+                  disableStyles={true}
+                  buttonClasses={`bg-raw-sienna mx-8 rounded-md px-4 py-2 text-white shadow-md`}
+                  declineButtonClasses={`bg-raw-sienna rounded-md px-4 py-2 bg-white shadow-md`}
+                  declineButtonStyle={{}}
+                  location={"bottom"}
+               >
+                  PetHub© използва бисквитки, за да подобри вашето изживяване.
+               </CookieConsent>
+            )}
          </div>
       </div>
    );
