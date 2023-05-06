@@ -10,6 +10,7 @@ html {
    line-height: 1.5;
    tab-size: 4;
    scroll-behavior: smooth;
+   overflow-x: hidden;
 }
 
 body {
@@ -139,4 +140,26 @@ details {
 details pre > span {
    color: rgba(181, 181, 181, 1);
    display: block;
+}
+
+/* Select the scrollbar element */
+::-webkit-scrollbar {
+   width: 10px; /* Width of the scrollbar */
+   border-radius: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+   background: #f1f1f1; /* Color of the track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+   background: #888; /* Color of the handle */
+   border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+   background: #555; /* Color of the handle on hover */
 }

@@ -16,11 +16,6 @@ import {
    CookieBanner,
 } from "@pethub/components";
 
-// export const metadata: Metadata = {
-//    title: "PetHub Co",
-//    icons: [logo.src],
-// };
-
 const SOCIALS: Social[] = [
    {
       logo: <FacebookLogo size={30} />,
@@ -42,22 +37,22 @@ const SOCIALS: Social[] = [
 function PethubLayout({ children }: PropsWithChildren) {
    return (
       <html lang={"bg"}>
-         <body>
-            <ProductsProvider>
-               <Navbar
-                  shoppingCartLogo={shoppingCartLogo}
-                  avatarLogo={avatarLogo}
-                  siteLogo={logo}
-               />
-               <main className={`app min-h-[70vh] ${bonaNova.className}`}>
-                  {children}
-               </main>
-               <footer>
-                  <Footer socials={SOCIALS} />
-               </footer>
-               <CookieBanner cookieName={"PetHubConsentCookie"} />
-            </ProductsProvider>
-         </body>
+      <body>
+      <ProductsProvider>
+         <Navbar
+            shoppingCartLogo={shoppingCartLogo}
+            avatarLogo={avatarLogo}
+            siteLogo={logo}
+         />
+         <main className={`app min-h-[70vh] ${bonaNova.className}`}>
+            {children}
+         </main>
+         <footer>
+            <Footer socials={SOCIALS} />
+         </footer>
+         <CookieBanner cookieName={"PetHubConsentCookie"} />
+      </ProductsProvider>
+      </body>
       </html>
    );
 }

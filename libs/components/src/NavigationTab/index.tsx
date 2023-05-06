@@ -17,16 +17,17 @@ export interface NavigationTabProps
       React.DetailedHTMLProps<
          React.HTMLAttributes<HTMLDivElement>,
          HTMLDivElement
-      > {}
+      > {
+}
 
 export const NavigationTab: FC<NavigationTabProps> = ({
-   logo,
-   label,
-   baseRoute,
-   className,
-   subMenu,
-   ...rest
-}) => {
+                                                         logo,
+                                                         label,
+                                                         baseRoute,
+                                                         className,
+                                                         subMenu,
+                                                         ...rest
+                                                      }) => {
    return (
       <DropdownMenu.Root>
          {subMenu?.length ? (
@@ -90,7 +91,7 @@ export const NavigationTab: FC<NavigationTabProps> = ({
                                  />
                               </span>
                               <Link href={`/${baseRoute}/${item.href}`}>
-                                 <div className={`text-lg`}>{item.label}</div>
+                                 <div className={`text-lg whitespace-nowrap`}>{item.label}</div>
                               </Link>
                               <ChevronRightIcon width={16} />
                            </DropdownMenu.SubTrigger>
@@ -155,7 +156,7 @@ export const NavigationTab: FC<NavigationTabProps> = ({
                            <div className={`text-lg`}>{item.label}</div>
                            <ChevronRightIcon width={16} />
                         </DropdownMenu.Item>
-                     )
+                     ),
                   )}
                </motion.div>
             </DropdownMenu.Content>

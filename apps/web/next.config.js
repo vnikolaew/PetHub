@@ -45,6 +45,11 @@ const nextConfig = {
       minimumCacheTTL: 60 * 60,
       domains: ["zoobg.bg"],
    },
+   async headers() {
+      return Promise.resolve([
+         { source: "/:path*", headers: [{ key: "X-Server", value: "PetHub/Next" }] },
+      ]);
+   },
    experimental: {
       appDir: true,
       swcMinify: true,

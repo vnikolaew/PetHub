@@ -20,12 +20,12 @@ export const Footer: FC<FooterProps> = ({ socials }) => {
          >
             <section className={`ml-0`}>
                <div className={`flex flex-col items-center space-y-6`}>
-                  <h2 className={`text-2xl`}>
+                  <h2 className={`text-xl`}>
                      <Link href={"/contacts"}>Контакти</Link>
                   </h2>
                   <div className={`flex items-center space-x-3`}>
                      {socials.map(({ type, link, logo }, i) => (
-                        <a key={i} href={`https://${link}`}>
+                        <a target={"_blank"} key={i} href={`https://${link}`}>
                            {logo}
                         </a>
                      ))}
@@ -36,9 +36,9 @@ export const Footer: FC<FooterProps> = ({ socials }) => {
                className={`ml-0 flex flex-col items-start gap-4 max-w-[500px]`}
             >
                <Link href={"/about"}>
-                  <h2 className={`text-2xl`}>За нас</h2>
+                  <h2 className={`text-xl`}>За нас</h2>
                </Link>
-               <p className={`text-gray-500`}>
+               <p className={`text-gray-500 text-sm leading-5`}>
                   {LOREM_IPSUM_TEXT.slice(0, 200)}
                </p>
             </section>
@@ -46,14 +46,14 @@ export const Footer: FC<FooterProps> = ({ socials }) => {
                className={`ml-0 flex flex-col items-start gap-4 max-w-[500px]`}
             >
                <Link href={"/privacy"}>
-                  <h2 className={`text-2xl`}>Политика за поверителност</h2>
+                  <h2 className={`text-xl`}>Политика за поверителност</h2>
                </Link>
-               <p className={`text-gray-500`}>
+               <p className={`text-gray-500 text-sm leading-5`}>
                   {LOREM_IPSUM_TEXT.slice(0, 160)}
                </p>
             </section>
             <section className={``}>
-               <h2 className={`text-2xl`}>
+               <h2 className={`text-xl`}>
                   <Link href={"/help"}>Помощ</Link>
                </h2>
             </section>

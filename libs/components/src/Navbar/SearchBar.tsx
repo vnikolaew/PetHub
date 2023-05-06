@@ -11,6 +11,11 @@ import * as Separator from "@radix-ui/react-separator";
 import Image from "next/image";
 import * as R from "ramda";
 import Link from "next/link";
+import dogLogo from "@pethub/assets/dog-food-logo.png";
+import catLogo from "@pethub/assets/cat-food-logo.png";
+import birdLogo from "@pethub/assets/bird-logo.svg";
+import rodentLogo from "@pethub/assets/rodent-food-logo.png";
+import fishLogo from "@pethub/assets/fish-food-logo.png";
 import { useOnClickOutside } from "./useOnClickOutside";
 
 const CATEGORY_NAMES = {
@@ -25,6 +30,24 @@ const PET_TYPES_NAMES = {
    rodents: "Гризачи",
    fish: "Риби",
 };
+
+function getPetLogo(category: string) {
+   const pet = category.trim().split("/")[1].trim();
+   switch (pet) {
+      case "dogs":
+         return dogLogo;
+      case "cats":
+         return catLogo;
+      case "birds":
+         return birdLogo;
+      case "rodents":
+         return rodentLogo;
+      case "fish":
+         return fishLogo;
+      default:
+         return dogLogo;
+   }
+}
 
 const SearchBar: FC = () => {
    const [searchTerm, setSearchTerm] = useState("");
@@ -86,19 +109,23 @@ const SearchBar: FC = () => {
                   animate={{ height: "auto", opacity: 1 }}
                   transition={{ delay: 0.05, duration: 0.3 }}
                   key={"wrapper"}
-                  className={`absolute flex flex-col gap-1 bg-white shadow-lg border border-gray-100 p-4 w-1/2 rounded-lg z-50 -bottom-1/1 left-8`}
+                  className={`absolute max-h-[500px] overflow-x-hidden overflow-y-scroll flex flex-col gap-1 bg-white shadow-lg border border-gray-100 p-4 w-1/2 rounded-lg z-50 -bottom-1/1 left-8`}
                >
                   {Object.keys(searchResults).length === 0 ? (
-                     <div className={`text-gray-400 text-md p-2`}>
-                        No results found.
-                     </div>
+                     debouncedSearch.length !== 0 ? (
+                        <div className={`text-gray-400 text-md p-2`}>
+                           Няма намерени резултати
+                        </div>
+                     ) : (
+                        <div>Зареждане ...</div>
+                     )
                   ) : (
                      Object.entries(searchResults)
                         .slice(0, 20)
                         .sort(([cat1], [cat2]) => cat1.localeCompare(cat2))
                         .map(([category, results], i) => (
                            <div
-                              className={`flex-col w-full flex m-2 items-start gap-1`}
+                              className={`flex-col w-full flex m-3 mb-4 items-start gap-1`}
                            >
                               <Link
                                  onClick={(_) => {
@@ -107,20 +134,32 @@ const SearchBar: FC = () => {
                                  }}
                                  href={`/${category}`}
                               >
-                                 <h2 className={`text-xl mb-1`}>
-                                    {category
-                                       .split("/")
-                                       .map((c, i) =>
-                                          i === 0
-                                             ? CATEGORY_NAMES[
-                                                  c as keyof typeof CATEGORY_NAMES
-                                               ]
-                                             : PET_TYPES_NAMES[
-                                                  c as keyof typeof PET_TYPES_NAMES
-                                               ]
-                                       )
-                                       .join(" > ")}
-                                 </h2>
+                                 <div
+                                    className={`text-xl flex items-center gap-2 mb-1`}
+                                 >
+                                    <Image
+                                       src={getPetLogo(category)}
+                                       width={30}
+                                       height={30}
+                                       alt={`category`}
+                                    />
+                                    <span
+                                       className={`hover:opacity-60 duration-200 transition-opacity`}
+                                    >
+                                       {category
+                                          .split("/")
+                                          .map((c, i) =>
+                                             i === 0
+                                                ? CATEGORY_NAMES[
+                                                     c as keyof typeof CATEGORY_NAMES
+                                                  ]
+                                                : PET_TYPES_NAMES[
+                                                     c as keyof typeof PET_TYPES_NAMES
+                                                  ]
+                                          )
+                                          .join(" > ")}
+                                    </span>
+                                 </div>
                               </Link>
                               <AnimatePresence>
                                  {results
