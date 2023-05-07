@@ -1,6 +1,12 @@
 "use client";
 import React, { FC } from "react";
-import { List, NavigationTab, ProductCard, ProductCardProps, useProductsContext } from "@pethub/components";
+import {
+   List,
+   NavigationTab,
+   ProductCard,
+   ProductCardProps,
+   useProductsContext,
+} from "@pethub/components";
 import sampleLogo from "@pethub/assets/sample-logo.svg";
 
 import * as Separator from "@radix-ui/react-separator";
@@ -8,7 +14,7 @@ import { PetInfoType } from "@pethub/state";
 import { NAVIGATION_TABS } from "@pethub/web/app/NAVIGATION_TABS";
 
 function generateRandomProducts(
-   products: ProductCardProps[],
+   products: ProductCardProps[]
 ): ProductCardProps[] {
    const petTypes = [
       PetInfoType.Dog,
@@ -23,7 +29,7 @@ function generateRandomProducts(
          (pt) =>
             products.filter((p) => p.petType === pt)[
                Math.round(Math.random() * 5)
-               ],
+            ]
       ),
       products[Math.round(Math.random() * 10)],
    ];
@@ -33,7 +39,7 @@ const IndexPage: FC = () => {
    const { products } = useProductsContext();
    const BEST_SELLERS = generateRandomProducts(products);
    const ON_SALE_PRODUCTS = products.filter(
-      (p) => (p as any).product.discount !== undefined,
+      (p) => (p as any).product.discount !== undefined
    );
 
    return (
@@ -64,7 +70,9 @@ const IndexPage: FC = () => {
                   ]}
                   render={(item) => (
                      <section className={`mt-4`} id={"best-selling-products"}>
-                        <h1 className={`text-3xl`}>{item.heading}</h1>
+                        <h1 className={`text-3xl font-semibold`}>
+                           {item.heading}
+                        </h1>
                         <div className={`grid grid-cols-4 gap-6 mt-8`}>
                            {item.products.map((props, i) => (
                               <ProductCard key={i} {...props} />

@@ -96,7 +96,7 @@ const ShoppingCartPage: NextPage = () => {
                         product={product}
                      />
                      <Separator.Root
-                        className={`h-[1px] mt-2 bg-gray-200 w-full`}
+                        className={`h-[1px] mt-2 bg-black w-full`}
                         orientation={"horizontal"}
                      />
                   </Fragment>

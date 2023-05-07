@@ -32,7 +32,7 @@ export const dateTimeFormatter = new Intl.DateTimeFormat("bg", {
 export const UserOrderInfoCard: FC<UserOrderInfoCardProps> = ({ order }) => {
    return (
       <div
-         className={`flex gap-12 rounded-xl shadow-md border border-gray-100 items-start py-2 px-10`}
+         className={`flex gap-12 bg-white rounded-xl shadow-md border border-gray-100 items-start py-4 px-12`}
       >
          <div className={`flex-col flex items-start gap-6`}>
             <div className={`flex items-center gap-2`}>

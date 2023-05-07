@@ -49,6 +49,8 @@ function getPetLogo(category: string) {
    }
 }
 
+const STAGGER_DELAY = 0.02;
+
 const SearchBar: FC = () => {
    const [searchTerm, setSearchTerm] = useState("");
    const [showResults, setShowResults] = useState(false);
@@ -69,7 +71,7 @@ const SearchBar: FC = () => {
                  item.product?.name
                     ?.toLowerCase()
                     ?.includes(debouncedSearch.toLowerCase())
-              )
+              ).slice(0, 20)
            );
    }, [debouncedSearch]);
 
@@ -89,8 +91,8 @@ const SearchBar: FC = () => {
             }}
             onFocus={(_) => debouncedSearch.length && setShowResults(true)}
             value={searchTerm}
-            className={`rounded-full w-full px-6 pl-12 py-1.5 text-lg shadow-sm border border-1 border-gray-200`}
-            placeholder={"Search ..."}
+            className={`rounded-full focus:outline-1 focus:outline-gray-200 w-full px-6 pl-12 py-1.5 text-lg shadow-sm border border-1 border-gray-200`}
+            placeholder={"Търси ..."}
             type={"text"}
          />
          <AnimatePresence>
@@ -106,10 +108,17 @@ const SearchBar: FC = () => {
                      opacity: 1,
                   }}
                   ref={resultsRef}
-                  animate={{ height: "auto", opacity: 1 }}
-                  transition={{ delay: 0.05, duration: 0.3 }}
+                  animate={{
+                     height: debouncedSearch.length === 0 ? "60px" : "500px",
+                     opacity: 1,
+                  }}
+                  transition={{
+                     duration:
+                        STAGGER_DELAY *
+                        Object.values(searchResults).flatMap((x) => x).length,
+                  }}
                   key={"wrapper"}
-                  className={`absolute max-h-[500px] overflow-x-hidden overflow-y-scroll flex flex-col gap-1 bg-white shadow-lg border border-gray-100 p-4 w-1/2 rounded-lg z-50 -bottom-1/1 left-8`}
+                  className={`absolute min-h-[60px] max-h-[500px] overflow-x-hidden overflow-y-scroll flex flex-col gap-1 bg-white shadow-lg border border-gray-100 p-4 w-1/2 rounded-lg z-50 -bottom-1/1 left-8`}
                >
                   {Object.keys(searchResults).length === 0 ? (
                      debouncedSearch.length !== 0 ? (
@@ -117,11 +126,10 @@ const SearchBar: FC = () => {
                            Няма намерени резултати
                         </div>
                      ) : (
-                        <div>Зареждане ...</div>
+                        <div className={`h-full m-0`}>Зареждане ...</div>
                      )
                   ) : (
                      Object.entries(searchResults)
-                        .slice(0, 20)
                         .sort(([cat1], [cat2]) => cat1.localeCompare(cat2))
                         .map(([category, results], i) => (
                            <div
@@ -186,8 +194,8 @@ const SearchBar: FC = () => {
                                              opacity: 1,
                                           }}
                                           transition={{
-                                             delay: i * 0.04,
-                                             duration: 0.04,
+                                             delay: i * STAGGER_DELAY,
+                                             duration: STAGGER_DELAY,
                                           }}
                                        >
                                           <Link

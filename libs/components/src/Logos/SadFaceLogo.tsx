@@ -5,7 +5,7 @@ export interface SadFaceLogoProps {
    size: number;
 }
 
-const SadFaceLogo: FC<SadFaceLogoProps> = ({ size, color }) => {
+export const SadFaceLogo: FC<SadFaceLogoProps> = ({ size, color }) => {
    return (
       <svg
          width={`${size}px`}
@@ -21,5 +21,3 @@ const SadFaceLogo: FC<SadFaceLogoProps> = ({ size, color }) => {
       </svg>
    );
 };
-
-export default SadFaceLogo;

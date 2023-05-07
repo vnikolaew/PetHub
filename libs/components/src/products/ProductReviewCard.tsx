@@ -11,7 +11,7 @@ export interface ProductReviewCardProps {
 const ProductReviewCard: FC<ProductReviewCardProps> = ({ review }) => {
    return (
       <div
-         className={`flex w-full justify-between items-start p-6 rounded-xl border border-gray-200 shadow-md gap-4`}
+         className={`flex bg-white w-full justify-between items-start p-6 rounded-xl border border-gray-200 shadow-md gap-4`}
       >
          <div className={`flex items-start gap-4`}>
             <Image

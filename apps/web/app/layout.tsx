@@ -37,22 +37,22 @@ const SOCIALS: Social[] = [
 function PethubLayout({ children }: PropsWithChildren) {
    return (
       <html lang={"bg"}>
-      <body>
-      <ProductsProvider>
-         <Navbar
-            shoppingCartLogo={shoppingCartLogo}
-            avatarLogo={avatarLogo}
-            siteLogo={logo}
-         />
-         <main className={`app min-h-[70vh] ${bonaNova.className}`}>
-            {children}
-         </main>
-         <footer>
-            <Footer socials={SOCIALS} />
-         </footer>
-         <CookieBanner cookieName={"PetHubConsentCookie"} />
-      </ProductsProvider>
-      </body>
+         <body className={`bg-albescent-white`}>
+            <ProductsProvider>
+               <Navbar
+                  shoppingCartLogo={shoppingCartLogo}
+                  avatarLogo={avatarLogo}
+                  siteLogo={logo}
+               />
+               <main
+                  className={`app mb-24 bg-albescent-white min-h-[70vh] ${bonaNova.className}`}
+               >
+                  {children}
+               </main>
+               <Footer socials={SOCIALS} />
+               <CookieBanner cookieName={"PetHubConsentCookie"} />
+            </ProductsProvider>
+         </body>
       </html>
    );
 }

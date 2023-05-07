@@ -69,7 +69,7 @@ const RateProductSection: FC<RateProductSectionProps> = ({ onRate }) => {
             <h2 className={`text-xl`}>Остави коментар: </h2>
             <textarea
                placeholder={""}
-               className={`w-full min-h-[60px] p-4`}
+               className={`w-full rounded-md shadow-md border border-1 border-gray-200 min-h-[60px] p-4`}
                onChange={(e) => setComment(e.target.value)}
                value={comment}
             />

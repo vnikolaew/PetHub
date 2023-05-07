@@ -75,10 +75,12 @@ const MyAccountPage: NextPage = () => {
                </Tabs.List>
                <Separator.Root
                   orientation={"horizontal"}
-                  className={`text-gray-300 mx-auto mt-0 w-[90%] h-[1.5px] bg-gray-300`}
+                  className={`text-black mx-auto mt-0 w-[90%] h-[1.5px] bg-white`}
                />
                <Tabs.Content value={"me"}>
-                  <div className={`flex items-center p-6 gap-12`}>
+                  <div
+                     className={`flex rounded-b-md shadow-md border border-1 border-gray-100 bg-white items-center p-6 gap-12`}
+                  >
                      <Image
                         width={100}
                         height={100}
@@ -273,7 +275,7 @@ const TabsTrigger: FC<TabsTriggerProps> = ({ value, children }) => {
    return (
       <Tabs.Trigger asChild value={value}>
          <div
-            className={`rounded-t-md cursor-pointer text-lg inline-block bg-gray-300 border border-black px-2 py-1`}
+            className={`rounded-t-md hover:opacity-90 duration-200 transition-opacity text-white bg-cornflower-blue cursor-pointer text-lg inline-block border border-white px-5 py-2`}
          >
             {children}
          </div>

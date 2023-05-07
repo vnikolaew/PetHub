@@ -18,9 +18,12 @@ export const ProductCard: FC<ProductCardProps> = ({
    productType,
 }) => {
    return (
-      <Link href={`/${productType}/${petType}/${category}/${product.id}`}>
+      <Link
+         className={``}
+         href={`/${productType}/${petType}/${category}/${product.id}`}
+      >
          <div
-            className={`flex relative gap-2 hover:scale-105 transition-all duration-300 flex-col border border-1 rounded-xl border-gray-100 shadow-md p-4 px-8 items-center justify-center`}
+            className={`flex bg-white relative gap-2 hover:scale-105 transition-all duration-300 flex-col border border-1 rounded-xl border-gray-100 shadow-md p-4 px-8 items-center justify-center`}
          >
             {(product as any).discount !== undefined && (
                <div

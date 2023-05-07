@@ -5,7 +5,7 @@ export interface FilterLogoProps {
    size: number;
 }
 
-const FilterLogo: FC<FilterLogoProps> = ({ size, color }) => {
+export const FilterLogo: FC<FilterLogoProps> = ({ size, color }) => {
    return (
       <svg
          className={`inline`}
@@ -22,5 +22,3 @@ const FilterLogo: FC<FilterLogoProps> = ({ size, color }) => {
       </svg>
    );
 };
-
-export default FilterLogo;

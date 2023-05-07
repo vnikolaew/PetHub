@@ -32,7 +32,7 @@ export const AccountPetCard: FC<AccountPetCardProps> = ({ pet }) => {
 
    return (
       <div
-         className={`flex items-start gap-12 p-5 rounded-xl shadow-md border border-gray-100`}
+         className={`flex bg-white items-start gap-12 p-5 rounded-xl shadow-md border border-gray-100`}
       >
          <div className={`flex flex-col items-center gap-4`}>
             <Image

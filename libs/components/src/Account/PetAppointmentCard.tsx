@@ -16,7 +16,7 @@ export const PetAppointmentInfoCard: FC<PetAppointmentInfoCardProps> = ({
 }) => {
    return (
       <div
-         className={`flex gap-2 rounded-xl shadow-md border border-gray-100 items-center py-4 px-10`}
+         className={`flex bg-white gap-2 rounded-xl shadow-md border border-gray-100 items-center py-4 px-10`}
       >
          <Image height={80} width={80} src={petAvatarLogo} alt={"Pet avatar"} />
          <span className={`text-2xl mr-6 font-semibold text-whiskey`}>
@@ -32,9 +32,10 @@ export const PetAppointmentInfoCard: FC<PetAppointmentInfoCardProps> = ({
             })}
          </span>
          <span>, на </span>
-         <span className={`text-lg`}>
+         <span className={`text-lg font-semibold`}>
             {dateTimeFormatter.format(appointment.scheduledDateTime)}
          </span>
+         <span> в </span>
          <div className={`flex items-center gap-1`}>
             <Image
                height={20}

@@ -17,24 +17,23 @@ export interface NavigationTabProps
       React.DetailedHTMLProps<
          React.HTMLAttributes<HTMLDivElement>,
          HTMLDivElement
-      > {
-}
+      > {}
 
 export const NavigationTab: FC<NavigationTabProps> = ({
-                                                         logo,
-                                                         label,
-                                                         baseRoute,
-                                                         className,
-                                                         subMenu,
-                                                         ...rest
-                                                      }) => {
+   logo,
+   label,
+   baseRoute,
+   className,
+   subMenu,
+   ...rest
+}) => {
    return (
       <DropdownMenu.Root>
          {subMenu?.length ? (
             <DropdownMenu.Trigger asChild>
                <button onClick={(_) => console.log(_)} className={``}>
                   <div
-                     className={`py-5 flex gap-4 items-center border border-gray-100 rounded-lg justify-center ${className}`}
+                     className={`py-5 bg-white flex gap-4 items-center border border-gray-100 rounded-lg justify-center ${className}`}
                      {...rest}
                   >
                      <Image
@@ -44,14 +43,13 @@ export const NavigationTab: FC<NavigationTabProps> = ({
                         alt={"Sample logo"}
                      />
                      <h2 className={`text-[1.4rem]`}>{label}</h2>
-
                      <ChevronDownIcon className={``} width={16} />
                   </div>
                </button>
             </DropdownMenu.Trigger>
          ) : (
             <Link
-               className={`py-5 flex gap-4 items-center border border-gray-100 rounded-lg justify-center ${className}`}
+               className={`py-5 bg-white flex gap-4 items-center border border-gray-100 rounded-lg justify-center ${className}`}
                href={`/${baseRoute}`}
             >
                <Image width={30} height={30} src={logo!} alt={"Sample logo"} />
@@ -91,7 +89,9 @@ export const NavigationTab: FC<NavigationTabProps> = ({
                                  />
                               </span>
                               <Link href={`/${baseRoute}/${item.href}`}>
-                                 <div className={`text-lg whitespace-nowrap`}>{item.label}</div>
+                                 <div className={`text-lg whitespace-nowrap`}>
+                                    {item.label}
+                                 </div>
                               </Link>
                               <ChevronRightIcon width={16} />
                            </DropdownMenu.SubTrigger>
@@ -156,7 +156,7 @@ export const NavigationTab: FC<NavigationTabProps> = ({
                            <div className={`text-lg`}>{item.label}</div>
                            <ChevronRightIcon width={16} />
                         </DropdownMenu.Item>
-                     ),
+                     )
                   )}
                </motion.div>
             </DropdownMenu.Content>

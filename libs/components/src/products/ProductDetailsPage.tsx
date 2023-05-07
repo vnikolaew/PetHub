@@ -297,7 +297,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                   Може да харесате
                </h2>
                <Separator.Root
-                  className={`w-full bg-gray-100 h-[1px]`}
+                  className={`w-full bg-black h-[1px]`}
                   orientation={"horizontal"}
                />
                <RecommendedProductsSection products={recommendedProducts} />
@@ -310,7 +310,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                   Отзиви
                </h2>
                <Separator.Root
-                  className={`w-full bg-gray-100 h-[1px]`}
+                  className={`w-full bg-black h-[1px]`}
                   orientation={"horizontal"}
                />
                <div
@@ -322,7 +322,15 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                            className={`flex items-center gap-8 justify-between`}
                            key={i}
                         >
-                           <span>{rating} звезди</span>
+                           <span>
+                              {rating} звезди (
+                              {
+                                 product.ratings.filter(
+                                    (r) => Math.round(r.rating) === rating
+                                 ).length
+                              }
+                              )
+                           </span>
                            <Progress.Root
                               max={product.ratings.length}
                               value={
@@ -330,7 +338,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                                     (r) => Math.round(r.rating) === rating
                                  ).length
                               }
-                              className={`h-6 w-64 relative rounded-full overflow-hidden bg-gray-200 shadow-md bg-opacity-40`}
+                              className={`h-6 w-64 relative rounded-full overflow-hidden bg-white shadow-md bg-opacity-60`}
                            >
                               <Progress.Indicator
                                  style={{

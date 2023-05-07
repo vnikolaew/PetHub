@@ -13,7 +13,7 @@ const ShoppingCartDropdown: FC<ShoppingCartDropdownProps> = ({ onClose }) => {
    const products = useShoppingCart((state) => state.products);
 
    return (
-      <div className={`flex flex-col items-start gap-4`}>
+      <div className={`flex rounded-md flex-col items-start gap-4`}>
          {products.length > 0 ? (
             products.map((product, i) => (
                <Fragment key={i}>

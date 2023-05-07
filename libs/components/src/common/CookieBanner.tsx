@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CookieConsent from "react-cookie-consent";
 import Link from "next/link";
-import CookieLogo from "../Logos/CookieLogo";
+import { CookieLogo } from "../Logos";
 
 export interface CookieBannerProps {
    cookieName: string;

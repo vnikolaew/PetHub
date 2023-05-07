@@ -26,9 +26,9 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/next:server",
       "defaultConfiguration": "development",
-      "options": {
+        "executor": "@nrwl/next:server",
+       "options": {
         "buildTarget": "web:build",
         "dev": true
       },

@@ -5,7 +5,7 @@ export interface SortLogoProps {
    size: number;
 }
 
-const SortLogo: FC<SortLogoProps> = ({ size, color }) => {
+export const SortLogo: FC<SortLogoProps> = ({ size, color }) => {
    return (
       <svg
          className={`inline`}
@@ -22,5 +22,3 @@ const SortLogo: FC<SortLogoProps> = ({ size, color }) => {
       </svg>
    );
 };
-
-export default SortLogo;

@@ -63,7 +63,13 @@ const HelpPage: NextPage = () => {
                               {question}
                            </AccordionTrigger>
                         </Accordion.Header>
-                        <AccordionContent>{answer}</AccordionContent>
+                        <AccordionContent
+                           className={`${
+                              i === FAQs.length - 1 ? "rounded-b-md" : ""
+                           }`}
+                        >
+                           {answer}
+                        </AccordionContent>
                      </Accordion.Item>
                   ))}
                </Accordion.Root>
@@ -79,12 +85,16 @@ const AccordionTrigger = forwardRef<
 >(({ children, className, ...props }, forwardedRef) => (
    <Accordion.Header className="flex">
       <Accordion.Trigger
-         className={`text-inherit data-[state=open]:border-b border-gray-200 text-xl group hover:bg-violet-50 transition-all duration-300 bg-transparent px-10 py-8 h-[45px] flex-1 flex items-center justify-between leading-[1] text-black bg-white ${className}`}
+         className={`text-whiskey font-semibold data-[state=open]:border-b border-gray-200 text-xl group hover:bg-violet-50 transition-all duration-300 bg-transparent px-10 py-8 h-[45px] flex-1 flex items-center justify-between leading-[1] bg-white ${className}`}
          {...props}
          ref={forwardedRef}
       >
          {children}
-         <ChevronDownIcon className="text-black transition-transform duration-300 group-data-[state=open]:rotate-180" />
+         <ChevronDownIcon
+            width={20}
+            height={20}
+            className="text-whiskey bg-transparent transition-transform duration-300 group-data-[state=open]:rotate-180"
+         />
       </Accordion.Trigger>
    </Accordion.Header>
 ));
@@ -96,7 +106,7 @@ const AccordionContent = forwardRef<
    Accordion.AccordionContentProps
 >(({ children, className, ...props }, forwardedRef) => (
    <Accordion.Content
-      className={`overflow-hidden leading-5 text-[1rem] text-black data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp ${className}`}
+      className={`overflow-hidden bg-whiskey leading-5 text-[1.1rem] text-white data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp ${className}`}
       {...props}
       ref={forwardedRef}
    >

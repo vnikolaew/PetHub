@@ -198,6 +198,10 @@ const CompleteOrderPage: NextPage = () => {
                                  )}
                               </span>
                            </div>
+                           <Separator.Root
+                              orientation={"horizontal"}
+                              className={`w-full bg-black text-black h-[1px]`}
+                           />
                            <div
                               className={`flex mt-4 items-center w-full justify-between`}
                            >

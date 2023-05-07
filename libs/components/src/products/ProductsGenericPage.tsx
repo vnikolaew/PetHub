@@ -21,9 +21,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { IProductDetails } from "@pethub/state";
-import FilterLogo from "../Logos/FilterLogo";
-import SortLogo from "../Logos/SortLogo";
-import SadFaceLogo from "../Logos/SadFaceLogo";
+import { FilterLogo, SortLogo, SadFaceLogo } from "../Logos";
 
 export interface ProductsGenericPageProps {
    products: IProductDetails[];
@@ -44,7 +42,7 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
       () => products
    );
    const maxProductPrice = useMemo(
-      () => Math.max(...products.map((p) => Math.round(p.price))),
+      () => Math.max(...products.map((p) => Math.round(p.price)), 0),
       [products]
    );
    const [priceRange, setPriceRange] = useState<number[]>(() => [
@@ -275,13 +273,26 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
             <div
                className={`flex-1 w-full flex items-center flex-col gap-12 justify-center text-xl`}
             >
-               <div className={`grid gap-12 place-center grid-cols-4`}>
+               <div className={`grid gap-4 place-center grid-cols-4`}>
                   {filteredProducts.length === 0 ? (
                      <div
-                        className={`text-2xl flex items-center font-semibold gap-4 my-16 col-span-4 text-center w-full text-gray-500`}
+                        className={`flex w-full col-span-4 flex-col gap-2 items-center`}
                      >
-                        <span>Няма намерени продукти! </span>
-                        <SadFaceLogo color={"black"} size={30} />
+                        <div
+                           className={`text-2xl flex items-center mt-16 font-semibold gap-4 col-span-4 text-center w-full text-gray-500`}
+                        >
+                           <span>Няма намерени продукти! </span>
+                           <SadFaceLogo color={"gray"} size={30} />
+                        </div>
+                        <Link
+                           className={`underline text-blue-500 text-md`}
+                           href={window.location.pathname
+                              .split("/")
+                              .slice(0, -1)
+                              .join("/")}
+                        >
+                           Вижте повече категории.
+                        </Link>
                      </div>
                   ) : (
                      <Fragment>
@@ -291,7 +302,7 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                               <Fragment key={i}>
                                  <Link href={`${basePath}/${product.id}`}>
                                     <div
-                                       className={`flex relative gap-4 flex-col items-center justify-center`}
+                                       className={`flex hover:scale-105 duration-200 transition-all p-3 bg-white rounded-md shadow-md relative gap-4 flex-col items-center justify-center`}
                                     >
                                        {(product as any).discount !==
                                           undefined && (
@@ -311,15 +322,28 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                                           src={product.image}
                                           alt={`${product.name} logo`}
                                        />
-                                       <h2 className={`text-lg`}>
+                                       <h2 className={`text-lg leading-5`}>
                                           {product.name}
                                        </h2>
                                        <span
-                                          className={`font-semibold self-end`}
+                                          className={`text-2xl self-end flex items-center gap-2 mt-2 bg-white text-woodsmoke rounded-full px-4 py-0.5 font-semibold`}
                                        >
-                                          {currencyFormatter.format(
-                                             product.price
+                                          {(product as any).discount !==
+                                             undefined && (
+                                             <span
+                                                className={`line-through font-thin text-[1.0rem] text-gray-400`}
+                                             >
+                                                {currencyFormatter.format(
+                                                   product.price
+                                                )}
+                                             </span>
                                           )}
+                                          {currencyFormatter.format(
+                                             product.price *
+                                                (1 -
+                                                   ((product as any).discount ??
+                                                      0))
+                                          )}{" "}
                                        </span>
                                     </div>
                                  </Link>
@@ -370,7 +394,6 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                         </Fragment>
                      )
                   )}
-
                   {page !== 5 && (
                      <span className={`text-xl hover:underline text-blue-700`}>
                         <Link href={`${basePath}?page=${page + 1}`}>
@@ -500,7 +523,7 @@ const AccordionContent = forwardRef<
    <Accordion.Content
       forceMount
       asChild
-      className={`group`}
+      className={`group bg-white`}
       {...props}
       ref={forwardedRef}
    >

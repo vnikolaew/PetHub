@@ -54,12 +54,12 @@ module.exports = {
                   height: 0,
                },
                to: {
-                  height: "100px",
+                  height: "200px",
                },
             },
             slideUp: {
                from: {
-                  height: "100px",
+                  height: "200px",
                },
                to: {
                   height: 0,

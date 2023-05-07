@@ -47,7 +47,10 @@ const nextConfig = {
    },
    async headers() {
       return Promise.resolve([
-         { source: "/:path*", headers: [{ key: "X-Server", value: "PetHub/Next" }] },
+         {
+            source: "/:path*",
+            headers: [{ key: "X-Server", value: "PetHub/Next" }],
+         },
       ]);
    },
    experimental: {

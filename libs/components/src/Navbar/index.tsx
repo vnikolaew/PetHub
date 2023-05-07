@@ -26,7 +26,7 @@ export const Navbar: FC<NavbarProps> = ({
       <header className={`sticky bg-white z-20 top-0`}>
          <div className={`w-[100vw] bg-white z-50  mb-1`}>
             <nav
-               className={`flex bg-white shadow-md border-b-gray-400 w-full items-center gap-2 p-2 m-0`}
+               className={`flex bg-raw-sienna shadow-md border-b-gray-400 w-full items-center gap-2 p-2 m-0`}
             >
                <Link href={"/"}>
                   <Image
@@ -66,7 +66,7 @@ export const Navbar: FC<NavbarProps> = ({
                               asChild
                               side={"bottom"}
                               sideOffset={5}
-                              className={`rounded-sm z-50 w-auto h-auto px-3 py-1 bg-white shadow-md select-none`}
+                              className={`rounded-md z-50 w-auto h-auto px-3 py-1 bg-white shadow-md select-none`}
                               // forceMount
                            >
                               <motion.div

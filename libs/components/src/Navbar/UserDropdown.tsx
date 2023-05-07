@@ -65,7 +65,7 @@ const UserDropdown: FC<UserDropdownProps> = ({ avatarLogo }) => {
                            scale: 0.8,
                         }}
                         transition={{ duration: 0.2 }}
-                        className={`flex bg-white shadow-md rounded-md px-6 py-6 z-10 flex-col gap-6`}
+                        className={`flex bg-albescent-white shadow-md rounded-md px-6 py-6 z-10 flex-col gap-6`}
                      >
                         {!user && (
                            <div

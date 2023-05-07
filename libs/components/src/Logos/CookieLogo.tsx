@@ -5,7 +5,7 @@ export interface CookieProps {
    size: number;
 }
 
-const CookieLogo: FC<CookieProps> = ({ color, size }) => {
+export const CookieLogo: FC<CookieProps> = ({ color, size }) => {
    return (
       <svg
          width={`${size}px`}
@@ -21,5 +21,3 @@ const CookieLogo: FC<CookieProps> = ({ color, size }) => {
       </svg>
    );
 };
-
-export default CookieLogo;

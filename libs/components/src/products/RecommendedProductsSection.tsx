@@ -34,7 +34,7 @@ const RecommendedProductsSection: FC<RecommendedProductsSectionProps> = ({
 
    return (
       <div
-         className={`self-center mt-4 flex  items-center rounded-md  gap-8 justify-center`}
+         className={`self-center shadow-md bg-white mt-4 flex  items-center rounded-md  gap-8 justify-center`}
       >
          <ChevronLeftIcon
             onClick={(_) => setXOffset((o) => Math.max(0, o - 250))}
@@ -106,7 +106,7 @@ const RecommendedProductsSection: FC<RecommendedProductsSectionProps> = ({
                      </div>
                   </Link>
                   <Separator.Root
-                     className={`w-full bg-gray-300 mt-2 h-[1px]`}
+                     className={`w-full bg-raw-sienna mt-2 h-[1px]`}
                      orientation={"horizontal"}
                   />
                </motion.div>

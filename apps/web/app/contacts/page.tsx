@@ -41,7 +41,7 @@ const ContactsPage: NextPage = () => {
          <section className={`w-full my-12 flex flex-col items-center gap-6`}>
             <h1 className={`text-4xl`}>Контакти</h1>
             <div
-               className={`w-2/5 rounded-xl flex flex-col items-center gap-16 justify-start p-10 px-16 shadow-md border border-gray-200`}
+               className={`w-2/5 rounded-xl bg-white flex flex-col items-center gap-12 justify-start p-10 px-16 shadow-md border border-gray-200`}
             >
                <div className={`flex items-center gap-4`}>
                   <Image
@@ -63,7 +63,7 @@ const ContactsPage: NextPage = () => {
                   <p className={`text-md`}>{LOREM_IPSUM_TEXT.slice(0, 100)}</p>
                </div>
                <div
-                  className={`mx-auto flex items-center gap-3 justify-between`}
+                  className={`mx-auto mt-2 flex items-center gap-4 justify-between`}
                >
                   {SOCIALS.map(({ logo, link }, i) => (
                      <Link key={i} href={link}>

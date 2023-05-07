@@ -37,7 +37,7 @@ export const ShoppingCartProductRow: FC<ShoppingCartProductRowProps> = ({
          </div>
          <div className={`text-xl flex items-start justify-center`}>
             <input
-               className={`text-right`}
+               className={`text-right rounded-md shadow-sm`}
                onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
                value={quantity.toFixed(2)}
                type={"number"}
