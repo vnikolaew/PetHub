@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import UserDropdown from "./UserDropdown";
 import { useShoppingCart } from "@pethub/state";
 import ShoppingCartDropdown from "./ShoppingCartDropdown";
+import * as Separator from "@radix-ui/react-separator";
 
 export interface NavbarProps {
    siteLogo: string | StaticImageData;
@@ -39,9 +40,13 @@ export const Navbar: FC<NavbarProps> = ({
                </Link>
                <SearchBar />
                <div
-                  className={`flex w-1/5 px-4 items-center gap-12 justify-center`}
+                  className={`flex bg-white rounded-full shadow-md py-2 w-auto mx-8 px-16 items-center gap-12 justify-center`}
                >
                   <UserDropdown avatarLogo={avatarLogo} />
+                  <Separator.Root
+                     className={`bg-black text-black h-[30px] w-[1px]`}
+                     orientation={"vertical"}
+                  />
                   <Tooltip.Provider>
                      <Tooltip.Root
                         onOpenChange={setIsShoppingCartOpen}
@@ -65,7 +70,7 @@ export const Navbar: FC<NavbarProps> = ({
                            <Tooltip.Content
                               asChild
                               side={"bottom"}
-                              sideOffset={5}
+                              sideOffset={10}
                               className={`rounded-md z-50 w-auto h-auto px-3 py-1 bg-white shadow-md select-none`}
                               // forceMount
                            >

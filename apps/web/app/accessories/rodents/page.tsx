@@ -31,7 +31,7 @@ const RodentsAccessoriesPage: NextPage = () => {
                {RODENTS_ACCESSORY_CATEGORIES.map(({ name, href }, i) => (
                   <Link key={i} href={href}>
                      <div
-                        className={`flex px-20 py-8 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                        className={`flex bg-white px-20 py-8 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                      >
                         <h2 className={`text-2xl whitespace-nowrap`}>{name}</h2>
                      </div>

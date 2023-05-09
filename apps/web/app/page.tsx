@@ -45,7 +45,7 @@ const IndexPage: FC = () => {
    return (
       <div>
          <div className="wrapper">
-            <div className="container grid grid-cols-4 w-full mx-auto justify-between items-center">
+            <div className="container grid grid-cols-4 w-full justify-between items-center">
                {NAVIGATION_TABS.map((tab, i) => (
                   <NavigationTab
                      {...tab}

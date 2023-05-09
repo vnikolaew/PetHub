@@ -27,7 +27,9 @@ const AdoptionCentresPage: NextPage = () => {
                Осиновете чрез <span className={`font-semibold`}>PetHub!</span>{" "}
             </h1>
             <div className={`flex w-[80%] items-center justify-center gap-12`}>
-               <div className={`flex mt-8 flex-col items-start gap-12`}>
+               <div
+                  className={`flex bg-white p-16 py-4 rounded-md shadow-md mt-8 flex-col items-start gap-12`}
+               >
                   <div>
                      <h1
                         className={`whitespace-nowrap font-semibold text-2xl text-raw-sienna`}
@@ -116,7 +118,9 @@ const AdoptionCentresPage: NextPage = () => {
                            orientation={"vertical"}
                         />
                      </div>
-                     <div className={`flex flex-col items-center gap-6`}>
+                     <div
+                        className={`flex bg-white rounded-md shadow-md p-12 py-4 flex-col items-center gap-6`}
+                     >
                         <h1
                            className={`whitespace-nowrap font-semibold text-2xl text-raw-sienna`}
                         >

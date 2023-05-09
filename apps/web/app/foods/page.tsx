@@ -24,7 +24,7 @@ const FoodsPage: NextPage = () => {
             <div className={`flex mt-6 gap-12 items-center justify-center`}>
                <Link href={"/foods/dogs"}>
                   <div
-                     className={`flex px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex bg-white px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <Image
                         height={60}
@@ -38,7 +38,7 @@ const FoodsPage: NextPage = () => {
 
                <Link href={"/foods/cats"}>
                   <div
-                     className={`flex px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={` flex bg-white px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <Image
                         height={60}
@@ -54,7 +54,7 @@ const FoodsPage: NextPage = () => {
             <div className={`flex mt-2 gap-12 items-center justify-center`}>
                <Link href={"/foods/birds"}>
                   <div
-                     className={`flex px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex bg-white px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <Image
                         height={60}
@@ -68,7 +68,7 @@ const FoodsPage: NextPage = () => {
 
                <Link href={"/foods/fish"}>
                   <div
-                     className={`flex px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex bg-white px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <Image
                         height={60}
@@ -82,7 +82,7 @@ const FoodsPage: NextPage = () => {
 
                <Link href={"/foods/rodents"}>
                   <div
-                     className={`flex px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex bg-white px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <Image
                         height={60}

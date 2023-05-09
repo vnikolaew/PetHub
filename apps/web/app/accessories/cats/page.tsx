@@ -62,7 +62,7 @@ const CatsAccessoriesPage: NextPage = () => {
                      href={category.href}
                   >
                      <div
-                        className={`flex px-20 py-8 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                        className={`flex bg-white px-20 py-8 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                      >
                         <h2 className={`text-2xl whitespace-nowrap`}>
                            {category.name}

@@ -23,7 +23,7 @@ const RodentFoodsPage: NextPage = () => {
             >
                <Link href={"/foods/rodents/general"}>
                   <div
-                     className={`flex px-16 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex bg-white px-16 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <span>Храна за гризачи</span>
                      <ChevronRightIcon
@@ -36,7 +36,7 @@ const RodentFoodsPage: NextPage = () => {
 
                <Link href={"/foods/rodents/goodies"}>
                   <div
-                     className={`flex px-16 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex bg-white px-16 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <span>Лакомства и витамини</span>
                      <ChevronRightIcon

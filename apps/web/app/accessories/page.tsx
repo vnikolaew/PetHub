@@ -61,7 +61,7 @@ const AccessoriesPage: NextPage = () => {
                   {row.map((card, i) => (
                      <Link key={i} href={card.href}>
                         <div
-                           className={`flex px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                           className={`flex bg-white px-20 py-10 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                         >
                            <Image
                               height={60}

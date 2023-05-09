@@ -30,7 +30,7 @@ export const AddPetFormModal: FC = () => {
          }
          case "type": {
             const petType = `${value[0].toUpperCase()}${value.slice(1)}`;
-            setFormValues((v) => ({ ...v, type: petType as PetType }));
+            setFormValues((v) => ({ ...v, type: petType as PetInfoType }));
             break;
          }
          case "birthDate": {

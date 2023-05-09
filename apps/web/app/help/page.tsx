@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { NextPage } from "next";
 import { Breadcrumb } from "@pethub/components";
 import {
@@ -8,6 +8,7 @@ import {
 } from "@radix-ui/react-icons";
 import * as Accordion from "@radix-ui/react-accordion";
 import { LOREM_IPSUM_TEXT } from "../../utils/string-constants";
+import { AnimatePresence, motion } from "framer-motion";
 
 const FAQs = [
    {
@@ -25,6 +26,8 @@ const FAQs = [
 ];
 
 const HelpPage: NextPage = () => {
+   const [openedTabs, setOpenedTabs] = useState<string[]>([]);
+
    return (
       <div className={`mt-12 mx-16`}>
          <Breadcrumb
@@ -39,7 +42,12 @@ const HelpPage: NextPage = () => {
                <span>Често задавани въпроси</span>
             </h1>
             <section id={"questions"} className={`p-6 w-[700px] rounded-xl`}>
-               <Accordion.Root className={`rounded-md`} type={"multiple"}>
+               <Accordion.Root
+                  onValueChange={setOpenedTabs}
+                  value={openedTabs}
+                  className={`rounded-md`}
+                  type={"multiple"}
+               >
                   {FAQs.map(({ question, answer }, i) => (
                      <Accordion.Item
                         key={i}
@@ -64,6 +72,7 @@ const HelpPage: NextPage = () => {
                            </AccordionTrigger>
                         </Accordion.Header>
                         <AccordionContent
+                           isOpened={openedTabs.some((t) => t === `${i + 1}`)}
                            className={`${
                               i === FAQs.length - 1 ? "rounded-b-md" : ""
                            }`}
@@ -101,17 +110,32 @@ const AccordionTrigger = forwardRef<
 
 AccordionTrigger.displayName = "AccordionTrigger";
 
+// data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp
+
 const AccordionContent = forwardRef<
    HTMLDivElement,
-   Accordion.AccordionContentProps
->(({ children, className, ...props }, forwardedRef) => (
-   <Accordion.Content
-      className={`overflow-hidden bg-whiskey leading-5 text-[1.1rem] text-white data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp ${className}`}
-      {...props}
-      ref={forwardedRef}
-   >
-      <div className="px-7 py-10">{children}</div>
-   </Accordion.Content>
+   Accordion.AccordionContentProps & { isOpened: boolean }
+>(({ children, isOpened, className, ...props }, forwardedRef) => (
+   <AnimatePresence>
+      <Accordion.Content
+         className={`overflow-hidden shadow-md bg-whiskey leading-5 text-[1.1rem] text-white  ${className}`}
+         asChild
+         {...props}
+         ref={forwardedRef}
+      >
+         {isOpened && (
+            <motion.div
+               animate={{ height: "200px" }}
+               initial={{ height: 0 }}
+               exit={{ height: 0 }}
+               transition={{ duration: 0.4, type: "spring" }}
+               className="px-7 py-10"
+            >
+               {children}
+            </motion.div>
+         )}
+      </Accordion.Content>
+   </AnimatePresence>
 ));
 
 AccordionContent.displayName = "AccordionContent";

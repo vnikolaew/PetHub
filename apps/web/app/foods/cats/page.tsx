@@ -23,7 +23,7 @@ const CatFoodsPage: NextPage = () => {
             >
                <Link href={"/foods/cats/kitties"}>
                   <div
-                     className={`flex px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex bg-white px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <span className={`whitespace-nowrap`}>
                         Храна за малки котенца
@@ -38,7 +38,7 @@ const CatFoodsPage: NextPage = () => {
 
                <Link href={"/foods/cats/cans"}>
                   <div
-                     className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex bg-white px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <span>Консерви</span>
                      <ChevronRightIcon
@@ -55,7 +55,7 @@ const CatFoodsPage: NextPage = () => {
             >
                <Link href={"/foods/cats/dry-food"}>
                   <div
-                     className={`flex px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex bg-white px-20 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <span>Суха храна</span>
                      <ChevronRightIcon
@@ -68,7 +68,7 @@ const CatFoodsPage: NextPage = () => {
 
                <Link href={"/foods/cats/goodies-and-supplements"}>
                   <div
-                     className={`flex px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
+                     className={`flex bg-white px-10 py-12 border-black rounded-2xl border-2 w-[400px] items-center gap-2 justify-center`}
                   >
                      <span>Лакомства и витамини</span>
                      <ChevronRightIcon

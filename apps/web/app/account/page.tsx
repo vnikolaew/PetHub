@@ -79,7 +79,7 @@ const MyAccountPage: NextPage = () => {
                />
                <Tabs.Content value={"me"}>
                   <div
-                     className={`flex rounded-b-md shadow-md border border-1 border-gray-100 bg-white items-center p-6 gap-12`}
+                     className={`flex mt-8 rounded-md shadow-md border border-1 border-gray-100 bg-white items-center p-6 gap-12`}
                   >
                      <Image
                         width={100}

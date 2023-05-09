@@ -66,7 +66,9 @@ const ShoppingCartPage: NextPage = () => {
                )}
             </div>
 
-            <div className={`w-[70%] mt-4 flex flex-col gap-4`}>
+            <div
+               className={`w-[70%] bg-white rounded-lg px-16 py-8 shadow-md mt-4 flex flex-col gap-4`}
+            >
                <div className={`grid gap-2 mb-4 grid-cols-productRow`}>
                   <div />
                   <div className={`text-2xl text-raw-sienna font-normal`}>

@@ -113,7 +113,9 @@ const CompleteOrderPage: NextPage = () => {
             ) : (
                <Fragment>
                   <div className={`flex items-start gap-12`}>
-                     <div className={`flex flex-col items-start gap-8`}>
+                     <div
+                        className={`flex bg-white rounded-md shadow-md p-4 flex-col items-start gap-8`}
+                     >
                         <h1
                            className={`text-2xl text-raw-sienna font-semibold`}
                         >
@@ -122,7 +124,7 @@ const CompleteOrderPage: NextPage = () => {
                         <div
                            className={`grid grid-cols-orderCompleteSummary gap-3`}
                         >
-                           <h1 className={`text-xl`}>Продукти</h1>
+                           <h1 className={`text-xl`}>Продукт</h1>
                            <h1 className={`text-xl text-center`}>Цена</h1>
                            {products.map((product, i) => (
                               <Fragment key={i}>
@@ -138,12 +140,12 @@ const CompleteOrderPage: NextPage = () => {
                                        className={`flex flex-col items-start gap-0`}
                                     >
                                        <h2
-                                          className={`text-lg max-w-[400px] font-semibold`}
+                                          className={`text-lg leading-5 max-w-[400px] font-semibold`}
                                        >
                                           {product.product.name}
                                        </h2>
                                        <p
-                                          className={`max-w-[500px] line-clamp-2 text-sm leading-4`}
+                                          className={`max-w-[500px] mt-2 line-clamp-2 text-sm leading-4`}
                                        >
                                           {product.product.description}
                                        </p>
@@ -217,7 +219,9 @@ const CompleteOrderPage: NextPage = () => {
                         </div>
                      </div>
                   </div>
-                  <div className={`flex mt-8 items-start gap-12`}>
+                  <div
+                     className={`flex bg-white rounded-md shadow-md p-8 mt-8 items-start gap-12`}
+                  >
                      <div className={`flex flex-1 flex-col items-start gap-8`}>
                         <h1
                            className={`text-2xl text-raw-sienna font-semibold`}

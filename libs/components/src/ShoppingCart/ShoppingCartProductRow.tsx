@@ -21,7 +21,7 @@ export const ShoppingCartProductRow: FC<ShoppingCartProductRowProps> = ({
             onClick={(_) => onRemoveProduct()}
             width={20}
             height={20}
-            className={`absolute cursor-pointer hover:opacity-60 transition-opacity duration-200 -left-10 top-1/4 text-red-600`}
+            className={`absolute cursor-pointer hover:opacity-60 transition-opacity duration-200 -left-10 top-2/5 text-red-600`}
          />
          <div className={`flex items-center justify-center`}>
             <Image
@@ -37,7 +37,7 @@ export const ShoppingCartProductRow: FC<ShoppingCartProductRowProps> = ({
          </div>
          <div className={`text-xl flex items-start justify-center`}>
             <input
-               className={`text-right rounded-md shadow-sm`}
+               className={`text-right w-2/3 border-gray-300 border border-1 rounded-md shadow-sm`}
                onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
                value={quantity.toFixed(2)}
                type={"number"}

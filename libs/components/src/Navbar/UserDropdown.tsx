@@ -46,7 +46,7 @@ const UserDropdown: FC<UserDropdownProps> = ({ avatarLogo }) => {
          <HoverCard.Portal>
             <AnimatePresence>
                {open && (
-                  <HoverCard.Content asChild className={`z-10`} sideOffset={5}>
+                  <HoverCard.Content asChild className={`z-50`} sideOffset={10}>
                      <motion.div
                         key={"modal"}
                         animate={{
@@ -65,7 +65,7 @@ const UserDropdown: FC<UserDropdownProps> = ({ avatarLogo }) => {
                            scale: 0.8,
                         }}
                         transition={{ duration: 0.2 }}
-                        className={`flex bg-albescent-white shadow-md rounded-md px-6 py-6 z-10 flex-col gap-6`}
+                        className={`flex bg-white shadow-md rounded-md px-6 py-6 z-10 flex-col gap-6`}
                      >
                         {!user && (
                            <div
@@ -158,7 +158,7 @@ const UserDropdown: FC<UserDropdownProps> = ({ avatarLogo }) => {
                            </Link>
                         )}
                         {/*<Popover.Close />*/}
-                        <HoverCard.Arrow className={`fill-black`} />
+                        <HoverCard.Arrow className={`fill-white`} />
                      </motion.div>
                   </HoverCard.Content>
                )}
