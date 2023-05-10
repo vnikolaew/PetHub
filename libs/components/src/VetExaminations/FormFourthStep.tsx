@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState } from "react";
+import React, { FC, useState } from "react";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { useVetAppointment } from "@pethub/state";
 
@@ -29,7 +29,7 @@ export interface FormFourthStepProps {
 export const FormFourthStep: FC<FormFourthStepProps> = ({ onSubmit }) => {
    const [selectedDateTimeIndex, setSelectedDateTimeIndex] =
       useState<number>(0);
-   const { setCurrentStep, setDateTime, scheduledDateTime } = useVetAppointment(
+   const { setDateTime, scheduledDateTime } = useVetAppointment(
       ({
          setDateTime,
          setCurrentStep,
@@ -49,7 +49,7 @@ export const FormFourthStep: FC<FormFourthStepProps> = ({ onSubmit }) => {
                className={`text-raw-sienna font-semibold text-xl`}
                htmlFor={`petType`}
             >
-               Изберете час
+               Изберете час:
             </label>
             <RadioGroup.Root
                onValueChange={(index) => {
@@ -92,7 +92,7 @@ export const FormFourthStep: FC<FormFourthStepProps> = ({ onSubmit }) => {
             <div className={`self-end justify-self-end`}>
                <button
                   onClick={onSubmit}
-                  className={`flex mt-16 text-lg hover:opacity-90 transition-all duration-200 shadow-lg px-4 py-0.5 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
+                  className={`flex mt-16 text-lg hover:opacity-90 transition-all duration-200 whitespace-nowrap shadow-lg px-6 py-0.5 bg-cornflower-blue text-white border-2 border-cornflower-blue rounded-lg outline-none items-center gap-2`}
                >
                   Запази час
                </button>

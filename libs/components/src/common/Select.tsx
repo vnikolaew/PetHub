@@ -31,7 +31,10 @@ export const SelectInput: FC<SelectInputProps> = ({
          <Select.Trigger
             className={`inline-flex w-full outline-none rounded-sm px-3 py-1 text-md gap-4 bg-white shadow-md items-center justify-between`}
          >
-            <Select.Value placeholder={placeholder} />
+            <Select.Value
+               className={`whitespace-nowrap`}
+               placeholder={placeholder}
+            />
             <Select.Icon>
                <ChevronDownIcon width={12} height={12} />
             </Select.Icon>

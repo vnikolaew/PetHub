@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { IOrder } from "@pethub/state";
+import { CheckIcon } from "@radix-ui/react-icons";
 
 export interface IUserOrder {
    orderNumber: string;
@@ -43,7 +44,12 @@ export const UserOrderInfoCard: FC<UserOrderInfoCardProps> = ({ order }) => {
             <div className={`flex items-start gap-12`}>
                <div className={`flex flex-col items-start gap-0`}>
                   <h2 className={`text-xl text-gray-500`}>Статус</h2>
-                  <span className={`text-lg`}>{order.status}</span>
+                  <span className={`text-lg flex items-center gap-2`}>
+                     {order.status === "Завършена" && (
+                        <CheckIcon color={"green"} height={20} width={20} />
+                     )}
+                     {order.status}
+                  </span>
                </div>
 
                <div className={`flex flex-col items-start gap-0`}>

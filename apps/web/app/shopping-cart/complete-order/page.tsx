@@ -7,7 +7,10 @@ import Image from "next/image";
 import * as Separator from "@radix-ui/react-separator";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import * as Form from "@radix-ui/react-form";
-import { VALID_NAME_REGEX } from "@pethub/web/utils/string-constants";
+import {
+   VALID_NAME_REGEX,
+   VALID_PHONE_REGEX,
+} from "@pethub/web/utils/string-constants";
 import { CheckIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
@@ -114,7 +117,7 @@ const CompleteOrderPage: NextPage = () => {
                <Fragment>
                   <div className={`flex items-start gap-12`}>
                      <div
-                        className={`flex bg-white rounded-md shadow-md p-4 flex-col items-start gap-8`}
+                        className={`flex bg-white rounded-md shadow-md p-12 flex-col items-start gap-8`}
                      >
                         <h1
                            className={`text-2xl text-raw-sienna font-semibold`}
@@ -283,6 +286,9 @@ const CompleteOrderPage: NextPage = () => {
                                  value={recipientInfo.firstName}
                                  onChange={handleFormChange}
                                  label={"Име"}
+                                 errorMessage={
+                                    "Първото име трябва да е по-дълго от 3 символа."
+                                 }
                                  name={"firstName"}
                                  placeholder={"John"}
                                  validate={(value) =>
@@ -292,6 +298,9 @@ const CompleteOrderPage: NextPage = () => {
                               <InputField
                                  value={recipientInfo.lastName}
                                  onChange={handleFormChange}
+                                 errorMessage={
+                                    "Последното име трябва да е по-дълго от 3 символа."
+                                 }
                                  label={"Фамилия"}
                                  name={"lastName"}
                                  placeholder={"Doe"}
@@ -304,18 +313,24 @@ const CompleteOrderPage: NextPage = () => {
                                  onChange={handleFormChange}
                                  label={"Телефон за връзка"}
                                  type={"tel"}
+                                 errorMessage={
+                                    "Моля въведете правилен телефонен номер."
+                                 }
                                  name={"phoneNumber"}
                                  placeholder={"+359582343232"}
                                  validate={(value) =>
-                                    !VALID_NAME_REGEX.test(value)
+                                    !VALID_PHONE_REGEX.test(value)
                                  }
                               />
                               <InputField
                                  value={recipientInfo.livingAddress}
                                  onChange={handleFormChange}
                                  label={"Населено място"}
+                                 errorMessage={
+                                    "Моля въведете съществуващо населено място."
+                                 }
                                  name={"livingAddress"}
-                                 placeholder={"Varna, BG"}
+                                 placeholder={"Варна, България"}
                                  validate={(value) =>
                                     !VALID_NAME_REGEX.test(value)
                                  }
@@ -327,7 +342,7 @@ const CompleteOrderPage: NextPage = () => {
                                  label={"Коментар към поръчката"}
                                  textarea
                                  name={"orderComment"}
-                                 placeholder={"Коментирай"}
+                                 placeholder={"Остави коментар"}
                                  validate={(value) =>
                                     !VALID_NAME_REGEX.test(value)
                                  }
@@ -378,7 +393,7 @@ const InputField: FC<InputFieldProps> = ({
    validate,
    textarea = false,
    label,
-   errorMessage,
+   errorMessage = "Моля въведете валидно име",
    className,
    ...rest
 }) => (
@@ -410,7 +425,6 @@ const InputField: FC<InputFieldProps> = ({
          match={(value, _) => validate(value)}
       >
          {errorMessage}
-         Моля въведете валидно име
       </Form.Message>
    </Form.Field>
 );

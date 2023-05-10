@@ -71,27 +71,49 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
             }
          />
          <section className={`flex mt-8 items-start gap-8`}>
-            <div className={`flex flex-col mt-2 items-start gap-2`}>
+            <div className={`flex w-1/7 flex-col mt-2 items-start gap-2`}>
                <h2 className={`flex items-center gap-2`}>
                   <FilterLogo color={"black"} size={20} />
                   <span className={`text-xl`}>Филтрирай</span>
                </h2>
                <div
-                  className={`border border-gray-100 mt-0 rounded-lg border-2`}
+                  className={`border-gray-100 w-full mt-0 rounded-lg border-2`}
                >
                   <Accordion.Root type={"multiple"}>
                      <Accordion.Item value={"1"}>
-                        <Accordion.Header>
+                        <Accordion.Header className={`w-full`}>
                            <AccordionTrigger
                               onClick={(_) => handleToggleTab("1")}
                            >
-                              Големина на породата
+                              Големина
                            </AccordionTrigger>
                         </Accordion.Header>
                         <AnimatePresence>
                            {openedTabs.some((t) => t === "1") && (
-                              <AccordionContent>
-                                 Дребни, средни, едри
+                              <AccordionContent asChild>
+                                 <div
+                                    className={`flex py-2 flex-col items-start justify-start gap-2`}
+                                 >
+                                    {["S", "M", "L", "XL"].map((size, i) => (
+                                       <div
+                                          className={`flex items-center gap-3`}
+                                          key={i}
+                                       >
+                                          <Checkbox.Root
+                                             className={`bg-white rounded-s items-center justify-center shadow-md w-4 h-4`}
+                                          >
+                                             <Checkbox.Indicator>
+                                                <CheckIcon />
+                                             </Checkbox.Indicator>
+                                          </Checkbox.Root>
+                                          <div
+                                             className={`flex items-center gap-1`}
+                                          >
+                                             {size}
+                                          </div>
+                                       </div>
+                                    ))}
+                                 </div>
                               </AccordionContent>
                            )}
                         </AnimatePresence>
@@ -302,7 +324,7 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                               <Fragment key={i}>
                                  <Link href={`${basePath}/${product.id}`}>
                                     <div
-                                       className={`flex hover:scale-105 duration-200 transition-all p-3 bg-white rounded-md shadow-md relative gap-4 flex-col items-center justify-center`}
+                                       className={`flex hover:scale-[102%] duration-200 transition-all p-3 bg-white rounded-md shadow-md relative gap-4 flex-col items-center justify-center`}
                                     >
                                        {(product as any).discount !==
                                           undefined && (
@@ -356,7 +378,7 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                   {page !== 1 && (
                      <Fragment>
                         <span
-                           className={`text-xl hover:underline text-blue-700`}
+                           className={`text-xl hover:underline text-cornflower-blue`}
                         >
                            <Link href={`${basePath}?page=${page - 1}`}>
                               Предишна
@@ -375,7 +397,7 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                               className={`text-xl ${
                                  i + 1 === page
                                     ? "text-black font-bold"
-                                    : "text-blue-700 hover:underline"
+                                    : "text-cornflower-blue hover:underline"
                               }`}
                            >
                               <Link
@@ -395,7 +417,9 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                      )
                   )}
                   {page !== 5 && (
-                     <span className={`text-xl hover:underline text-blue-700`}>
+                     <span
+                        className={`text-xl hover:underline text-cornflower-blue`}
+                     >
                         <Link href={`${basePath}?page=${page + 1}`}>
                            Следваща
                         </Link>
@@ -403,7 +427,7 @@ export const ProductsGenericPage: FC<ProductsGenericPageProps> = ({
                   )}
                </div>
             </div>
-            <div className={`mt-2`}>
+            <div className={`mt-2 w-1/6`}>
                <div className={`flex flex-col items-start gap-2`}>
                   <h2 className={`flex items-center gap-2`}>
                      <SortLogo color={"black"} size={20} />

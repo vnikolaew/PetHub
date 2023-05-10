@@ -22,7 +22,7 @@ export const FormSecondStep: FC = () => {
                className={`text-raw-sienna font-semibold text-xl`}
                htmlFor={`petType`}
             >
-               Ветеринарни клиники в тази област
+               Ветеринарни клиники в тази област:
             </label>
             <SelectInput
                placeholder={"Изберете ветеринарна клиника"}
@@ -38,7 +38,7 @@ export const FormSecondStep: FC = () => {
                className={`text-raw-sienna font-semibold text-xl`}
                htmlFor={`petType`}
             >
-               Тип преглед
+               Тип преглед:
             </label>
             <SelectInput
                placeholder={"Избери"}

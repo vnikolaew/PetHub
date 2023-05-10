@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import mapMarkerLogo from "@pethub/assets/map-marker-logo.png";
+import petLogo from "@pethub/assets/pet-avatar-logo.png";
 import rightArrowLogo from "@pethub/assets/right-arrow-logo.png";
 import citiesData from "@pethub/web/utils/data.json";
 import Image from "next/image";
@@ -22,7 +23,14 @@ export const FormFirstStep: FC = () => {
 
    return (
       <div className={`flex flex-col gap-12`}>
-         <div className={`flex flex-col items-start gap-2`}>
+         <div className={`flex relative flex-col items-start gap-2`}>
+            <Image
+               className={`absolute top-0 -left-8`}
+               height={24}
+               width={24}
+               src={petLogo}
+               alt={"Pet logo"}
+            />
             <label
                className={`text-raw-sienna font-semibold text-xl`}
                htmlFor={`petType`}

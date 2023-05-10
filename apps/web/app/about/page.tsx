@@ -4,7 +4,7 @@ import { NextPage } from "next";
 import { Breadcrumb, type BreadcrumbSegment } from "@pethub/components";
 import aboutUsSampleImage from "@pethub/assets/about-us-sample-image.png";
 import Image from "next/image";
-import { LOREM_IPSUM_TEXT } from "../../utils/string-constants";
+import { LOREM_IPSUM_TEXT } from "@pethub/utils/string-constants";
 
 const AboutUsPage: NextPage = () => {
    const segments: BreadcrumbSegment[] = [
@@ -15,7 +15,6 @@ const AboutUsPage: NextPage = () => {
    return (
       <div className={`mt-12 mx-16`}>
          <Breadcrumb segments={segments} />
-
          <section
             className={`w-[70vw] mx-auto my-12 mb-16 flex flex-col items-center gap-12`}
          >

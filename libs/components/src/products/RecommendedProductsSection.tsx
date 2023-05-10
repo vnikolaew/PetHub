@@ -34,11 +34,11 @@ const RecommendedProductsSection: FC<RecommendedProductsSectionProps> = ({
 
    return (
       <div
-         className={`self-center shadow-md bg-white mt-4 flex  items-center rounded-md  gap-8 justify-center`}
+         className={`self-center shadow-md bg-white mt-4 flex  items-center rounded-md  gap-4 justify-center`}
       >
          <ChevronLeftIcon
             onClick={(_) => setXOffset((o) => Math.max(0, o - 250))}
-            className={`cursor-pointer transition-opacity duration-200 hover:opacity-60`}
+            className={`cursor-pointer ml-2 transition-opacity duration-200 hover:opacity-60`}
             height={40}
             width={40}
          />
@@ -106,7 +106,7 @@ const RecommendedProductsSection: FC<RecommendedProductsSectionProps> = ({
                      </div>
                   </Link>
                   <Separator.Root
-                     className={`w-full bg-raw-sienna mt-2 h-[1px]`}
+                     className={`w-full shadow-md rounded-md shadow-raw-sienna bg-raw-sienna mt-2 h-[1px]`}
                      orientation={"horizontal"}
                   />
                </motion.div>
@@ -114,7 +114,7 @@ const RecommendedProductsSection: FC<RecommendedProductsSectionProps> = ({
          </div>
          <ChevronRightIcon
             onClick={(_) => setXOffset((o) => o + 250)}
-            className={`cursor-pointer transition-opacity duration-200 hover:opacity-60`}
+            className={`cursor-pointer mr-2 transition-opacity duration-200 hover:opacity-60`}
             color={"black"}
             height={40}
             width={40}

@@ -42,7 +42,7 @@ export const AddPetForm: FC<AddPetFormProps> = ({
 }) => {
    return (
       <div
-         className={`flex-col w-full border border-gray-100 p-3 px-6 rounded-xl shadow-md flex items-start gap-2`}
+         className={`flex-col bg-white w-full border border-gray-100 p-3 px-6 rounded-xl shadow-md flex items-start gap-2`}
       >
          <Form.Field
             className={`flex items-center gap-2 justify-between w-full`}

@@ -22,7 +22,7 @@ export const FormThirdStep: FC = () => {
                className={`text-raw-sienna font-semibold text-xl`}
                htmlFor={`petType`}
             >
-               Изберете една от свободните дати
+               Изберете една от свободните дати:
             </label>
             <div>
                <DatePicker

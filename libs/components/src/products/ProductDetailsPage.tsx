@@ -121,7 +121,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                   />
                </div>
                <div
-                  className={`flex flex-col items-start gap-6 justify-between`}
+                  className={`flex bg-white p-8 rounded-md shadow-md flex-col items-start gap-6 justify-between`}
                >
                   <h2 className={`text-2xl`}>{product.name}</h2>
                   <div className={`flex items-center gap-12`}>
@@ -274,13 +274,15 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                         </AlertDialog.Portal>
                      </AlertDialog.Root>
                   </div>
-                  <div className={`flex flex-col mt-4 items-start gap-4`}>
-                     <div className={`flex items-center gap-4`}>
+                  <div className={`flex flex-col mt-4 items-start gap-2`}>
+                     <div className={`flex items-center gap-2`}>
                         <h2 className={`text-2xl`}>Описание</h2>
                      </div>
                      <div>
                         <p className={`text-lg leading-5 w-full`}>
-                           {product.description.replaceAll("\n", "").length ? (
+                           {product.description
+                              .replaceAll("\n", "")
+                              .replaceAll("&nbsp;", "").length > 5 ? (
                               <span className={`text-black`}>
                                  {product.description}
                               </span>
@@ -404,7 +406,7 @@ export const ProductDetailsPage: FC<ProductDetailsPageProps> = ({
                   </section>
                </div>
                <Separator.Root
-                  className={`w-full mt-8 bg-gray-100 h-[1px]`}
+                  className={`w-full mt-8 bg-black h-[1px]`}
                   orientation={"horizontal"}
                />
                <div

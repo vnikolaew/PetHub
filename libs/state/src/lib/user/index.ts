@@ -68,7 +68,7 @@ export const TEST_PET = {
    breed: "",
    description: "",
    avatar: petLogo,
-   id: "dfswf",
+   id: "1",
 };
 
 export const TEST_USER: IUser = {
@@ -139,7 +139,10 @@ export const useCurrentUser = create<ICurrentUserState & Actions>((set) => ({
    addOrder: (order: IOrder) =>
       set(
          produce((state: ICurrentUserState) => {
-            state.user?.orders.push(order);
+            state.user?.orders.push({
+               ...order,
+               orderId: `${state.user?.orders.length + 1 ?? 1}`,
+            });
          })
       ),
 }));

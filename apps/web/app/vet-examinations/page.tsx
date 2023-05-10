@@ -13,7 +13,6 @@ import infoLogo from "@pethub/assets/info-logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import * as Separator from "@radix-ui/react-separator";
-import { PetType } from "@pethub/web/app/signup/page";
 import { useVetAppointment } from "@pethub/state";
 
 enum FormState {
@@ -63,7 +62,9 @@ const VetExaminationsPage: NextPage = () => {
                      Към история на прегледите
                   </Link>
                </div>
-               <div className={`flex mt-16 mb-20 items-start gap-8`}>
+               <div
+                  className={`flex bg-white rounded-md shadow-md px-12 py-6 mt-16 mb-20 items-start gap-8`}
+               >
                   {currentStep >= 1 && (
                      <Fragment>
                         <FormFirstStep />

@@ -10,7 +10,7 @@ import {
    VALID_NAME_REGEX,
    VALID_PASSWORD_REGEX,
 } from "../../utils/string-constants";
-import { PetInfoType, useCurrentUser } from "@pethub/state";
+import { PetInfoType, useCurrentUser, useShoppingCart } from "@pethub/state";
 import { useRouter } from "next/navigation";
 import samplePetLogo from "@pethub/assets/pet-avatar-logo.png";
 import userLogo from "@pethub/assets/user-logo.svg";
@@ -40,6 +40,9 @@ export interface ISignUpFormValues {
 
 const SignUpPage: NextPage = () => {
    const { setUser } = useCurrentUser();
+   const clearShoppingCart = useShoppingCart(
+      (state) => state.clearShoppingCart
+   );
    const router = useRouter();
    const [formValues, setFormValues] = useState<ISignUpFormValues>({
       email: "",
@@ -67,6 +70,7 @@ const SignUpPage: NextPage = () => {
          profilePicture: userLogo,
          orders: [],
       });
+      clearShoppingCart();
       router.push(`/`);
    };
 

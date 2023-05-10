@@ -208,7 +208,7 @@ const MyAccountPage: NextPage = () => {
                         <Fragment>
                            {user.orders.map((order, i) => (
                               <UserOrderInfoCard
-                                 order={{ ...order, status: "Завършен" }}
+                                 order={{ ...order, status: "Завършена" }}
                                  key={i}
                               />
                            ))}
@@ -272,10 +272,16 @@ interface TabsTriggerProps extends PropsWithChildren {
 }
 
 const TabsTrigger: FC<TabsTriggerProps> = ({ value, children }) => {
+   const currentTab = useSearchParams().get("tab");
+
    return (
       <Tabs.Trigger asChild value={value}>
          <div
-            className={`rounded-t-md hover:opacity-90 duration-200 transition-opacity text-white bg-cornflower-blue cursor-pointer text-lg inline-block border border-white px-5 py-2`}
+            className={`rounded-t-md ${
+               currentTab === value
+                  ? "bg-raw-sienna border-2 border-black"
+                  : "bg-cornflower-blue"
+            } hover:opacity-90 duration-200 transition-opacity text-white cursor-pointer text-lg inline-block border border-white px-5 py-2`}
          >
             {children}
          </div>

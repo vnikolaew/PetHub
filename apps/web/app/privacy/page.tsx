@@ -6,6 +6,7 @@ import lockLogo from "@pethub/assets/lock-logo.png";
 import pawLogo from "@pethub/assets/paw-logo.png";
 import Image from "next/image";
 import { LOREM_IPSUM_TEXT } from "../../utils/string-constants";
+import * as Separator from "@radix-ui/react-separator";
 
 const PrivacyPolicyPage: NextPage = () => {
    return (
@@ -18,12 +19,16 @@ const PrivacyPolicyPage: NextPage = () => {
          />
 
          <section
-            className={`w-[80vw] mx-auto my-12 flex flex-col items-center gap-12`}
+            className={`w-[80vw] bg-white p-6 rounded-md shadow-md mx-auto my-12 flex flex-col items-center gap-2`}
          >
             <h1 className={`text-3xl flex items-center gap-2`}>
                Политика за поверителност
             </h1>
-            <section className={`grid gap-12 grid-cols-[6fr_1fr_5fr]`}>
+            <Separator.Root
+               className={`w-2/3 bg-black h-[1px] shadow-md`}
+               orientation={"horizontal"}
+            />
+            <section className={`grid gap-12 mt-10 grid-cols-[6fr_1fr_5fr]`}>
                <div className={`flex flex-col gap-6`}>
                   <PrivacyPolicySection
                      heading={"Какви лични данни събираме и защо ги събираме?"}

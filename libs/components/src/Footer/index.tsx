@@ -14,9 +14,9 @@ export interface FooterProps {
 
 export const Footer: FC<FooterProps> = ({ socials }) => {
    return (
-      <footer className={`bg-raw-sienna`}>
+      <footer className={`bg-raw-sienna shadow-md drop-shadow-md`}>
          <div
-            className={`flex p-10 flex-row shadow-md border-t-2 border-gray-100 items-start justify-between gap-6`}
+            className={`flex p-10 flex-row shadow-md items-start justify-between gap-6`}
          >
             <section className={`ml-0`}>
                <div className={`flex flex-col items-center space-y-6`}>

@@ -9,6 +9,7 @@ import Link from "next/link";
 import { LOREM_IPSUM_TEXT } from "@pethub/web/utils/string-constants";
 import mapMarkerLogo from "@pethub/assets/map-marker-logo.png";
 import pawLogo from "@pethub/assets/paw-solid-logo.png";
+import { AnimatePresence, motion } from "framer-motion";
 
 const AdoptionCentresPage: NextPage = () => {
    const [showSearchResults, setShowSearchResults] = useState(false);
@@ -26,7 +27,7 @@ const AdoptionCentresPage: NextPage = () => {
             <h1 className={`text-4xl`}>
                Осиновете чрез <span className={`font-semibold`}>PetHub!</span>{" "}
             </h1>
-            <div className={`flex w-[80%] items-center justify-center gap-12`}>
+            <div className={`flex w-[90%] items-center justify-center gap-6`}>
                <div
                   className={`flex bg-white p-16 py-4 rounded-md shadow-md mt-8 flex-col items-start gap-12`}
                >
@@ -45,7 +46,7 @@ const AdoptionCentresPage: NextPage = () => {
                            alt={""}
                         />
                         <input
-                           placeholder={"Varna, BG"}
+                           placeholder={"Варна, БГ"}
                            autoComplete={"off"}
                            className={`text-lg mt-4 w-96 mt-1 px-4 py-1 block rounded-md shadow-md`}
                            type={"text"}
@@ -110,6 +111,7 @@ const AdoptionCentresPage: NextPage = () => {
                      />
                   </div>
                </div>
+               {/*<AnimatePresence>*/}
                {showSearchResults && (
                   <Fragment>
                      <div className={`h-[400px] my-4`}>
@@ -119,7 +121,11 @@ const AdoptionCentresPage: NextPage = () => {
                         />
                      </div>
                      <div
-                        className={`flex bg-white rounded-md shadow-md p-12 py-4 flex-col items-center gap-6`}
+                        // initial={{ width: 0 }}
+                        // animate={{ width: "auto" }}
+                        // exit={{ width: 0 }}
+                        // transition={{ duration: 0.3 }}
+                        className={`flex bg-white rounded-md shadow-md p-12 py-8 flex-col items-center gap-6`}
                      >
                         <h1
                            className={`whitespace-nowrap font-semibold text-2xl text-raw-sienna`}
@@ -133,13 +139,15 @@ const AdoptionCentresPage: NextPage = () => {
                                  key={i}
                               >
                                  <Link
-                                    className={`text-blue-700 text-lg underline`}
+                                    className={`text-blue-700 whitespace-nowrap text-lg underline`}
                                     href={"www.some-adoption-centre.com"}
                                  >
                                     link-to-adoption-centre.com
                                  </Link>
-                                 <p className={`text-md leading-5`}>
-                                    {LOREM_IPSUM_TEXT.slice(0, 200)} ...
+                                 <p
+                                    className={`text-md line-clamp-4 leading-5`}
+                                 >
+                                    {LOREM_IPSUM_TEXT.slice(0, 100)} ...
                                  </p>
                               </div>
                            ))}
@@ -147,6 +155,7 @@ const AdoptionCentresPage: NextPage = () => {
                      </div>
                   </Fragment>
                )}
+               {/*</AnimatePresence>*/}
             </div>
          </section>
       </div>
